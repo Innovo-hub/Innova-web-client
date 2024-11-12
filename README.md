@@ -1,8 +1,13 @@
-# React + Vite
+# Inovva-app Client- Web App
+- This was typed in react js and related tools , "powered by vite" (tailwind css / MUI / react-router-dom / sweet alert2 /  Redux-toolkit "For State manament")
+## Installation
+- clone the repo  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```shell
+git clone https://github.com/Innovo-hub/Innova-web-client.git
+```
+- install dependancies 
+```shell
+npm i 
+npm run dev
+```
