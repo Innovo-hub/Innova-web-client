@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  font-family: "Cairo", sans-serif;
+}
 :root {
   /* colors */
-  --main-color: #db4444;
+  --main-color: #Db4444;
+  --btn-text-color: #fff;
 }

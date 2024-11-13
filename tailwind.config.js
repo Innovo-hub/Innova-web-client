@@ -8,6 +8,7 @@ export default {
     extend: {
       colors :{
         'main-color': '--var(main-color)', 
+        'btn-text-color' :'--var(btn-text-color)',
       }
     },
   },
