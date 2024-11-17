@@ -1,80 +1,69 @@
-import { useState } from "react";
 import Navbar from "../../Components/Navbar";
-import RegisterImage from "../../assets/AuthAssets/registerImage.png";
+import { useState } from "react";
 import Input from "../../Components/Input";
-import SplitButton from "../../Components/SplitButton";
-
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MainButton from "../../Components/Button";
+import SignUpImage from "../../assets/AuthAssets/SignupImage.png";
 function Register() {
-  const [image, setImage] = useState(null);
+  const [role, setRole] = useState("");
 
-  // Handle file input change
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-    }
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
   };
 
   return (
     <>
       <Navbar currentTab={"Register"} />
-      <section className="home-section py-0 px-4">
-        <div className="mx-auto flex flex-col lg:flex-row items-center justify-between">
-          <div className="image-section mt-6 flex-1">
-            <img
-              src={RegisterImage}
-              alt="Landing Image"
-              className="rounded-lg"
-              width={500}
-            />
-          </div>
-          <div className="text-section flex-1 relative flex flex-col items-center lg:text-left mb-8 lg:mb-0">
-            {/* Position the circular upload input at the top center */}
-            <form className=" relative flex flex-col  space-y-2">
-              <div className="image-input flex justify-center items-center">
-                <label htmlFor="fileInput" className="mt-0">
-                  <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 cursor-pointer flex items-center justify-center border-2 border-dashed border-gray-300">
-                    {image ? (
-                      <img
-                        src={image}
-                        alt="Uploaded"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <span className="text-gray-500 text-center">
-                        Upload Image
-                      </span>
-                    )}
-                  </div>
-                </label>
-                {/* Hidden file input */}
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </div>
-              <div className="name-email space-x-2">
-                <Input sx={{ width: "45%" }} LabelText={"Name"} />
-                <Input sx={{ width: "45%" }} LabelText={"Email"} />
-              </div>
-              <div className="city-district space-x-2">
-                <Input sx={{ width: "45%" }} LabelText={"City"} />
-                <Input sx={{ width: "45%" }} LabelText={"District"} />
-              </div>
-              <Input
-                sx={{ width: "92%" }}
-                LabelText={"Password"}
-                type="password"
+      <h2 className="font-bold text-2xl text-center mt-2">
+        Start your journey with us now !
+      </h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
+        {/* Left side for Image */}
+
+        <div className="flex justify-center items-center  p-3">
+          <img
+            src={SignUpImage}
+            alt="Register"
+            className="object-cover w-75 h-75 rounded-lg"
+          />
+        </div>
+
+        {/* Right side for Form */}
+        <div className="flex justify-center items-center bg-white p-4 lg:p-6">
+          <div className="w-full max-w-md">
+            <form className="space-y-4 flex flex-col justify-center items-center">
+              {/* Input is a customized Component by Me "JM31" */}
+              <Input LabelText="Name" />
+              <Input LabelText="Email" type="email" />
+              <Input LabelText="City" />
+              <Input LabelText="District" />
+              <Input LabelText="Password" type="password" />
+
+              <FormControl fullWidth>
+                <InputLabel>Role</InputLabel>
+                <Select
+                  value={role}
+                  onChange={handleRoleChange}
+                  label="Role"
+                  sx={{ backgroundColor: "white" }}
+                >
+                  <MenuItem value="customer">Customer</MenuItem>
+                  <MenuItem value="business_owner">Business Owner</MenuItem>
+                  <MenuItem value="investor">Investor</MenuItem>
+                </Select>
+              </FormControl>
+
+              <MainButton
+                className="bg-[#DB4444] text-white rounded-md p-4"
+                ButtonText={"Create Account"}
               />
-              <SplitButton />
             </form>
           </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }

@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-function Button({ ButtonText }) {
+function MainButton({ ButtonText , className }) {
   return (
     <>
-      <button className="bg-main-color text-btn-text-color px-6 py-2">
+      <button className={className}>
         {ButtonText}
       </button>
     </>
   );
 }
 
-export default Button;
+export default MainButton;
