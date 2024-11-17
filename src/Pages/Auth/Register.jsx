@@ -17,9 +17,7 @@ function Register() {
   return (
     <>
       <Navbar currentTab={"Register"} />
-      <h2 className="font-bold text-2xl text-center mt-2">
-        Start your journey with us now !
-      </h2>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
         {/* Left side for Image */}
 
@@ -34,6 +32,12 @@ function Register() {
         {/* Right side for Form */}
         <div className="flex justify-center items-center bg-white p-4 lg:p-6">
           <div className="w-full max-w-md">
+            <div className="mb-5">
+              <h2 className="font-bold text-2xl mt-2">
+                Welcome to Innova App 
+              </h2>
+              <p className="text-gray-500 mt-2">Start your journey now! </p>
+            </div>
             <form className="space-y-4 flex flex-col justify-center items-center">
               {/* Input is a customized Component by Me "JM31" */}
               <Input LabelText="Name" />
@@ -57,7 +61,7 @@ function Register() {
               </FormControl>
 
               <MainButton
-                className="bg-[#DB4444] text-white rounded-md p-4"
+                className="bg-[#DB4444] text-white rounded-md w-44 p-3"
                 ButtonText={"Create Account"}
               />
             </form>
