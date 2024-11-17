@@ -7,6 +7,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MainButton from "../../Components/Button";
 import SignUpImage from "../../assets/AuthAssets/SignupImage.png";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import { Link } from "react-router-dom";
 function Register() {
   const [role, setRole] = useState("");
 
@@ -16,7 +19,7 @@ function Register() {
 
   return (
     <>
-      <Navbar currentTab={"Register"} />
+      <Navbar currentTab={"Auth"} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
         {/* Left side for Image */}
@@ -33,9 +36,7 @@ function Register() {
         <div className="flex justify-center items-center bg-white p-4 lg:p-6">
           <div className="w-full max-w-md">
             <div className="mb-5">
-              <h2 className="font-bold text-2xl mt-2">
-                Welcome to Innova App 
-              </h2>
+              <h2 className="font-bold text-2xl mt-2">Welcome to Innova App</h2>
               <p className="text-gray-500 mt-2">Start your journey now! </p>
             </div>
             <form className="space-y-4 flex flex-col justify-center items-center">
@@ -64,6 +65,18 @@ function Register() {
                 className="bg-[#DB4444] text-white rounded-md w-44 p-3"
                 ButtonText={"Create Account"}
               />
+              <p>or Sign up with</p>
+              {/* fi 2 icons henah facebook and google */}
+              <div className="social-icons flex space-x-2">
+                <GoogleIcon sx={{ color: "#DB4444" }} />
+                <FacebookOutlinedIcon sx={{ color: "#DB4444" }} />
+              </div>
+              <h6>
+               Already have an account ?{" "}
+                <span className="text-[#DB4444]">
+                  <Link to={"/auth/login"}>Log in</Link>
+                </span>
+              </h6>
             </form>
           </div>
         </div>

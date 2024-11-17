@@ -62,14 +62,20 @@ export default function Navbar({ currentTab }) {
             {/* Right Side Buttons */}
             <div className="flex items-center space-x-4">
               <Link to={"/auth/login"}>
-                <button className="px-4 py-2 border border-gray-500 text-sm font-medium rounded-md text-gray-700" >
+                <button
+                  className={classNames(
+                    currentTab === "Auth"
+                      ? "hidden"
+                      : "px-4 py-2 border border-gray-500 text-sm font-medium rounded-md text-gray-700"
+                  )}
+                >
                   Sign In
                 </button>
               </Link>
               <Link to={"/auth/register"}>
                 <button
                   className={classNames(
-                    currentTab === "Register"
+                    currentTab === "Auth"
                       ? "hidden"
                       : "px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md"
                   )}
