@@ -10,21 +10,41 @@ import SignUpImage from "../../assets/AuthAssets/SignupImage.png";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { Link } from "react-router-dom";
-function Register() {
-  const [role, setRole] = useState("");
+import { useDispatch, useSelector } from "react-redux";
+import { RegisterUser } from "../../redux/slices/authSlice";
 
-  const handleRoleChange = (event) => {
-    setRole(event.target.value);
+function Register() {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.registerslice);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    city: "",
+    district: "",
+    password: "",
+    role: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(RegisterUser(formData));
   };
 
   return (
     <>
-      <Navbar currentTab={"Auth"} />
+    {/* custom Navbar and takes the current Tab to hide the buttons  */}
+      <Navbar currentTab={"Auth"} /> 
 
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
-        {/* Left side for Image */}
-
-        <div className="flex justify-center items-center  p-3">
+        <div className="flex justify-center items-center p-3">
           <img
             src={SignUpImage}
             alt="Register"
@@ -32,26 +52,55 @@ function Register() {
           />
         </div>
 
-        {/* Right side for Form */}
         <div className="flex justify-center items-center bg-white p-4 lg:p-6">
           <div className="w-full max-w-md">
             <div className="mb-5">
               <h2 className="font-bold text-2xl mt-2">Welcome to Innova App</h2>
-              <p className="text-gray-500 mt-2">Start your journey now! </p>
+              <p className="text-gray-500 mt-2">Start your journey now!</p>
             </div>
-            <form className="space-y-4 flex flex-col justify-center items-center">
-              {/* Input is a customized Component by Me "JM31" */}
-              <Input LabelText="Name" />
-              <Input LabelText="Email" type="email" />
-              <Input LabelText="City" />
-              <Input LabelText="District" />
-              <Input LabelText="Password" type="password" />
-
+            <form
+              className="space-y-4 flex flex-col justify-center items-center"
+              onSubmit={handleSubmit}
+            >
+              {/* Custom component ctrl+Right Click to view  */}
+              <Input
+                LabelText="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <Input
+                LabelText="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <Input
+                LabelText="City"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
+              <Input
+                LabelText="District"
+                name="district"
+                value={formData.district}
+                onChange={handleChange}
+              />
+              <Input
+                LabelText="Password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
               <FormControl fullWidth>
                 <InputLabel>Role</InputLabel>
                 <Select
-                  value={role}
-                  onChange={handleRoleChange}
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
                   label="Role"
                   sx={{ backgroundColor: "white" }}
                 >
@@ -63,16 +112,18 @@ function Register() {
 
               <MainButton
                 className="bg-[#DB4444] text-white rounded-md w-44 p-3"
-                ButtonText={"Create Account"}
+                ButtonText={loading ? "Loading..." : "Create Account"}
+                disabled={loading}
+                type="submit"
               />
+              {error && <p className="text-red-500">{error.data.message}</p>}
               <p>or Sign up with</p>
-              {/* fi 2 icons henah facebook and google */}
               <div className="social-icons flex space-x-2">
                 <GoogleIcon sx={{ color: "#DB4444" }} />
                 <FacebookOutlinedIcon sx={{ color: "#DB4444" }} />
               </div>
               <h6>
-               Already have an account ?{" "}
+                Already have an account?{" "}
                 <span className="text-[#DB4444]">
                   <Link to={"/auth/login"}>Log in</Link>
                 </span>

@@ -5,14 +5,18 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // eslint-disable-next-line react/prop-types
-function Input({ LabelText, type = "text", sx }) {
+function Input({ LabelText, type = "text", sx, value, onChange, name }) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <TextField
       id="outlined-basic"
       label={LabelText}
       variant="outlined"
+      name={name} // Pass the name prop for identification
+      value={value} // Controlled input
+      onChange={onChange} // Controlled input
       type={type === "password" && showPassword ? "text" : type}
       sx={{
         width: "100%",
@@ -38,3 +42,6 @@ function Input({ LabelText, type = "text", sx }) {
 }
 
 export default Input;
+
+
+
