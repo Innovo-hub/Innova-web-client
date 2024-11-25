@@ -117,7 +117,7 @@ export default function Navbar({ currentTab }) {
             </button>
           </Link>
           <Link to={"/auth/register"}>
-            <button className="w-full px-4 py-2 bg-[#BF3F00] text-white text-sm font-medium rounded-md hover:bg-[#a53400]">
+            <button className="w-full px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md">
               Get Started for Free
             </button>
           </Link>

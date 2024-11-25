@@ -1,24 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import APILINK from "./../../../../Constants";
 import axios from "axios";
+import APILINK from "./../../../../Constants";
 
 export const RegisterUser = createAsyncThunk(
   "auth/register",
-  async (formData, { rejectWithValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
-      // console.log("Data from AuthReducer", formData);
+      console.log(userData);
+
       const response = await axios.post(
-        `${APILINK}/api/Account/register`, //Main API link is on a external file
-        formData, // The data that will be sent to the server "Check the postman collection for that data"
-        {
-          headers: {
-            "Content-Type": "application/json", // the content type that will be sent to the server
-          },
-        }
+        `${APILINK}/api/Account/register`,
+        userData
       );
-      return response.data; // Return the API response
+      console.log(response);
+
+      return response.data; // On success, pass the data
     } catch (error) {
-      return rejectWithValue(error.response); // Handle error and reject with value
+      // Extract only the useful information
+      console.log("Error had happened", error);
+
+      const serializedError = {
+        message: error.response?.data?.message || "Something went wrong",
+        status: error.response?.status,
+        headers: error.response?.headers || {},
+      };
+      return rejectWithValue(serializedError); // Pass the sanitized error object
     }
   }
 );
