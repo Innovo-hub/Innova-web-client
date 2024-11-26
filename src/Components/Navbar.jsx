@@ -1,12 +1,25 @@
 import { Disclosure, DisclosureButton } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Avatar } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getUserProfile } from "../redux/Slices/User-Slice/UserProfile";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 // eslint-disable-next-line react/prop-types
 export default function Navbar({ currentTab }) {
+  const { isAuthenticated } = useSelector((state) => state.login);
+  const { token } = useSelector((state) => state.login);
+  const { profile } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserProfile({ token }));
+  }, [dispatch, token]);
+  console.log(profile);
+
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Contact", href: "/contact" },
@@ -60,7 +73,11 @@ export default function Navbar({ currentTab }) {
             </div>
 
             {/* Right Side Buttons */}
-            <div className="flex items-center space-x-4">
+            <div
+              className={
+                isAuthenticated ? "hidden" : "flex items-center space-x-4"
+              }
+            >
               <Link to={"/auth/login"}>
                 <button
                   className={classNames(
@@ -82,6 +99,13 @@ export default function Navbar({ currentTab }) {
                 >
                   Get Started for Free
                 </button>
+              </Link>
+            </div>
+            {/* if Authinticated this will appear */}
+            <div className="flex">
+              <Link to={"/user-profile"}>
+                {" "}
+                <Avatar src={profile?.profileImageUrl}></Avatar>
               </Link>
             </div>
           </div>

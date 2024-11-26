@@ -1,7 +1,6 @@
- import Navbar from "../../Components/Navbar";
-import { Link } from "react-router-dom";
-import MainButton from "../../Components/Button";
+ import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
+import Navbar from "../../Components/Navbar";
 import ResetPasswordImage from "../../assets/AuthAssets/ResetPassword.png";
 
 function ResetPassword() {

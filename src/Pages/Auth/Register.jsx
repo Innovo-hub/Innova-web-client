@@ -1,20 +1,22 @@
-import Navbar from "../../Components/Navbar";
-import { useState } from "react";
-import Input from "../../Components/Input";
-import MainButton from "../../Components/Button";
-import SignUpImage from "../../assets/AuthAssets/SignupImage.png";
 import GoogleIcon from "@mui/icons-material/Google";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RegisterUser } from "../../redux/Slices/Auth-Slice/RegisterReducer";
-import RolesDropdown from "./Auth-Components/RolesDropdown";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import APILINK from "../../../Constants";
+import MainButton from "../../Components/Button";
+import Input from "../../Components/Input";
+import Navbar from "../../Components/Navbar";
+import SignUpImage from "../../assets/AuthAssets/SignupImage.png";
+import {
+  RegisterUser
+} from "../../redux/Slices/Auth-Slice/RegisterReducer";
+import RolesDropdown from "./Auth-Components/RolesDropdown";
 
 function Register() {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.register);
-  const  navigate  = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -53,11 +55,11 @@ function Register() {
       });
       return;
     }
-  
+
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await dispatch(RegisterUser(formData)).unwrap(); // Use unwrap() to get the payload or error.
-      
+
       Swal.fire({
         icon: "success",
         title: "User Registered Successfully",
@@ -65,8 +67,8 @@ function Register() {
         timer: 3000,
         showConfirmButton: false,
       });
-  
-      navigate("/auth/activate-account");
+
+      navigate("/auth/login");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -75,7 +77,18 @@ function Register() {
       });
     }
   };
-  
+
+  // const authwithGoogle = async () => {
+  //   try {
+  //     await dispatch(RgisterWithGoogle());
+  //   } catch (error) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Google Login Failed",
+  //       text: error.message || "Unable to authenticate with Google.",
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -100,7 +113,7 @@ function Register() {
               className="space-y-4 flex flex-col justify-center items-center"
               onSubmit={handleSubmit}
             >
-            {/* Customize Component  */}
+              {/* Customize Component  */}
               <Input
                 LabelText="First Name"
                 name="firstName"
@@ -170,11 +183,7 @@ function Register() {
                 type="submit"
               />
               {error && <p className="text-red-500">{error.data}</p>}
-              <p>or Sign up with</p>
-              <div className="social-icons flex space-x-2">
-                <GoogleIcon sx={{ color: "#DB4444" }} />
-                <FacebookOutlinedIcon sx={{ color: "#DB4444" }} />
-              </div>
+
               <h6>
                 Already have an account?{" "}
                 <span className="text-[#DB4444]">
@@ -182,6 +191,14 @@ function Register() {
                 </span>
               </h6>
             </form>
+            <div className="flex flex-col justify-center items-center mt-4">
+              <p>or Sign up with</p>
+              <div className="social-icons flex space-x-2">
+                <a href={`${APILINK}/api/Account/google-login`} target="_blank">
+                  <GoogleIcon sx={{ color: "#DB4444" }} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
