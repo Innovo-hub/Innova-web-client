@@ -100,6 +100,7 @@ function Register() {
               className="space-y-4 flex flex-col justify-center items-center"
               onSubmit={handleSubmit}
             >
+            {/* Customize Component  */}
               <Input
                 LabelText="First Name"
                 name="firstName"

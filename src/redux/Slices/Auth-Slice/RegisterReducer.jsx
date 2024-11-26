@@ -6,18 +6,18 @@ export const RegisterUser = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      console.log(userData);
+      // console.log(userData);
 
       const response = await axios.post(
         `${APILINK}/api/Account/register`,
         userData
       );
-      console.log(response);
+      // console.log(response);
 
       return response.data; // On success, pass the data
     } catch (error) {
       // Extract only the useful information
-      console.log("Error had happened", error);
+      // console.log("Error had happened", error);
 
       const serializedError = {
         message: error.response?.data?.message || "Something went wrong",

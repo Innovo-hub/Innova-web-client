@@ -1,11 +1,9 @@
+import Navbar from "../../Components/Navbar";
 import { Link } from "react-router-dom";
 import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
-import Navbar from "../../Components/Navbar";
-import SignInImage from "../../assets/AuthAssets/SignInImage.jpg";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-function Login() {
+import ForgetPasswordImage from "../../assets/AuthAssets/ForgetPassword.png";
+function ForgetPassword() {
   return (
     <>
       <Navbar currentTab={"Auth"} />
@@ -14,32 +12,22 @@ function Login() {
         <div className="flex justify-center items-center bg-white p-4 lg:p-6">
           <div className="w-full max-w-md">
             <div className="mb-5">
-              <h2 className="font-bold text-4xl mt-2">Log In</h2>
-              <p className="text-gray-500 mt-2">Sign in your account </p>
+              <h2 className="font-bold text-4xl mt-2">Forget Password</h2>
+              <p className="text-gray-500 mt-2">
+                Please enter your email to reset the password
+              </p>
             </div>
             <form className="space-y-4 flex flex-col justify-center items-center">
               {/* Input is a customized Component by Me "Nader ": " */}
               <Input LabelText="Email" type="email" />
-              <Input LabelText="Password" type="password" />
-              <div className="">
-                <Link to={"/auth/forget-password"} className="text-[#DB4444]">
-                  forgot Password?
-                </Link>
-              </div>
               <MainButton
                 className="bg-[#DB4444] text-white rounded-md p-3 w-44"
-                ButtonText={"Login"}
+                ButtonText={"Submit"}
               />
-              <p>or login with</p>
-              {/* fi 2 icons henah facebook and google */}
-              <div className="social-icons flex space-x-2">
-                <GoogleIcon sx={{ color: "#DB4444" }} />
-                <FacebookOutlinedIcon sx={{ color: "#DB4444" }} />
-              </div>
-              <h6>
-                don&apos;t have an account ?{" "}
+              <h6 className="space-x-2">
+                Remember your password ? 
                 <span className="text-[#DB4444]">
-                  <Link to={"/auth/register"}>Sign up</Link>
+                  <Link to={"/auth/login"}>Log in</Link>
                 </span>
               </h6>
             </form>
@@ -48,7 +36,7 @@ function Login() {
         {/* right side image sign in */}
         <div className="flex justify-center items-center  p-3">
           <img
-            src={SignInImage}
+            src={ForgetPasswordImage}
             alt="Login"
             className="object-cover w-100 h-100 rounded-lg"
           />
@@ -58,4 +46,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgetPassword;
