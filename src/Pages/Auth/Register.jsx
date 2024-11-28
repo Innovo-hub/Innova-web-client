@@ -7,11 +7,11 @@ import APILINK from "../../../Constants";
 import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import Navbar from "../../Components/Navbar";
-import SignUpImage from "../../assets/AuthAssets/SignupImage.png";
-import {
-  RegisterUser
-} from "../../redux/Slices/Auth-Slice/RegisterReducer";
+import register_screen1 from "../../assets/AuthAssets/register_screen1.png";
+import SignupImage from "../../assets/AuthAssets/SignupImage.png";
+import { RegisterUser } from "../../redux/Slices/Auth-Slice/RegisterReducer";
 import RolesDropdown from "./Auth-Components/RolesDropdown";
+import { Card } from "@mui/material";
 
 function Register() {
   const dispatch = useDispatch();
@@ -93,11 +93,40 @@ function Register() {
   return (
     <>
       <Navbar currentTab={"Auth"} />
-
+      {/* Screen 1 of register Intro */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen ">
+        <div className="flex justify-center items-center mx-auto">
+          <div className="w-full mx-4 my-12">
+            <p className="text-gray-400 text-2xl">Hello there, Welcome to</p>
+            <h1 className="text-7xl mt-5 mb-3 font-bold">INNOVA HUB</h1>
+            <p className="text-[#DB4444] text-2xl">
+              All what you need to become A business Owner or Business Investor
+            </p>
+            <h4 className="mt-10 text-[#393434]  text-3xl font-medium">
+              Join Us NOW !
+            </h4>
+          </div>
+        </div>
+        <div className="flex justify-center items-center p-3">
+          <img
+            src={register_screen1}
+            alt="Register"
+            className="object-cover w-75 h-75 rounded-lg"
+          />
+        </div>
+      </div>
+      {/* Screen 2 of register Roles */}
+      <div className="flex flex-wrap justify-center items-center flex-col">
+        <h2 className="text-6xl font-bold text-[#DB4444] ">OUR ROLES</h2>
+        <p className="mx-5 text-center text-2xl">
+          Our Platform have an three Stockholders and you can be a one of them !
+        </p>
+      </div>
+      {/* screen 3 of register Form */}
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
         <div className="flex justify-center items-center p-3">
           <img
-            src={SignUpImage}
+            src={SignupImage}
             alt="Register"
             className="object-cover w-75 h-75 rounded-lg"
           />
