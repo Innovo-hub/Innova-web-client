@@ -63,7 +63,7 @@ export default function Navbar({ currentTab }) {
                       currentTab === item.name
                         ? "text-[#Db4444]"
                         : "text-black-500 hover:text-[#Db4444]",
-                      "px-3 py-2 text-sm font-semibold"
+                      "px-3 py-2 text-md font-semibold"
                     )}
                   >
                     {item.name}
@@ -73,41 +73,45 @@ export default function Navbar({ currentTab }) {
             </div>
 
             {/* Right Side Buttons */}
-            <div
-              className={
-                isAuthenticated ? "hidden" : "flex items-center space-x-4"
-              }
-            >
-              <Link to={"/auth/login"}>
-                <button
-                  className={classNames(
-                    currentTab === "Auth"
-                      ? "hidden"
-                      : "px-4 py-2 border border-gray-500 text-sm font-medium rounded-md text-gray-700"
-                  )}
-                >
-                  Sign In
-                </button>
-              </Link>
-              <Link to={"/auth/register"}>
-                <button
-                  className={classNames(
-                    currentTab === "Auth"
-                      ? "hidden"
-                      : "px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md"
-                  )}
-                >
-                  Get Started for Free
-                </button>
-              </Link>
-            </div>
+
             {/* if Authinticated this will appear */}
-            <div className="flex">
-              <Link to={"/user-profile"}>
-                {" "}
-                <Avatar src={profile?.profileImageUrl}></Avatar>
-              </Link>
-            </div>
+            {isAuthenticated ? (
+              <div className="flex">
+                <Link to={"/user-profile"}>
+                  {" "}
+                  <Avatar src={profile?.profileImageUrl}></Avatar>
+                </Link>
+              </div>
+            ) : (
+              <div
+                className={
+                  isAuthenticated ? "hidden" : "flex items-center space-x-4"
+                }
+              >
+                <Link to={"/auth/login"}>
+                  <button
+                    className={classNames(
+                      currentTab === "Auth"
+                        ? "hidden"
+                        : "px-4 py-2 border border-gray-500 text-sm font-medium rounded-md text-gray-700"
+                    )}
+                  >
+                    Sign In
+                  </button>
+                </Link>
+                <Link to={"/auth/register"}>
+                  <button
+                    className={classNames(
+                      currentTab === "Auth"
+                        ? "hidden"
+                        : "px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md"
+                    )}
+                  >
+                    Get Started for Free
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -134,18 +138,26 @@ export default function Navbar({ currentTab }) {
         </div>
 
         {/* Right Side Buttons for Mobile */}
-        <div className="space-y-2 px-2 pb-3">
-          <Link to={"/auth/login"}>
-            <button className="w-full mb-2 px-4 py-2 border border-gray-500 text-sm font-medium rounded-md text-gray-700">
-              Sign In
-            </button>
-          </Link>
-          <Link to={"/auth/register"}>
-            <button className="w-full px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md">
-              Get Started for Free
-            </button>
-          </Link>
-        </div>
+        {isAuthenticated ? (
+          <div className="flex justify-center items-center w-full">
+            <Link to={"/user-profile"}>
+            <button className="px-4 w-full py-2 bg-[#Db4444] text-white  font-medium rounded-md">User Profile </button>
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-2 px-2 pb-3">
+            <Link to={"/auth/login"}>
+              <button className="w-full mb-2 px-4 py-2 border border-gray-500 text-sm font-medium rounded-md text-gray-700">
+                Sign In
+              </button>
+            </Link>
+            <Link to={"/auth/register"}>
+              <button className="w-full px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md">
+                Get Started for Free
+              </button>
+            </Link>
+          </div>
+        )}
       </Disclosure.Panel>
     </Disclosure>
   );
