@@ -93,7 +93,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className="h-screen bg-gradient-to-t from-white to-amber-800 pt-10">
+      <div className="h-screen bg-gradient-to-t from-white to-amber-800 py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
@@ -105,8 +105,8 @@ function Register() {
                   Innova HUB
                 </h1>
                 <p className="text-xl text-gray-400">
-                  A platform with a Taste of E-Commerce, investing, publishing
-                  your Business, putting your ideas and Exploring products too!
+                  A platform that cares about e-commerce, investment, publishing
+                  your business, putting your ideas, and exploring products!
                 </p>
                 <div className="mt-16">
                   <a
@@ -120,6 +120,21 @@ function Register() {
               <div>
                 <img src={rejs1} className=" rounded-3xl"></img>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* screen 2 of register Form */}
+      <div className="h-screen mt-20">
+        <div className="container">
+          <div className="grid grid-cols-3 lg:grid-cols-1">
+            <div className="flex justify-center flex-col items-center">
+              <h2 className="text-6xl font-bold bg-gradient-to-br from-black to-amber-600 bg-clip-text text-transparent mb-5">
+                OUR ROLES
+              </h2>
+              <p className="mx-5 text-center text-2xl">
+                Our platform has three contributors and you can be one of them!
+              </p>
             </div>
           </div>
         </div>

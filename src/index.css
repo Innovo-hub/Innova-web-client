@@ -20,6 +20,7 @@
 }
 body {
   font-family: "Cairo", sans-serif;
+  scroll-behavior: smooth;
 }
 :root {
   /* colors */
