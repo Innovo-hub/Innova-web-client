@@ -1,6 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+  .container{
+    margin:  auto ;
+    width: 90%;
+  }
+  .reg-screen1{
+   box-shadow: rgba(0, 0, 0, 0.119) 0px 25px 50px -12px;
+   border-radius: 20px;
+  }
+  .a-screen1-rej{
+    background-color: white;
+  }
+  .a-screen1-rej:hover{
+    transition: 0.6s;
+  }
+}
 body {
   font-family: "Cairo", sans-serif;
 }

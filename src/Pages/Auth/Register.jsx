@@ -7,11 +7,10 @@ import APILINK from "../../../Constants";
 import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import Navbar from "../../Components/Navbar";
-import register_screen1 from "../../assets/AuthAssets/register_screen1.png";
+import rejs1 from "../../assets/AuthAssets/rejs1.jpeg";
 import SignupImage from "../../assets/AuthAssets/SignupImage.png";
 import { RegisterUser } from "../../redux/Slices/Auth-Slice/RegisterReducer";
 import RolesDropdown from "./Auth-Components/RolesDropdown";
-import { Card } from "@mui/material";
 
 function Register() {
   const dispatch = useDispatch();
@@ -93,34 +92,37 @@ function Register() {
   return (
     <>
       <Navbar currentTab={"Auth"} />
-      {/* Screen 1 of register Intro */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen ">
-        <div className="flex justify-center items-center mx-auto">
-          <div className="w-full mx-4 my-12">
-            <p className="text-gray-400 text-2xl">Hello there, Welcome to</p>
-            <h1 className="text-7xl mt-5 mb-3 font-bold">INNOVA HUB</h1>
-            <p className="text-[#DB4444] text-2xl">
-              All what you need to become A business Owner or Business Investor
-            </p>
-            <h4 className="mt-10 text-[#393434]  text-3xl font-medium">
-              Join Us NOW !
-            </h4>
+      {/* Screen 1 of Register  */}
+      <div className="h-screen bg-gradient-to-t from-white to-amber-800 pt-10">
+        <div className="container">
+          <div className="reg-screen1 bg-white w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
+              <div className="flex justify-center flex-col p-8">
+                <h3 className="text-2xl text-gray-500">
+                  hello there 👋🏻, Welcome to
+                </h3>
+                <h1 className="font-bold text-5xl py-4 lg:text-7xl bg-gradient-to-r from-black to-amber-600 bg-clip-text text-transparent">
+                  Innova HUB
+                </h1>
+                <p className="text-xl text-gray-400">
+                  A platform with a Taste of E-Commerce, investing, publishing
+                  your Business, putting your ideas and Exploring products too!
+                </p>
+                <div className="mt-16">
+                  <a
+                    href="#form"
+                    className="mt-6 a-screen1-rej text-xl border-2  py-2 px-12 rounded-2xl text-amber-700 border-amber-700 hover:bg-amber-700 hover:text-white"
+                  >
+                    Join Us Now!
+                  </a>
+                </div>
+              </div>
+              <div>
+                <img src={rejs1} className=" rounded-3xl"></img>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex justify-center items-center p-3">
-          <img
-            src={register_screen1}
-            alt="Register"
-            className="object-cover w-75 h-75 rounded-lg"
-          />
-        </div>
-      </div>
-      {/* Screen 2 of register Roles */}
-      <div className="flex flex-wrap justify-center items-center flex-col">
-        <h2 className="text-6xl font-bold text-[#DB4444] ">OUR ROLES</h2>
-        <p className="mx-5 text-center text-2xl">
-          Our Platform have an three Stockholders and you can be a one of them !
-        </p>
       </div>
       {/* screen 3 of register Form */}
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
@@ -132,7 +134,10 @@ function Register() {
           />
         </div>
 
-        <div className="flex justify-center items-center bg-white p-4 lg:p-6">
+        <div
+          className=" flex justify-center items-center bg-white p-4 lg:p-6"
+          id="form"
+        >
           <div className="w-full max-w-md">
             <div className="mb-5">
               <h2 className="font-bold text-2xl mt-2">Welcome to Innova App</h2>
