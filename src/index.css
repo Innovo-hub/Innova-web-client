@@ -17,6 +17,10 @@
   .a-screen1-rej:hover{
     transition: 0.6s;
   }
+  .reg-card-screen2{
+    box-shadow: rgba(0, 0, 0, 0.119) 0px 25px 50px -12px;
+    border-radius: 20px;
+  }
 }
 body {
   font-family: "Cairo", sans-serif;
@@ -24,6 +28,6 @@ body {
 }
 :root {
   /* colors */
-  --main-color: #Db4444;
+  --main-color: #BA5A16;
   --btn-text-color: #fff;
 }

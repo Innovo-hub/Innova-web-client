@@ -9,6 +9,9 @@ import Input from "../../Components/Input";
 import Navbar from "../../Components/Navbar";
 import rejs1 from "../../assets/AuthAssets/rejs1.jpeg";
 import SignupImage from "../../assets/AuthAssets/SignupImage.png";
+import customer from "../../assets/AuthAssets/customer.png";
+import businessOwner from "../../assets/AuthAssets/businessOwner.svg";
+import Investor from "../../assets/AuthAssets/Investor.svg";
 import { RegisterUser } from "../../redux/Slices/Auth-Slice/RegisterReducer";
 import RolesDropdown from "./Auth-Components/RolesDropdown";
 
@@ -93,7 +96,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className="h-screen bg-gradient-to-t from-white to-amber-800 py-10">
+      <div className="bg-gradient-to-t from-white to-[#BA5A16] py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
@@ -101,7 +104,7 @@ function Register() {
                 <h3 className="text-2xl text-gray-500">
                   hello there 👋🏻, Welcome to
                 </h3>
-                <h1 className="font-bold text-5xl py-4 lg:text-7xl bg-gradient-to-r from-black to-amber-600 bg-clip-text text-transparent">
+                <h1 className="font-bold text-5xl py-4 lg:text-7xl bg-gradient-to-r from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent">
                   Innova HUB
                 </h1>
                 <p className="text-xl text-gray-400">
@@ -111,7 +114,7 @@ function Register() {
                 <div className="mt-16">
                   <a
                     href="#form"
-                    className="mt-6 a-screen1-rej text-xl border-2  py-2 px-12 rounded-2xl text-amber-700 border-amber-700 hover:bg-amber-700 hover:text-white"
+                    className="mt-6 a-screen1-rej text-xl border-2  py-2 px-12 rounded-2xl text-[#BA5A16] border-[#BA5A16] hover:bg-[#BA5A16] hover:text-white"
                   >
                     Join Us Now!
                   </a>
@@ -125,127 +128,199 @@ function Register() {
         </div>
       </div>
       {/* screen 2 of register Form */}
-      <div className="h-screen mt-20">
+      <div className="mt-20">
         <div className="container">
-          <div className="grid grid-cols-3 lg:grid-cols-1">
-            <div className="flex justify-center flex-col items-center">
-              <h2 className="text-6xl font-bold bg-gradient-to-br from-black to-amber-600 bg-clip-text text-transparent mb-5">
-                OUR ROLES
-              </h2>
-              <p className="mx-5 text-center text-2xl">
-                Our platform has three contributors and you can be one of them!
-              </p>
+          <div>
+            <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
+              OUR ROLES
+            </h2>
+            <p className="text-2xl text-center ">
+              Our platform has three contributors and you can be one of them!
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-20">
+            <div className="reg-card-screen2 w-96 p-10">
+              <div className="card-image w-full">
+                <img src={customer} alt="" />
+              </div>
+              <div className="card-content mt-10">
+                <h4 className="text-2xl font-semibold my-2">Customer</h4>
+                <p className="text-gray-600">
+                  You can publish your own projects and create an environment
+                  for interaction with them on a large scale, making your
+                  project spread more widely and faster.You can publish your own
+                  projects and create an environment for interaction with them
+                  on a large scale, making your project spread more widely and
+                  faster.
+                </p>
+              </div>
+            </div>
+            <div className="reg-card-screen2 w-96 p-10">
+              <div className="card-image w-full">
+                <img src={businessOwner} alt="" />
+              </div>
+              <div className="card-content mt-10">
+                <h4 className="text-2xl font-semibold my-2">Business Owner</h4>
+                <p className="text-gray-600">
+                  You can publish your own projects and create an environment
+                  for interaction with them on a large scale, making your
+                  project spread more widely and faster.You can publish your own
+                  projects and create an environment for interaction with them
+                  on a large scale, making your project spread more widely and
+                  faster.
+                </p>
+              </div>
+            </div>
+            <div className="reg-card-screen2 w-96 p-10">
+              <div className="card-image w-full">
+                <img src={Investor} alt="" />
+              </div>
+              <div className="card-content mt-10">
+                <h4 className="text-2xl font-semibold my-2">Investor</h4>
+                <p className="text-gray-600">
+                  You can publish your own projects and create an environment
+                  for interaction with them on a large scale, making your
+                  project spread more widely and faster.You can publish your own
+                  projects and create an environment for interaction with them
+                  on a large scale, making your project spread more widely and
+                  faster.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
       {/* screen 3 of register Form */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
-        <div className="flex justify-center items-center p-3">
-          <img
-            src={SignupImage}
-            alt="Register"
-            className="object-cover w-75 h-75 rounded-lg"
-          />
+      <div class="container mt-20">
+        <div>
+          <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
+            Sign UP NOW!
+          </h2>
+          <p className="text-2xl text-center">
+            Start Your Journey Now with Innova HUB
+          </p>
         </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="flex justify-center items-center p-3">
+            <img
+              src={SignupImage}
+              alt="Register"
+              className="object-cover w-75 h-75 rounded-lg"
+            />
+          </div>
 
-        <div
-          className=" flex justify-center items-center bg-white p-4 lg:p-6"
-          id="form"
-        >
-          <div className="w-full max-w-md">
-            <div className="mb-5">
-              <h2 className="font-bold text-2xl mt-2">Welcome to Innova App</h2>
-              <p className="text-gray-500 mt-2">Start your journey now!</p>
-            </div>
-            <form
-              className="space-y-4 flex flex-col justify-center items-center"
-              onSubmit={handleSubmit}
-            >
-              {/* Customize Component  */}
-              <Input
-                LabelText="First Name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="Email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="City"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="District"
-                name="district"
-                value={formData.district}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="Phone Number"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="Country"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="Password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <Input
-                LabelText="Confirm Password"
-                name="confirmPassword"
-                type="password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-              <RolesDropdown
-                roleId={formData.roleId}
-                onChange={handleRoleChange}
-              />
-
-              <MainButton
-                className="bg-[#DB4444] text-white rounded-md w-44 p-3"
-                ButtonText={loading ? "Loading..." : "Create Account"}
-                disabled={loading}
-                type="submit"
-              />
-              {error && <p className="text-red-500">{error.data}</p>}
-
-              <h6>
-                Already have an account?{" "}
-                <span className="text-[#DB4444]">
-                  <Link to={"/auth/login"}>Log in</Link>
-                </span>
-              </h6>
-            </form>
-            <div className="flex flex-col justify-center items-center mt-4">
-              <p>or Sign up with</p>
-              <div className="social-icons flex space-x-2">
-                <a href={`${APILINK}/api/Account/google-login`} target="_blank">
-                  <GoogleIcon sx={{ color: "#DB4444" }} />
-                </a>
+          <div
+            className=" flex justify-center items-center bg-white p-4 lg:p-6"
+            id="form"
+          >
+            <div className="w-full max-w-md">
+              <div className="mb-5">
+                <p className="text-gray-500 mt-2">Enter your Information</p>
+              </div>
+              <form
+                className="space-y-4 flex flex-col justify-center"
+                onSubmit={handleSubmit}
+              >
+                {/* Customize Component  */}
+                <div className="flex justify-between">
+                  <Input
+                    sx={{ width: "47%" }}
+                    LabelText="First Name"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    sx={{ width: "47%" }}
+                    LabelText="Last Name"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <Input
+                  LabelText="Email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                <Input
+                  LabelText="Password"
+                  name="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <Input
+                  LabelText="Confirm Password"
+                  name="confirmPassword"
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+                <div className="flex justify-between">
+                  <Input
+                    sx={{ width: "47%" }}
+                    LabelText="Country"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    sx={{ width: "47%" }}
+                    LabelText="City"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="flex justify-between">
+                  <Input
+                    sx={{ width: "47%" }}
+                    LabelText="District"
+                    name="district"
+                    value={formData.district}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    sx={{ width: "47%" }}
+                    LabelText="Phone Number"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                  />
+                </div>
+                <RolesDropdown
+                  roleId={formData.roleId}
+                  onChange={handleRoleChange}
+                />
+                <h6>
+                  Already have an account?{" "}
+                  <span className="text-[#BA5A16]">
+                    <Link to={"/auth/login"}>Log in</Link>
+                  </span>
+                </h6>
+                <div className="text-center">
+                  <MainButton
+                    className="bg-[#BA5A16] text-white rounded-md w-44 p-3"
+                    ButtonText={loading ? "Loading..." : "Create Account"}
+                    disabled={loading}
+                    type="submit"
+                  />
+                  {error && <p className="text-red-500">{error.data}</p>}
+                </div>
+              </form>
+              <div className="flex flex-col justify-center items-center mt-4">
+                <p>or Sign up with</p>
+                <div className="social-icons flex space-x-2">
+                  <a
+                    href={`${APILINK}/api/Account/google-login`}
+                    target="_blank"
+                  >
+                    <GoogleIcon sx={{ color: "#BA5A16" }} />
+                  </a>
+                </div>
               </div>
             </div>
           </div>

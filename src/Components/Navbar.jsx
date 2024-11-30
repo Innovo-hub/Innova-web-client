@@ -63,7 +63,7 @@ export default function Navbar({ currentTab }) {
                       currentTab === item.name
                         ? "text-[#Db4444]"
                         : "text-black-500 hover:text-[#Db4444]",
-                      "px-3 py-2 text-sm font-semibold"
+                      "px-3 py-2 text-xl font-semibold"
                     )}
                   >
                     {item.name}
