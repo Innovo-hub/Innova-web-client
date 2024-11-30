@@ -28,24 +28,7 @@ export const RegisterUser = createAsyncThunk(
     }
   }
 );
-export const RgisterWithGoogle = createAsyncThunk(
-  "auth/registerWithGoogle",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(`${APILINK}/api/Account/google-login`);
-      if (response.data?.redirectUrl) {
-        // Redirect user to Google OAuth
-        window.location.href = response.data.redirectUrl;
-      }
-      return response.data;
-    } catch (error) {
-      return rejectWithValue({
-        message: error.response?.data?.message || "Failed to initiate Google login",
-        status: error.response?.status,
-      });
-    }
-  }
-);
+
 
 // Intailize the Slice Also set the cases for each condition ("Pending , Accepted , Rejected ")
 const registerSlice = createSlice({

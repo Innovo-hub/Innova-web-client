@@ -96,7 +96,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className="bg-gradient-to-t from-white to-[#BA5A16] py-10">
+      <div className="bg-gradient-to-t from-white to-amber-800 py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
@@ -199,7 +199,6 @@ function Register() {
               className="object-cover w-75 h-75 rounded-lg"
             />
           </div>
-
           <div
             className=" flex justify-center items-center bg-white p-4 lg:p-6"
             id="form"
