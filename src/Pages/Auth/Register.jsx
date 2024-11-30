@@ -121,7 +121,7 @@ function Register() {
                 </div>
               </div>
               <div>
-                <img src={rejs1} className=" rounded-3xl"></img>
+                <img src={rejs1} className=" rounded-3xl" alt="register photo"></img>
               </div>
             </div>
           </div>
@@ -139,9 +139,9 @@ function Register() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-20 space-y-3 text-center">
-            <div className="reg-card-screen2 p-10 flex flex-col justify-between w-full  ">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-between w-[97%]  ">
               <div className="card-image w-full">
-                <img src={customer} alt="" />
+                <img src={customer} alt="Customer" />
               </div>
               <div className="card-content mt-10">
                 <h4 className="text-2xl font-semibold my-2">Customer</h4>
@@ -152,9 +152,9 @@ function Register() {
                 </p>
               </div>
             </div>
-            <div className="reg-card-screen2 p-10 flex flex-col justify-between ">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-between w-[97%] ">
               <div className="card-image w-full">
-                <img src={businessOwner} alt="" />
+                <img src={businessOwner} alt="businessOwner" />
               </div>
               <div className="card-content mt-10">
                 <h4 className="text-2xl font-semibold my-2">Business Owner</h4>
@@ -165,9 +165,9 @@ function Register() {
                 </p>
               </div>
             </div>
-            <div className="reg-card-screen2 p-10 flex flex-col justify-between ">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-between  w-[97%]">
               <div className="card-image w-full">
-                <img src={Investor} alt="" />
+                <img src={Investor} alt="businessOwner" />
               </div>
               <div className="card-content mt-10">
                 <h4 className="text-2xl font-semibold my-2">Investor</h4>
@@ -185,7 +185,7 @@ function Register() {
       <div class="container mt-20">
         <div>
           <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
-            Sign UP NOW!
+            SIGN UP NOW!
           </h2>
           <p className="text-2xl text-center">
             Start Your Journey Now with Innova HUB

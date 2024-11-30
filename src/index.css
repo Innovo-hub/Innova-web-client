@@ -11,6 +11,10 @@
    box-shadow: rgba(0, 0, 0, 0.119) 0px 25px 50px -12px;
    border-radius: 20px;
   }
+  .login-screen{
+   box-shadow: rgba(0, 0, 0, 0.119) 0px 25px 50px -12px;
+   border-radius: 20px;
+  }
   .a-screen1-rej{
     background-color: white;
   }
