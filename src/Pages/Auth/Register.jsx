@@ -138,24 +138,21 @@ function Register() {
               Our platform has three contributors and you can be one of them!
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-20">
-            <div className="reg-card-screen2 w-96 p-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-20 space-y-3 text-center">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-between w-full  ">
               <div className="card-image w-full">
                 <img src={customer} alt="" />
               </div>
               <div className="card-content mt-10">
                 <h4 className="text-2xl font-semibold my-2">Customer</h4>
                 <p className="text-gray-600">
-                  You can publish your own projects and create an environment
-                  for interaction with them on a large scale, making your
-                  project spread more widely and faster.You can publish your own
-                  projects and create an environment for interaction with them
-                  on a large scale, making your project spread more widely and
-                  faster.
+                  You can Explore handmade products or projects and view the
+                  environment of products and offers in a large scale, making
+                  your journey excited and by products widely and faster.
                 </p>
               </div>
             </div>
-            <div className="reg-card-screen2 w-96 p-10">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-between ">
               <div className="card-image w-full">
                 <img src={businessOwner} alt="" />
               </div>
@@ -164,26 +161,20 @@ function Register() {
                 <p className="text-gray-600">
                   You can publish your own projects and create an environment
                   for interaction with them on a large scale, making your
-                  project spread more widely and faster.You can publish your own
-                  projects and create an environment for interaction with them
-                  on a large scale, making your project spread more widely and
-                  faster.
+                  project spread more widely and faster.
                 </p>
               </div>
             </div>
-            <div className="reg-card-screen2 w-96 p-10">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-between ">
               <div className="card-image w-full">
                 <img src={Investor} alt="" />
               </div>
               <div className="card-content mt-10">
                 <h4 className="text-2xl font-semibold my-2">Investor</h4>
                 <p className="text-gray-600">
-                  You can publish your own projects and create an environment
-                  for interaction with them on a large scale, making your
-                  project spread more widely and faster.You can publish your own
-                  projects and create an environment for interaction with them
-                  on a large scale, making your project spread more widely and
-                  faster.
+                  You can invest on projects and create an environment for
+                  investment easily with business owners in a large scale,
+                  making your investment spread more widely and faster
                 </p>
               </div>
             </div>
