@@ -134,12 +134,12 @@ function Register() {
             <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
               OUR ROLES
             </h2>
-            <p className="text-2xl text-center ">
+            <p className="lg:text-2xl text-lg px-3 text-center ">
               Our platform has three contributors and you can be one of them!
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-20 space-y-3 text-center">
-            <div className="reg-card-screen2 p-10 flex flex-col justify-between w-[97%]  ">
+          <div className=" grid grid-cols-1 lg:grid-cols-3 py-20 space-y-3 text-center">
+            <div className="reg-card-screen2 p-10 flex flex-col justify-center items-center w-[97%]  ">
               <div className="card-image w-full">
                 <img src={customer} alt="Customer" />
               </div>
@@ -182,7 +182,7 @@ function Register() {
         </div>
       </div>
       {/* screen 3 of register Form */}
-      <div class="container mt-20">
+      <div className="container mt-20">
         <div>
           <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
             SIGN UP NOW!

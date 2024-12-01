@@ -3,8 +3,14 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserProfile } from "../redux/Slices/User-Slice/UserProfile";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { logoutUser } from "../redux/Slices/Auth-Slice/LoginReducer";
+import Swal from "sweetalert2";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -15,16 +21,49 @@ export default function Navbar({ currentTab }) {
   const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getUserProfile({ token }));
   }, [dispatch, token]);
-  console.log(profile);
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
   ];
+  const handleLogout = async () => {
+    // Show loading indicator using SweetAlert2
+    Swal.fire({
+      title: "Logging out...",
+      text: "Please wait while we log you out",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      await dispatch(logoutUser()).unwrap(); // Ensure the action completes
+      Swal.close(); // Close the loading modal
+      navigate("/"); // Redirect to the homepage
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Logout Failed",
+        text: error.message || "An error occurred during logout.",
+      });
+    } finally {
+      handleClose(); // Close the dropdown menu
+    }
+  };
 
   return (
     <Disclosure as="nav" className="bg-[#F8F8F8]">
@@ -61,8 +100,8 @@ export default function Navbar({ currentTab }) {
                     aria-current={currentTab === item.name ? "page" : undefined}
                     className={classNames(
                       currentTab === item.name
-                        ? "text-[#Db4444]"
-                        : "text-black-500 hover:text-[#Db4444]",
+                        ? "text-[#BA5A16]"
+                        : "text-black-500 hover:text-[#BA5A16]",
                       "px-3 py-2 text-m font-semibold"
                     )}
                   >
@@ -77,10 +116,34 @@ export default function Navbar({ currentTab }) {
             {/* if Authinticated this will appear */}
             {isAuthenticated ? (
               <div className="flex">
-                <Link to={"/user-profile"}>
-                  {" "}
-                  <Avatar src={profile?.profileImageUrl}></Avatar>
-                </Link>
+                <div>
+                  <Button
+                    id="basic-button"
+                    aria-controls={open ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    <Avatar src={profile?.profileImageUrl}></Avatar>
+                  </Button>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>
+                      {" "}
+                      <Link to={"/user-profile"}>View Profile </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <button onClick={handleLogout}>Logout</button>
+                    </MenuItem>
+                  </Menu>
+                </div>
               </div>
             ) : (
               <div
@@ -104,7 +167,7 @@ export default function Navbar({ currentTab }) {
                     className={classNames(
                       currentTab === "Auth"
                         ? "hidden"
-                        : "px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md"
+                        : "px-4 py-2 bg-[#BA5A16] text-white text-sm font-medium rounded-md"
                     )}
                   >
                     Get Started for Free
@@ -127,8 +190,8 @@ export default function Navbar({ currentTab }) {
               aria-current={currentTab === item.name ? "page" : undefined}
               className={classNames(
                 currentTab === item.name
-                  ? "text-[#BF3F00]"
-                  : "text-black-500 hover:text-[#BF3F00]",
+                  ? "text-[#BA5A16]"
+                  : "text-black-500 hover:text-[#BA5A16]",
                 "block rounded-md px-3 py-2 text-base font-medium"
               )}
             >
@@ -141,7 +204,9 @@ export default function Navbar({ currentTab }) {
         {isAuthenticated ? (
           <div className="flex justify-center items-center w-full">
             <Link to={"/user-profile"}>
-            <button className="px-4 w-full py-2 bg-[#Db4444] text-white  font-medium rounded-md">User Profile </button>
+              <button className="px-4 w-full py-2 bg-[#BA5A16] text-white  font-medium rounded-md">
+                User Profile{" "}
+              </button>
             </Link>
           </div>
         ) : (
@@ -152,7 +217,7 @@ export default function Navbar({ currentTab }) {
               </button>
             </Link>
             <Link to={"/auth/register"}>
-              <button className="w-full px-4 py-2 bg-[#Db4444] text-white text-sm font-medium rounded-md">
+              <button className="w-full px-4 py-2 bg-[#BA5A16] text-white text-sm font-medium rounded-md">
                 Get Started for Free
               </button>
             </Link>

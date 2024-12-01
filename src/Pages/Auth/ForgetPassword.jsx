@@ -21,12 +21,12 @@ function ForgetPassword() {
               {/* Input is a customized Component by Me "Nader ": " */}
               <Input LabelText="Email" type="email" />
               <MainButton
-                className="bg-[#DB4444] text-white rounded-md p-3 w-44"
+                className="bg-[#BA5A16] text-white rounded-md p-3 w-44"
                 ButtonText={"Submit"}
               />
               <h6 className="space-x-2">
                 Remember your password ? 
-                <span className="text-[#DB4444]">
+                <span className="text-[#BA5A16]">
                   <Link to={"/auth/login"}>Log in</Link>
                 </span>
               </h6>

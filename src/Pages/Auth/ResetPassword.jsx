@@ -28,7 +28,7 @@ function ResetPassword() {
               {/*  Button to updataPassword  */}
               <div className="flex justify-center">
                 <MainButton
-                  className="bg-[#DB4444] text-white rounded-md py-3 px-6"
+                  className="bg-[#BA5A16] text-white rounded-md py-3 px-6"
                   ButtonText={"Update Password"}
                 />
               </div>

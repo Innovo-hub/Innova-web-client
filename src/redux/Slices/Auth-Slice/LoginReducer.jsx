@@ -29,7 +29,20 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      // Clear tokens from localStorage
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      return "Logout successful";
+    } catch (error) {
+      console.error("Logout Error:", error);
+      return rejectWithValue("Logout failed");
+    }
+  }
+);
 const loginSlice = createSlice({
   name: "login",
   initialState: {
@@ -46,8 +59,6 @@ const loginSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log("Fulfilled action:", action);
-
         state.loading = false;
         state.token = action.payload.token; // Update state with the token
         state.isAuthenticated = true; // Mark user as authenticated
@@ -55,6 +66,17 @@ const loginSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Capture the error message
+      })
+      // Logout User
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.token = null;
+        state.isAuthenticated = false; // Mark user as not authenticated
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
