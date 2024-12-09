@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors :{
-        'main-color': '--var(main-color)', 
+        'main-color': 'var(--main-color)', 
         'btn-text-color' :'--var(btn-text-color)',
       }
     },

@@ -29,9 +29,10 @@
 body {
   font-family: "Cairo", sans-serif;
   scroll-behavior: smooth;
+  background-color: #F7F7FA;
 }
 :root {
   /* colors */
-  --main-color: #BA5A16;
+  --main-color: #126090;
   --btn-text-color: #fff;
 }

@@ -72,12 +72,12 @@ export default function Navbar({ currentTab }) {
         <div className="relative flex h-16 items-center justify-between sm:hidden">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h2 className="text-2xl font-bold">Innova</h2>
+            <h2 className="text-2xl font-bold"><span className="text-main-color">I</span>nnova</h2>
           </div>
 
           {/* Mobile menu button */}
           <div className="absolute inset-y-0 right-0 flex items-center">
-            <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-main-button-bg focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-main-color focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
               <XMarkIcon className="hidden h-6 w-6" aria-hidden="true" />
@@ -89,7 +89,7 @@ export default function Navbar({ currentTab }) {
         <div className="hidden sm:block">
           <div className="relative flex h-16 items-center justify-between">
             {/* Centered Navigation Links */}
-            <h2 className="text-2xl font-bold">Innova</h2>
+            <h2 className="text-2xl font-bold"><span className="text-main-color">I</span>nnova</h2>
 
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center">
               <div className="flex space-x-4">
@@ -100,8 +100,8 @@ export default function Navbar({ currentTab }) {
                     aria-current={currentTab === item.name ? "page" : undefined}
                     className={classNames(
                       currentTab === item.name
-                        ? "text-[#BA5A16]"
-                        : "text-black-500 hover:text-[#BA5A16]",
+                        ? "text-main-color"
+                        : "text-black-500 hover:text-main-color",
                       "px-3 py-2 text-m font-semibold"
                     )}
                   >
@@ -167,7 +167,7 @@ export default function Navbar({ currentTab }) {
                     className={classNames(
                       currentTab === "Auth"
                         ? "hidden"
-                        : "px-4 py-2 bg-[#BA5A16] text-white text-sm font-medium rounded-md"
+                        : "px-4 py-2 bg-main-color text-white text-sm font-medium rounded-md"
                     )}
                   >
                     Get Started for Free
@@ -190,8 +190,8 @@ export default function Navbar({ currentTab }) {
               aria-current={currentTab === item.name ? "page" : undefined}
               className={classNames(
                 currentTab === item.name
-                  ? "text-[#BA5A16]"
-                  : "text-black-500 hover:text-[#BA5A16]",
+                  ? "text-main-color"
+                  : "text-black-500 hover:text-main-color",
                 "block rounded-md px-3 py-2 text-base font-medium"
               )}
             >
@@ -204,7 +204,7 @@ export default function Navbar({ currentTab }) {
         {isAuthenticated ? (
           <div className="flex justify-center items-center w-full">
             <Link to={"/user-profile"}>
-              <button className="px-4 w-full py-2 bg-[#BA5A16] text-white  font-medium rounded-md">
+              <button className="px-4 w-full py-2 bg-main-color text-white  font-medium rounded-md">
                 User Profile{" "}
               </button>
             </Link>
@@ -217,7 +217,7 @@ export default function Navbar({ currentTab }) {
               </button>
             </Link>
             <Link to={"/auth/register"}>
-              <button className="w-full px-4 py-2 bg-[#BA5A16] text-white text-sm font-medium rounded-md">
+              <button className="w-full px-4 py-2 bg-main-color text-white text-sm font-medium rounded-md">
                 Get Started for Free
               </button>
             </Link>
