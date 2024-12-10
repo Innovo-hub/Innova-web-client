@@ -1,2 +1,2 @@
-const APILINK = "https://localhost:7151";
+const APILINK = "https://innova-hub.premiumasp.net";
 export default APILINK;

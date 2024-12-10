@@ -5,7 +5,7 @@ import { ContactInfo } from "./ContactInfo";
 export function ProfileHeader({ user }) {
   return (
     <div className="relative">
-      <div className="h-48 bg-gradient-to-t from-white to-amber-800 rounded-t-xl" />
+      <div className="h-48 bg-gradient-to-t from-white to-main-color rounded-t-xl" />
 
       <div className="px-6 pb-6">
         <div className="relative flex items-end -mt-20 mb-4">
