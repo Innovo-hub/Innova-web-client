@@ -22,10 +22,10 @@ const Secondproducts = [
     },
     {
       id: 3,
-      imageSrc: prod33, // Replace with an actual image URL
+      imageSrc: prod11, // Replace with an actual image URL
       productName: "Bakhtiyari Carpet 11'8 x 7'9 (ft)",
       PriceAfterDiscount: 50.0,
-      Price: 65.0,
+      Price: 65.00,
       Author: "Lana del ray",
       inStock: true,
     },

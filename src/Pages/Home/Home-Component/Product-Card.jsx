@@ -20,7 +20,7 @@ function ProductCard({ imageSrc, productName, PriceAfterDiscount, Price, Author,
     <div className="card flex flex-col bg-[#FFFFFF] shadow-lg rounded-xl relative group overflow-hidden">
       {/* Image with overlay */}
       <div className="relative">
-        <img className="object-cover w-full h-52" src={imageSrc} alt={productName} />
+        <img className="object-cover w-full" src={imageSrc} alt={productName} />
         <div className="absolute inset-0 bg-[#126090] bg-opacity-50 cursor-pointer flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300  transition-all">
           <button className="text-white p-3 text-lg">
           Visit <LinkIcon  />

@@ -12,7 +12,7 @@ function Categorieslist() {
     },{
         name: "Decor",
     },{
-        name: "Carpts",
+        name: "Carpets",
     },{
         name: "Jewelry",
     },{

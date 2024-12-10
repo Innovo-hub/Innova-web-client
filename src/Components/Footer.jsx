@@ -3,9 +3,9 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 function Footer() {
   return (
-    <div className="lg:grid hidden lg:grid-cols-4 grid-cols-2 bg-[#262626] px-16 py-4 text-white">
+    <div className="lg:grid hidden lg:grid-cols-4 grid-cols-2 bg-[#262626] px-16 py-10 text-white">
         <div className="flex flex-col space-y-4">
-            <h2 className="text-xl">INNOVA HUB</h2>
+            <h2 className="text-2xl font-bold">INNOVA HUB</h2>
             <p>Handmade Products made with<br></br>
             love and hard work</p>
         </div>
