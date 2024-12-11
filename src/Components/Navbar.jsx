@@ -10,6 +10,8 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { logoutUser } from "../redux/Slices/Auth-Slice/LoginReducer";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
 import Swal from "sweetalert2";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -72,7 +74,9 @@ export default function Navbar({ currentTab }) {
         <div className="relative flex h-16 items-center justify-between sm:hidden">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h2 className="text-2xl font-bold"><span className="text-main-color">I</span>nnova</h2>
+            <h2 className="text-2xl font-bold">
+              <span className="text-main-color">I</span>nnova
+            </h2>
           </div>
 
           {/* Mobile menu button */}
@@ -89,7 +93,9 @@ export default function Navbar({ currentTab }) {
         <div className="hidden sm:block">
           <div className="relative flex h-16 items-center justify-between">
             {/* Centered Navigation Links */}
-            <h2 className="text-2xl font-bold"><span className="text-main-color">I</span>nnova</h2>
+            <h2 className="text-2xl font-bold">
+              <span className="text-main-color">I</span>nnova
+            </h2>
 
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center">
               <div className="flex space-x-4">
@@ -115,7 +121,19 @@ export default function Navbar({ currentTab }) {
 
             {/* if Authinticated this will appear */}
             {isAuthenticated ? (
-              <div className="flex">
+              <div className="flex items-center justify-center space-x-4">
+                <Link>
+                  <FavoriteBorderSharpIcon
+                    fontSize="large"
+                    className="font-light text-gray-700"
+                  />
+                </Link>
+                <Link>
+                  <ShoppingCartOutlinedIcon
+                    fontSize="large"
+                    className="font-light text-gray-700"
+                  />
+                </Link>
                 <div>
                   <Button
                     id="basic-button"
@@ -204,7 +222,7 @@ export default function Navbar({ currentTab }) {
         {isAuthenticated ? (
           <div className="flex justify-center items-center w-full">
             <Link to={"/user-profile"}>
-              <button className="px-4 w-full py-2 bg-main-color text-white  font-medium rounded-md">
+              <button className="px-4 w-full py-2 bg-main-color text-white my-2 font-medium rounded-md">
                 User Profile{" "}
               </button>
             </Link>

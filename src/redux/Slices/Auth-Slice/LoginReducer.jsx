@@ -50,6 +50,7 @@ const loginSlice = createSlice({
     token: localStorage.getItem("accessToken") || null,
     error: null,
     isAuthenticated: !!localStorage.getItem("accessToken"),
+    roleName : null 
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -59,8 +60,11 @@ const loginSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        console.log("From reducrer "+JSON.stringify(action.payload));
+        
         state.loading = false;
         state.token = action.payload.token; // Update state with the token
+        state.roleName = action.payload.roleName;
         state.isAuthenticated = true; // Mark user as authenticated
       })
       .addCase(loginUser.rejected, (state, action) => {

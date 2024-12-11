@@ -10,9 +10,7 @@ export const getUserProfile = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${token}`, // Include token in the Authorization header
         },
-      });
-      console.log("From REducer", response);
-      
+      }); 
       // Return the response data to be stored in the state
       return response.data;
     } catch (err) {

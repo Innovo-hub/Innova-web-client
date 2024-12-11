@@ -4,7 +4,7 @@ import Slide3 from '../../../assets/Products/slide3.png';
 import Categorieslist from './Categories-list';
 function CategoryBanner() {
   return (
-    <div className="grid lg:grid-cols-4 grid-cols-1 px-8 mt-8 gap-8">
+    <div className="grid lg:grid-cols-4 grid-cols-1 lg:px-8 px-4 mt-8 gap-8">
     <div className="col-span-1 w-full">
     <Categorieslist />
     </div>

@@ -29,7 +29,7 @@ function ProductCard({ imageSrc, productName, PriceAfterDiscount, Price, Author,
       </div>
 
       {/* Card body */}
-      <div className="flex flex-col p-4">
+      <div className="flex flex-col p-4 space-y-2">
         <h2 className="font-bold text-lg truncate">{productName}</h2>
         <div className="flex items-center gap-2">
           <h6 className="font-bold text-xl text-green-600">${PriceAfterDiscount}</h6>
@@ -37,10 +37,12 @@ function ProductCard({ imageSrc, productName, PriceAfterDiscount, Price, Author,
         </div>
         <h5 className="text-sm text-gray-600">Made by <span className='text-main-color'>{Author}</span></h5>
         <div className="flex justify-between items-center mt-4">
-          <button onClick={toggleLoved}>
+         <div className="flex space-x-4">
+         <button onClick={toggleLoved}>
             {isLoved ? <FavoriteIcon className="text-red-500" /> : <FavoriteBorderIcon />}
           </button>
           <ShoppingCartOutlinedIcon />
+         </div>
           <p>
             {inStock ? (
               <>
