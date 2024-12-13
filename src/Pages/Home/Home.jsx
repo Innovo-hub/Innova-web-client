@@ -30,11 +30,11 @@ function Home() {
       <Navbar currentTab={"Home"} />
       <HomeBanner />
       {/* First Section  */}
-      {profile.userRoleName == "BusinessOwner" ? (
+      {/* {profile.userRoleName == "BusinessOwner" ? (
         <div className="text-center text-2xl font-bold my-4">Amani</div>
       ) : (
         <CategoryBanner />
-      )}
+      )} */}
       {/* Category Section  */}
       <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">
         {Categorycard.map((cat, index) => {
