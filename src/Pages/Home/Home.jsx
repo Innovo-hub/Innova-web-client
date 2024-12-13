@@ -22,6 +22,9 @@ function Home() {
   const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+  const role = "BusinessOwner";
+  console.log("From Home" + profile);
+
   useEffect(() => {
     dispatch(getUserProfile({ token }));
   }, [dispatch, token]);
@@ -30,7 +33,7 @@ function Home() {
       <Navbar currentTab={"Home"} />
       <HomeBanner />
       {/* First Section  */}
-      {profile.userRoleName == "BusinessOwner" ? (
+      {role == "BusinessOwner" ? (
         <div className="text-center text-2xl font-bold my-4">Amani</div>
       ) : (
         <CategoryBanner />
