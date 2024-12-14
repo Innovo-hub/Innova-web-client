@@ -22,9 +22,14 @@ function Home() {
   const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
-  const role = "Businesswner";
-  console.log("From Home" + profile);
+  console.log(profile);
 
+  let role = "Customer";
+  if (token) {
+    role = profile?.userRoleName;
+  } else {
+    role = "Customer";
+  }
   useEffect(() => {
     dispatch(getUserProfile({ token }));
   }, [dispatch, token]);
@@ -33,15 +38,11 @@ function Home() {
       <Navbar currentTab={"Home"} />
       <HomeBanner />
       {/* First Section  */}
-<<<<<<< HEAD
-      {/* {profile.userRoleName == "BusinessOwner" ? (
-=======
       {role == "BusinessOwner" ? (
->>>>>>> 7da799f3d0112d44a812495ea94ea43e89da0aed
         <div className="text-center text-2xl font-bold my-4">Amani</div>
       ) : (
         <CategoryBanner />
-      )} */}
+      )}
       {/* Category Section  */}
       <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">
         {Categorycard.map((cat, index) => {
