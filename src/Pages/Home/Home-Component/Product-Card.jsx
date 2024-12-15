@@ -39,7 +39,7 @@ function ProductCard({ imageSrc, productName, PriceAfterDiscount, Price, Author,
         <div className="flex justify-between items-center mt-4">
          <div className="flex space-x-4">
          <button onClick={toggleLoved}>
-            {isLoved ? <FavoriteIcon className="text-red-500" /> : <FavoriteBorderIcon />}
+            {isLoved ? <FavoriteIcon className="text-red-500" /> : <FavoriteBorderIcon className="hover:text-red-500"/>}
           </button>
           <ShoppingCartOutlinedIcon />
          </div>

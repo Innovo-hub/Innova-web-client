@@ -1,5 +1,5 @@
 import Navbar from "../../Components/Navbar";
-import HomeBanner from "./Home-Component/Home-Banner";
+import HomeBanner from "../../Components/Home-Banner";
 import products from "./Home-data/Products";
 import Secondproducts from "./Home-data/Carpts-products";
 import thirdproducts from "./Home-data/Necklace-Products";

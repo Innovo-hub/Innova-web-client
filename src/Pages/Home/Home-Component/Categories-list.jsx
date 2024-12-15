@@ -34,7 +34,7 @@ function Categorieslist() {
         <div className="lg:flex lg:flex-col grid grid-cols-4 gap-2  px-8 lg:space-y-1 my-2">
             {categories.map((cat,index)=>{
                  return(  
-                 <Link key={index} className="hover:text-main-color duration-200 transition-all">
+                 <Link to={`/category/${cat.name}`} key={index} className="hover:text-main-color duration-200 transition-all">
                     {cat.name}
                  </Link>
                 )
