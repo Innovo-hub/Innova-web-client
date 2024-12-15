@@ -60,7 +60,7 @@ const loginSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log("From reducrer "+JSON.stringify(action.payload));
+        // console.log("From reducrer "+JSON.stringify(action.payload));
         
         state.loading = false;
         state.token = action.payload.token; // Update state with the token

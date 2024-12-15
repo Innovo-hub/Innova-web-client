@@ -25,7 +25,13 @@
     box-shadow: rgba(0, 0, 0, 0.119) 0px 25px 50px -12px;
     border-radius: 20px;
   }
+  .bg-login{
+    background-image: url(/src\assets\AuthAssets\login.png);
+    background-size: cover;
+    width: 100%;
+  }
 }
+
 body {
   font-family: "Cairo", sans-serif;
   scroll-behavior: smooth;
