@@ -18,7 +18,10 @@ import CopyRights from "../../Components/Copy-Rights";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../redux/Slices/User-Slice/UserProfile";
 import { useEffect } from "react";
-import BussinessBanner from "./Home-Component/Bussiness-Banner";{/*refactoter */}
+import BussinessBanner from "./Home-Component/Bussiness-Banner";
+{
+  /*refactoter */
+}
 function Home() {
   const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
@@ -38,14 +41,10 @@ function Home() {
     <>
       <Navbar currentTab={"Home"} />
       <HomeBanner />
-      
-     {/*top part of me^^^(Business owner page) */}
-{role == "BusinessOwner" ? (
-   <BussinessBanner/>
-) : (
-  <CategoryBanner />
-)}    
- {/*end section 4cards at top*/}
+
+      {/*top part of me^^^(Business owner page) */}
+      {role == "BusinessOwner" ? <BussinessBanner /> : <CategoryBanner />}
+      {/*end section 4cards at top*/}
 
       {/* Category Section  */}
       <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">

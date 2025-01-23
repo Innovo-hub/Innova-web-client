@@ -7,7 +7,6 @@ export const RegisterUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       // console.log(userData);
-
       const response = await axios.post(
         `${APILINK}/api/Account/register`,
         userData
