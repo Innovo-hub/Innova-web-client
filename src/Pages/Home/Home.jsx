@@ -26,10 +26,18 @@ function Home() {
   const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+<<<<<<< HEAD
   let role = "BusinessOwner";
   // if (token) {
   //   role = profile?.userRoleName;
   //   console.log("Role ", role);
+=======
+  console.log(profile);
+
+  let role = "BusinessOwner";
+   // if (token) {
+  //   role = profile?.userRoleName;
+>>>>>>> 1798ec3b85d2d57f98f9edc05b5a6a6fe002a62d
   // } else {
   //   role = "Customer";
   // }
