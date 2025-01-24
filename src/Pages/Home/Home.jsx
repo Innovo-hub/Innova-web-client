@@ -28,12 +28,12 @@ function Home() {
   const dispatch = useDispatch();
   console.log(profile);
 
-  let role = "Customer";
-  if (token) {
-    role = profile?.userRoleName;
-  } else {
-    role = "Customer";
-  }
+  let role = "BusinessOwner";
+   // if (token) {
+  //   role = profile?.userRoleName;
+  // } else {
+  //   role = "Customer";
+  // }
   useEffect(() => {
     dispatch(getUserProfile({ token }));
   }, [dispatch, token]);
