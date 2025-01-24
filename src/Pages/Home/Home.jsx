@@ -26,14 +26,13 @@ function Home() {
   const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
-  console.log(profile);
-
-  let role = "Customer";
-  if (token) {
-    role = profile?.userRoleName;
-  } else {
-    role = "Customer";
-  }
+  let role = "BusinessOwner";
+  // if (token) {
+  //   role = profile?.userRoleName;
+  //   console.log("Role ", role);
+  // } else {
+  //   role = "Customer";
+  // }
   useEffect(() => {
     dispatch(getUserProfile({ token }));
   }, [dispatch, token]);

@@ -13,7 +13,6 @@ function RolesDropdown({ roleId = "", onChange }) {
   const getAllRoles = async () => {
     try {
       const response = await axios.get(`${APILINK}/api/Account/roles`);
-      console.log(response);
       setRoles(response.data.$values);
     } catch (err) {
       console.error("Failed to fetch roles:", err);
