@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import APILINK from "../../../../Constants";
+import { getUserProfile } from '../User-Slice/UserProfile'; // Import the getUserProfile thunk
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (formData, { rejectWithValue }) => {
+  async (formData, { dispatch, rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${APILINK}/api/Account/login`,
@@ -15,13 +16,18 @@ export const loginUser = createAsyncThunk(
           },
         }
       );
-      const { token } = response.data;
+      const { Token } = response.data;
 
-      // Save tokens in localStorage
-      localStorage.setItem("accessToken", token);
+      // Save token in localStorage
+      localStorage.setItem("accessToken", Token);
 
-      // Return the token to be used as the action's payload
-      return { token };
+      // Fetch the user's profile after successful login
+      const profileResponse = await dispatch(
+        getUserProfile({ token: Token })
+      ).unwrap();
+
+      // Return the token and profile data to be used as the action's payload
+      return { Token, profile: profileResponse };
     } catch (err) {
       return rejectWithValue(
         err.response?.data || { message: "An error occurred" }
@@ -36,6 +42,7 @@ export const logoutUser = createAsyncThunk(
       // Clear tokens from localStorage
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      window.location.reload(false); // Reload the page to reset the state
       return "Logout successful";
     } catch (error) {
       console.error("Logout Error:", error);
@@ -50,7 +57,7 @@ const loginSlice = createSlice({
     token: localStorage.getItem("accessToken") || null,
     error: null,
     isAuthenticated: !!localStorage.getItem("accessToken"),
-    roleName : null 
+    profile: null, // Add profile to the initial state
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -60,11 +67,9 @@ const loginSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        // console.log("From reducrer "+JSON.stringify(action.payload));
-        
         state.loading = false;
-        state.token = action.payload.token; // Update state with the token
-        state.roleName = action.payload.roleName;
+        state.token = action.payload.Token; // Update state with the token
+        state.profile = action.payload.profile; // Store the profile data
         state.isAuthenticated = true; // Mark user as authenticated
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -74,6 +79,7 @@ const loginSlice = createSlice({
       // Logout User
       .addCase(logoutUser.fulfilled, (state) => {
         state.token = null;
+        state.profile = null; // Clear profile data on logout
         state.isAuthenticated = false; // Mark user as not authenticated
         state.loading = false;
         state.error = null;
@@ -84,4 +90,5 @@ const loginSlice = createSlice({
       });
   },
 });
+
 export default loginSlice.reducer;

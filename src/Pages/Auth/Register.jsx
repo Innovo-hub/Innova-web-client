@@ -57,19 +57,9 @@ function Register() {
       });
       return;
     }
-
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await dispatch(RegisterUser(formData)).unwrap(); // Use unwrap() to get the payload or error.
-
-      Swal.fire({
-        icon: "success",
-        title: "User Registered Successfully",
-        text: "Redirecting to activation page...",
-        timer: 3000,
-        showConfirmButton: false,
-      });
-
       navigate("/auth/login");
     } catch (err) {
       Swal.fire({

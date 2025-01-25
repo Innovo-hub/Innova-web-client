@@ -73,11 +73,11 @@ export default function Navbar({ currentTab }) {
         {/* Mobile View - Logo Only */}
         <div className="relative flex h-16 items-center justify-between sm:hidden">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <Link to={"/"} className="flex-shrink-0">
             <h2 className="text-2xl font-bold">
               <span className="text-main-color">I</span>nnova
             </h2>
-          </div>
+          </Link>
 
           {/* Mobile menu button */}
           <div className="absolute inset-y-0 right-0 flex items-center">
@@ -91,7 +91,10 @@ export default function Navbar({ currentTab }) {
 
         {/* Centered Navigation Links (for desktop) */}
         <div className="hidden sm:block">
-          <div className="relative flex h-16 items-center justify-between">
+          <Link
+            to={"/"}
+            className="relative flex h-16 items-center justify-between"
+          >
             {/* Centered Navigation Links */}
             <h2 className="text-2xl font-bold">
               <span className="text-main-color">I</span>nnova
@@ -157,9 +160,7 @@ export default function Navbar({ currentTab }) {
                       {" "}
                       <Link to={"/user-profile"}>View Profile </Link>
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>
-                      <button onClick={handleLogout}>Logout</button>
-                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
                 </div>
               </div>
@@ -193,7 +194,7 @@ export default function Navbar({ currentTab }) {
                 </Link>
               </div>
             )}
-          </div>
+          </Link>
         </div>
       </div>
 

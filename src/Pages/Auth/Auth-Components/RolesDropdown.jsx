@@ -9,11 +9,12 @@ import APILINK from "../../../../Constants";
 
 function RolesDropdown({ roleId = "", onChange }) {
   const [roles, setRoles] = useState([]);
-
+  console.log("Roles from roles",roles);
+  
   const getAllRoles = async () => {
     try {
       const response = await axios.get(`${APILINK}/api/Account/roles`);
-      setRoles(response.data.$values);
+      setRoles(response.data);
     } catch (err) {
       console.error("Failed to fetch roles:", err);
     }
@@ -36,8 +37,8 @@ function RolesDropdown({ roleId = "", onChange }) {
         }}
       >
         {roles.map((role) => (
-          <MenuItem key={role.id} value={role.id}>
-            {role.name}
+          <MenuItem key={role.Id} value={role.Id}>
+            {role.Name}
           </MenuItem>
         ))}
       </Select>
