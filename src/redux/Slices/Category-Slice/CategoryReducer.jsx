@@ -18,8 +18,12 @@ export const getPopularCategories = createAsyncThunk(
 export const getAllCategories = createAsyncThunk(
   "/getallcategories",
   async (_, { rejectwithvalue }) => {
-    const response = await axios(`${APILINK}/api/Category/getAllCategories`);
-    return response.data;
+    try {
+      const response = await axios.get(`${APILINK}/api/Category/getAllCategories`);
+      return response.data;
+    } catch (err) {
+      rejectwithvalue(err);
+    }
   }
 );
 const categoriesSlice = createSlice({

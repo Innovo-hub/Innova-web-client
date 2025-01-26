@@ -9,8 +9,6 @@ import APILINK from "../../../../Constants";
 
 function RolesDropdown({ roleId = "", onChange }) {
   const [roles, setRoles] = useState([]);
-  console.log("Roles from roles",roles);
-  
   const getAllRoles = async () => {
     try {
       const response = await axios.get(`${APILINK}/api/Account/roles`);

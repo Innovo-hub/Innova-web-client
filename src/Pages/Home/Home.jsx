@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularCategories } from "../../redux/Slices/Category-Slice/CategoryReducer";
+import { getProductByCategory } from "../../redux/Slices/Product-Slice/ProductCategoryReducer"; // Import the thunk
 import Navbar from "../../Components/Navbar";
 import HomeBanner from "../../Components/Home-Banner";
 import BussinessBanner from "./Home-Component/Bussiness-Banner";
@@ -12,21 +13,27 @@ import CopyRights from "../../Components/Copy-Rights";
 import Loading from "../../Components/Shared/Loading/Loading";
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import products from "./Home-data/Products";
-import Secondproducts from "./Home-data/Carpts-products";
-import thirdproducts from "./Home-data/Necklace-Products";
+import products from "./Home-data/Products"; // Keep the static data for Best Selling Products
 import explore1 from "../../assets/Products/prod4.png";
 import explore2 from "../../assets/Products/image-12.png";
 import explore3 from "../../assets/Products/image-13.png";
 import explore4 from "../../assets/Products/explore4.png";
 
 function Home() {
-  const { token, profile, loading: loginLoading, isAuthenticated } = useSelector((state) => state.login);
+  const {
+    token,
+    profile,
+    loading: loginLoading,
+    isAuthenticated,
+  } = useSelector((state) => state.login);
   const {
     popularcategory,
     error: catError,
     loading: catLoading,
   } = useSelector((state) => state.category);
+  const { productsByCategory, loading: productCategoryLoading } = useSelector(
+    (state) => state.product
+  );
   const dispatch = useDispatch();
 
   // Fetch categories on component mount or token change
@@ -34,10 +41,28 @@ function Home() {
     dispatch(getPopularCategories());
   }, [dispatch, token]);
 
-  // Show loading spinner while login or categories are being fetched
+  // Fetch products for Handcrafted Carpets (categoryId = 1)
+  useEffect(() => {
+    if (token) {
+      dispatch(getProductByCategory({ categoryId: 1 })); // Fetch products for categoryId = 1
+    }
+  }, [dispatch, token]);
+
+  // Fetch products for Shop Necklaces (categoryId = 15)
+  useEffect(() => {
+    if (token) {
+      dispatch(getProductByCategory({ categoryId: 15 })); // Fetch products for categoryId = 15
+    }
+  }, [dispatch, token]);
+
   // Determine the user's role
   const role = profile?.RoleName || "Customer";
-console.log(role);
+
+  // Get products for Handcrafted Carpets (categoryId = 1) and Shop Necklaces (categoryId = 15)
+  const handcraftedCarpets =
+    productsByCategory[1]?.AllProductsOnspecificCategories || [];
+  const shopNecklaces =
+    productsByCategory[15]?.AllProductsOnspecificCategories || [];
 
   return (
     <>
@@ -59,7 +84,7 @@ console.log(role);
         ))}
       </div>
 
-      {/* Best Selling Products Section */}
+      {/* Best Selling Products Section (Keep as it is) */}
       <div className="my-8 lg:px-24 px-8">
         <h2 className="text-2xl font-semibold my-2">Best Selling products</h2>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-4">
@@ -79,7 +104,7 @@ console.log(role);
         </div>
       </div>
 
-      {/* Hand Crafts Carpets Section */}
+      {/* Handcrafted Carpets Section (categoryId = 1) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Handcrafted Carpets</h2>
@@ -88,21 +113,26 @@ console.log(role);
           </Link>
         </div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-2">
-          {Secondproducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              imageSrc={product.imageSrc}
-              productName={product.productName}
-              PriceAfterDiscount={product.PriceAfterDiscount}
-              Price={product.Price}
-              Author={product.Author}
-              inStock={product.inStock}
-            />
-          ))}
+          {productCategoryLoading ? (
+            <div className="flex justify-center items-center my-4">
+              <Loading />
+            </div>
+          ) : (
+            handcraftedCarpets.map((product, index) => (
+              <ProductCard
+                key={index}
+                imageSrc={product.HomePicture}
+                productName={product.ProductName}
+                Price={product.ProductPrice}
+                Author={product.AuthorName}
+                inStock={product.IsAvailable}
+              />
+            ))
+          )}
         </div>
       </div>
 
-      {/* Shop Necklaces Section */}
+      {/* Shop Necklaces Section (categoryId = 15) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Shop Necklaces</h2>
@@ -111,17 +141,20 @@ console.log(role);
           </Link>
         </div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-2">
-          {thirdproducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              imageSrc={product.imageSrc}
-              productName={product.productName}
-              PriceAfterDiscount={product.PriceAfterDiscount}
-              Price={product.Price}
-              Author={product.Author}
-              inStock={product.inStock}
-            />
-          ))}
+          {productCategoryLoading ? (
+            <div className="flex justify-center items-center my-2"></div>
+          ) : (
+            shopNecklaces.map((product, index) => (
+              <ProductCard
+                key={index}
+                imageSrc={product.HomePicture}
+                productName={product.ProductName}
+                Price={product.ProductPrice}
+                Author={product.AuthorName}
+                inStock={product.IsAvailable}
+              />
+            ))
+          )}
         </div>
       </div>
 
