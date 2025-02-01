@@ -1,0 +1,106 @@
+import React from "react";
+import Navbar from "../../Components/Navbar";
+import Footer from "../../Components/Footer";
+import HomeBanner from "../../Components/Home-Banner";
+import InvestorBaaner  from "./Deals-Component/Investor-Banner";
+import CopyRights from "../../Components/Copy-Rights";
+import DealCard from "../../Components/DealCard";
+import profile1 from "../../assets/Deals/profile1.png";
+import profile2 from "../../assets/Deals/profile2.png";
+import profile3 from "../../assets/Deals/profile3.png";
+import image1 from "../../assets/Deals/image1.png";
+import image2 from "../../assets/Deals/image2.png";
+import image3 from "../../assets/Deals/image3.png";
+import image4 from "../../assets/Deals/image4.png";
+import image5 from "../../assets/Deals/image5.png";
+import image6 from "../../assets/Deals/image6.png";
+import image7 from "../../assets/Deals/image7.png";
+import image8 from "../../assets/Deals/image8.png";
+import image9 from "../../assets/Deals/image9.png";
+
+// Static data that will remove after get Api link^^
+const dealsData = [
+  {
+    ownerImage: profile1,
+    ownerName: "Mohamed Ali",
+    ownerId: "2333669591",
+    businessName: "Aqua-Candels",
+    category: "Home accessories",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    offerMoney: "10,000 EGP",
+    offerDeal: "20% of total project",
+    productImages: [image1, image2, image3],
+  },
+  {
+    ownerImage: profile2,
+    ownerName: "Ahmed Amr",
+    ownerId: "2678669591",
+    businessName: "Handmade Crafts",
+    category: "Handicrafts",
+    description: "Unique handmade crafts designed with care and creativity.",
+    offerMoney: "15,000 EGP",
+    offerDeal: "30% of total project",
+    productImages: [image4, image5, image6],
+  },
+  {
+    ownerImage: profile3,
+    ownerName: "Asmaa Ragab",
+    ownerId: "2333669591",
+    businessName: "Caty-life",
+    category: "Pet Accessories",
+    description: "Luxury pet accessories for your lovely cats and dogs.",
+    offerMoney: "60,000 EGP",
+    offerDeal: "45% of total project",
+    productImages: [image7, image8, image9],
+  },
+];
+
+function InvestorDeals() {
+  {/*
+    //to store data from Api in useState[]
+  const [dealsData, setDealsData] = useState([]);
+
+    //get data from api
+     useEffect(() => {
+     fetch("https://api.example.com/deals") // will put api that related ro this page
+      .then((response) => response.json()) // confovert form of data to json ,as react can deal with response 
+      .then((data) => setDealsData(data)) // after data arrive, reponse to appear data on website
+      .catch((error) => console.error("Error fetching deals:", error));//error handling
+     }, []);
+     */
+   }
+  return (
+    <div>
+      <Navbar />
+      <HomeBanner />
+      <InvestorBaaner />
+
+      {/* continure of 3 card |_|*/}
+      <div className="bg-gray-100 p-6 rounded-lg mx-auto max-w-[1600px] min-h-screen flex flex-col items-start mt-6 mb-10 px-10">
+ 
+        
+        {/* text of continure */}
+        <h1 className="text-2xl font-semibold text-left mb-4">
+          Recent Published Deals
+        </h1>
+
+        {/*   3cards on continure and, map to appear 3*/}
+        <div className="w-full">
+          {dealsData.map((deal, index) => (
+            <div key={index} className="mb-8">
+              <DealCard deal={deal} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* add margin between cards*/}
+      <div className="mb-20"></div>
+
+      <Footer />
+      <CopyRights />
+    </div>
+  );
+}
+
+export default InvestorDeals;

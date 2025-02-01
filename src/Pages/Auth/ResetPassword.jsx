@@ -32,7 +32,7 @@ function ResetPassword() {
               </p>
             </div>
 
-            {/* Updata password in this form that send DB*/}
+            {/* Updata password in this form that send DB^^*/}
             <form className="space-y-6" onSubmit={handleResetPassword}>
               {/* FirstLabel*/}
               <Input LabelText="Update Password" type="password" />
