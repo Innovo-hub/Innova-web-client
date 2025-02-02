@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import HomeBanner from "../../Components/Home-Banner";
-import InvestorBaaner  from "./Deals-Component/Investor-Banner";
+import InvestorBaaner from "./Deals-Component/Investor-Banner";
 import CopyRights from "../../Components/Copy-Rights";
 import DealCard from "../../Components/DealCard";
 import profile1 from "../../assets/Deals/profile1.png";
@@ -56,7 +56,8 @@ const dealsData = [
 ];
 
 function InvestorDeals() {
-  {/*
+  {
+    /*
     //to store data from Api in useState[]
   const [dealsData, setDealsData] = useState([]);
 
@@ -68,35 +69,32 @@ function InvestorDeals() {
       .catch((error) => console.error("Error fetching deals:", error));//error handling
      }, []);
      */
-   }
+  }
   return (
     <div>
       <Navbar />
       <HomeBanner />
       <InvestorBaaner />
 
-      {/* continure of 3 card |_|*/}
-      <div className="bg-gray-100 p-6 rounded-lg mx-auto max-w-[1600px] min-h-screen flex flex-col items-start mt-6 mb-10 px-10">
- 
-        
-        {/* text of continure */}
-        <h1 className="text-2xl font-semibold text-left mb-4">
-          Recent Published Deals
-        </h1>
-
-        {/*   3cards on continure and, map to appear 3*/}
-        <div className="w-full">
-          {dealsData.map((deal, index) => (
-            <div key={index} className="mb-8">
-              <DealCard deal={deal} />
-            </div>
-          ))}
+      {/* container of 3 card |_|*/}
+      <div className="container">
+        <div className="bg-gray-100 p-6 rounded-lg mx-auto max-w-[1600px] min-h-screen flex flex-col items-start mt-6 mb-10 px-10">
+          {/* text of container */}
+          <h1 className="text-2xl font-semibold text-left mb-4">
+            Recent Published Deals
+          </h1>
+          {/*   3cards on container and, map to appear 3*/}
+          <div className="w-full">
+            {dealsData.map((deal, index) => (
+              <div key={index} className="mb-8">
+                <DealCard deal={deal} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
       {/* add margin between cards*/}
       <div className="mb-20"></div>
-
       <Footer />
       <CopyRights />
     </div>

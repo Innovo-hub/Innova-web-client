@@ -3,7 +3,8 @@ import React from 'react';
 //this component for reuse cards again
 const DealCard = ({ deal }) => {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200">{/*this is classname for card(feature wanted in it)*/}
+    <div className="container">
+      <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200">{/*this is classname for card(feature wanted in it)*/}
       <div className="flex flex-col lg:flex-row gap-4">{/*divided card and component*/}
         {/* Left side content(profile,description)*/}
         <div className="flex-1">
@@ -13,7 +14,7 @@ const DealCard = ({ deal }) => {
               <img
                 src={deal.ownerImage}
                 alt={deal.ownerName}
-                className="w-full h-full rounded-full object-cover"
+                className="w-full h-full rounded-lg"
               />
             </div>
             <div>
@@ -42,7 +43,7 @@ const DealCard = ({ deal }) => {
           {/* Description */}
           <div className="mb-4">
             <p className="font-bold text-[#126090] text-lg mb-2">Description</p>
-            <p className="text-base text-gray-600">
+            <p className="text-base text-gray-600 w-[80%]">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
@@ -117,6 +118,7 @@ const DealCard = ({ deal }) => {
           <p className="text-xs text-gray-500 text-right mt-2">5:45 AM 20-1-2025</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };
