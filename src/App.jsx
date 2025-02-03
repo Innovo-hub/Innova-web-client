@@ -8,6 +8,7 @@ import Home from "./Pages/Home/Home";
 import UserProfile from "./Pages/Profile/UserProfile";
 import Category from "./Pages/CategorySearch/Category";
 import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";  
+import OwnerDeals from "./Pages/DealsOwner/OwnerDeals";
 function App() {
   return (
     <Routes>
@@ -20,7 +21,8 @@ function App() {
       <Route path="/auth/forget-password" element={<ForgetPassword />} />
       <Route path="/auth/reset-password" element={<ResetPassword />} />
       <Route path="/user-profile" element={<UserProfile />} />
-      <Route path="/investor/deals" element={<InvestorDeals />} />   
+      <Route path="/investor/deals" element={<InvestorDeals />} /> 
+      <Route path="/owner/deals" element={<OwnerDeals />} /> 
 
     </Routes>
   );
