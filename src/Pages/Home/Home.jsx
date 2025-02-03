@@ -77,7 +77,7 @@ function Home() {
         {popularcategory.map((cat, index) => (
           <CategoryCard
             ImageSrc={cat.ImageUrl}
-            categoryId={cat.categoryId}
+            categoryId={cat.Id}
             key={index}
             CategoryName={cat.Name}
           />

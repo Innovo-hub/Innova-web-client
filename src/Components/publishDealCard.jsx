@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import profile1 from "../assets/Deals/profile1.png";
 import { FaTimes, FaUpload, FaCheckCircle } from "react-icons/fa";
 
