@@ -5,11 +5,15 @@ import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import Home from "./Pages/Home/Home";
-import UserProfile from "./Pages/Profile/UserProfile";
+//import UserProfile from "./Pages/Profile/UserProfile";//Mahmoued^^
 import Category from "./Pages/CategorySearch/Category";
 import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";  
 import OwnerDeals from "./Pages/DealsOwner/OwnerDeals";
-function App() {
+import BusinessProfile from "./Pages/Profiles/BusinessProfile"; 
+import InvestorProfile from "./Pages/Profiles/InvestorProfile"; 
+import NormalUserProfile from "./Pages/Profiles/NormalUserProfile"; 
+
+ function App() {
   return (
     <Routes>
       {/* Main Routes */}
@@ -20,9 +24,14 @@ function App() {
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/forget-password" element={<ForgetPassword />} />
       <Route path="/auth/reset-password" element={<ResetPassword />} />
-      <Route path="/user-profile" element={<UserProfile />} />
+     {/*<Route path="/user-profile" element={<UserProfile />} /> */}
       <Route path="/investor/deals" element={<InvestorDeals />} /> 
-      <Route path="/owner/deals" element={<OwnerDeals />} /> 
+      <Route path="/owner/deals" element={<OwnerDeals />} />
+      <Route path="/business-profile" element={<BusinessProfile />} />
+      <Route path="/investor-profile" element={<InvestorProfile />} />
+      <Route path="/normal-user-profile" element={<NormalUserProfile />} />
+ 
+ 
 
     </Routes>
   );

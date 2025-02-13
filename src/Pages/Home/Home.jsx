@@ -19,6 +19,9 @@ import explore2 from "../../assets/Products/image-12.png";
 import explore3 from "../../assets/Products/image-13.png";
 import explore4 from "../../assets/Products/explore4.png";
 
+import InvestorBanner from "./Home-Component/InvestorBanner";
+
+
 function Home() {
   const {
     token,
@@ -70,8 +73,13 @@ function Home() {
       <HomeBanner />
 
       {/* Conditionally render the banner based on the role */}
-      {role === "BusinessOwner" ? <BussinessBanner /> : <CategoryBanner />}
-
+      {role === "BusinessOwner" ? (
+  <BussinessBanner />
+) : role === "Investor" ? (
+  <InvestorBanner />
+) : (
+  <CategoryBanner />
+)}
       {/* Category Section */}
       <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">
         {popularcategory.map((cat, index) => (
