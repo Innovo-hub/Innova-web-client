@@ -1,14 +1,13 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { Link } from 'react-router-dom';
-import user from '../../../assets/Products/user.png';
-import Dashboard from '../../../assets/Products/Dashboard.png';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { Link } from "react-router-dom";
+import profile2 from "../../../assets/Products/profile2.png";
+import Dashboard from "../../../assets/Products/Dashboard.png";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 function InvestorBanner() {
   return (
-    
     <div className="relative w-full my-8 px-4 lg:px-16">
       {/* Header Section */}
       <div className="rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
@@ -17,10 +16,14 @@ function InvestorBanner() {
           <div className="flex items-center gap-4">
             {/* User Name and Details */}
             <div className="flex space-x-2 justify-center items-center">
-              <div><img src={user} width={60} alt="User" /></div>
-              <div className='flex flex-col justify-start items-start'>
+              <div>
+                <img src={user} width={60} alt="User" />
+              </div>
+              <div className="flex flex-col justify-start items-start">
                 <h1 className="text-lg font-bold">Nader_Hani</h1>
-                <p className="text-sm text-blue-600"><CheckCircleIcon fontSize='small' /> Verified</p>
+                <p className="text-sm text-blue-600">
+                  <CheckCircleIcon fontSize="small" /> Verified
+                </p>
               </div>
             </div>
             {/* Divider */}
@@ -38,7 +41,8 @@ function InvestorBanner() {
             <PersonOutlineOutlinedIcon /> Profile
           </Link>
           <button className="flex items-center justify-center text-gray-600">
-            <SettingsOutlinedIcon />Settings
+            <SettingsOutlinedIcon />
+            Settings
           </button>
         </div>
       </div>
@@ -49,107 +53,78 @@ function InvestorBanner() {
         <div className="bg-[#C4C4C4] p-6 rounded-lg flex justify-between items-start">
           <div className="flex flex-col w-full md:w-3/4">
             <p className="text-black text-base mb-2">Estimated Balance</p>
-            <h2 className="text-xl font-bold" style={{ color: "#2C1DB3" }}>152,326.33 EGP</h2>
+            <h2 className="text-xl font-bold" style={{ color: "#2C1DB3" }}>
+              152,326.33 EGP
+            </h2>
             <p className="text-black text-sm mt-2">≈ $3,025.20</p>
           </div>
           <div className="flex flex-col gap-4 mt-4 md:mt-0 md:ml-8 justify-end">
-            <button className="text-white px-6 py-2 rounded-lg" style={{ backgroundColor: "#0056B3" }}>Withdraw</button>
-            <button className="text-white px-6 py-2 rounded-lg" style={{ backgroundColor: "#0056B3" }}>Deposit</button>
+            <button
+              className="text-white px-6 py-2 rounded-lg"
+              style={{ backgroundColor: "#0056B3" }}
+            >
+              Withdraw
+            </button>
+            <button
+              className="text-white px-6 py-2 rounded-lg"
+              style={{ backgroundColor: "#0056B3" }}
+            >
+              Deposit
+            </button>
           </div>
         </div>
 
         {/* Dashboard Link */}
         <div className="bg-[#C4C4C4] p-6 rounded-lg flex flex-col items-center justify-center">
           <div className="flex items-center justify-center rounded-full">
-            <img src={Dashboard} alt="Dashboard" className='h-16 w-16' />
+            <img src={Dashboard} alt="Dashboard" className="h-16 w-16" />
           </div>
           <Link to="/dashboard" className="mt-2 text-black">
             <span style={{ color: "#126090" }}>Go</span> To Dashboard {">"}
-          </Link>                  
+          </Link>
         </div>
-      </div>  
+      </div>
       {/* Latest Product Overview(table) */}
       <h3 className="text-2xl my-4">Current Investment Projects</h3>
-      <div className="bg-[#C4C4C4] p-4 rounded-lg w-full overflow-x-auto">
-       <table>
-  <thead>
-    <tr>
-      <th>Product Name</th>
-      <th>Total Earnings</th>
-      <th>%</th>
-      <th>Deal Value</th>
-      <th>Owner Name</th>
-    </tr>
-  </thead>
-  <tbody>
-
-  <tr>
-    <td>Pop one Store</td>
-    <td>152,236.33 EGP</td>
-    <td className="text-green-600 text-lg text-center">+16.65%</td>
-    <td className="text-center">10% of total Earnings</td>
-    <td className="text-center flex items-center justify-center gap-1">
-      Mohamed Ali <MailOutlineIcon fontSize="small" />
-    </td>
-  </tr>
-   
-  <tr>
-    <td>Sun-Alpha</td>
-    <td>150,6569 EGP</td>
-    <td className="text-green-600 text-lg text-center">+10.35%</td>
-    <td className="text-center">35% of total Earnings</td>
-    <td className="text-center flex items-center justify-center gap-1">
-      Ahmed Amer <MailOutlineIcon fontSize="small" />
-    </td>
-  </tr>
-
-  <tr>
-    <td>Flower_Life</td>
-    <td>45,6658.3 EGP</td>
-    <td className="text-green-600 text-lg text-center">+3.92%</td>
-    <td className="text-center">25% of total Earnings</td>
-    <td className="text-center flex items-center justify-center gap-1">
-    Asmaa Ragab <MailOutlineIcon fontSize="small" />
-    </td>
-  </tr>
-
-  <tr>
-    <td>Tech_Pro</td>
-    <td>66,366.32 EGP</td>
-    <td className="text-red-600 text-lg text-center">-2.66%</td>
-    <td className="text-center">32% of total Earnings</td>
-    <td className="text-center flex items-center justify-center gap-1">
-      Mohamed Ali <MailOutlineIcon fontSize="small" />
-    </td>
-  </tr>
-
-  <tr>
-    <td>ECHO_boy</td>
-    <td>10,560.32 EGP</td>
-    <td className="text-green-600 text-lg text-center">+0.68%</td>
-    <td className="text-center">10% of total Earnings</td>
-    <td className="text-center flex items-center justify-center gap-1">
-    Mahmoud Said <MailOutlineIcon fontSize="small" />
-    </td>
-  </tr>
-
-  <tr>
-    <td>Seen_card</td>
-    <td>75,365.65 EGP</td>
-    <td className="text-red-600 text-lg text-center">-6.65%</td>
-    <td className="text-center">40% of total Earnings</td>
-    <td className="text-center flex items-center justify-center gap-1">
-    Adel Shakal <MailOutlineIcon fontSize="small" />
-    </td>
-  </tr>
-
-  </tbody>
-</table>
-
+      <div className="bg-[#f0f0f3] p-4  rounded-lg w-full   overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead className="border-b border-gray-300">
+            <tr>
+              <th className="p-2 text-left text-[#126090] text-base">
+                Product Name
+              </th>
+              <th className="p-2 text-left text-[#126090] text-base">
+                Total Earnings
+              </th>
+              <th className="p-2 align-middle text-[#126090] text-base">%</th>
+              <th className="p-2 text-center text-[#126090] text-base">
+                Deal Value
+              </th>
+              <th className="p-2 text-center text-[#126090] text-base">
+                Owner Name
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       {/* Ends */}
-      <h3 className="text-2xl mb-4 text-center mt-8">Feel Free To Discover our platform Products and Deals Projects! </h3>
+      <h3 className="text-2xl mb-4 text-center mt-8">
+        Feel Free To Discover our platform Products and Deals Projects!{" "}
+      </h3>
     </div>
   );
 }
