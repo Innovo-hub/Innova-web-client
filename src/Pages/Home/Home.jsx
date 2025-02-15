@@ -95,7 +95,7 @@ function Home() {
       {/* Best Selling Products Section (Keep as it is) */}
       <div className="my-8 lg:px-24 px-8">
         <h2 className="text-2xl font-semibold my-2">Best Selling products</h2>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-4">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-4">
           {products.map((product) => (
             <ProductCard
               key={product.id}
