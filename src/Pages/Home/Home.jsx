@@ -21,7 +21,6 @@ import explore4 from "../../assets/Products/explore4.png";
 
 import InvestorBanner from "./Home-Component/InvestorBanner";
 
-
 function Home() {
   const {
     token,
@@ -47,14 +46,14 @@ function Home() {
   // Fetch products for Handcrafted Carpets (categoryId = 1)
   useEffect(() => {
     if (token) {
-      dispatch(getProductByCategory({ categoryId: 1 })); // Fetch products for categoryId = 1
+      dispatch(getProductByCategory({ categoryId: 13 })); // Fetch products for categoryId = 1
     }
   }, [dispatch, token]);
 
   // Fetch products for Shop Necklaces (categoryId = 15)
   useEffect(() => {
     if (token) {
-      dispatch(getProductByCategory({ categoryId: 15 })); // Fetch products for categoryId = 15
+      dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 15
     }
   }, [dispatch, token]);
 
@@ -63,9 +62,9 @@ function Home() {
 
   // Get products for Handcrafted Carpets (categoryId = 1) and Shop Necklaces (categoryId = 15)
   const handcraftedCarpets =
-    productsByCategory[1]?.AllProductsOnspecificCategories || [];
+    productsByCategory[13]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
-    productsByCategory[15]?.AllProductsOnspecificCategories || [];
+    productsByCategory[9]?.AllProductsOnspecificCategories || [];
 
   return (
     <>
@@ -74,12 +73,12 @@ function Home() {
 
       {/* Conditionally render the banner based on the role */}
       {role === "BusinessOwner" ? (
-  <BussinessBanner />
-) : role === "Investor" ? (
-  <InvestorBanner />
-) : (
-  <CategoryBanner />
-)}
+        <BussinessBanner />
+      ) : role === "Investor" ? (
+        <InvestorBanner />
+      ) : (
+        <CategoryBanner />
+      )}
       {/* Category Section */}
       <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">
         {popularcategory.map((cat, index) => (
@@ -112,7 +111,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Handcrafted Carpets Section (categoryId = 1) */}
+      {/* Handcrafted Carpets Section (categoryId = 13) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Handcrafted Carpets</h2>
@@ -120,7 +119,7 @@ function Home() {
             Show All <NavigateNextIcon />
           </Link>
         </div>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
           {productCategoryLoading ? (
             <div className="flex justify-center items-center my-4">
               <Loading />
@@ -140,7 +139,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Shop Necklaces Section (categoryId = 15) */}
+      {/* Shop Necklaces Section (categoryId = 9) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Shop Necklaces</h2>
@@ -148,7 +147,7 @@ function Home() {
             Show All <NavigateNextIcon />
           </Link>
         </div>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
           {productCategoryLoading ? (
             <div className="flex justify-center items-center my-2"></div>
           ) : (
@@ -173,7 +172,7 @@ function Home() {
           <div className="col-span-1 h-[80%]">
             <img
               src={explore1}
-              className="lg:flex w-full hidden rounded-lg h-full"
+              className="lg:flex w-full hidden rounded-lg h-[95%]"
               alt="Explore 1"
             />
           </div>
@@ -191,7 +190,7 @@ function Home() {
               />
             </div>
           </div>
-          <div className="relative col-span-1 group h-[80%]">
+          <div className="relative col-span-1 group h-[74%]">
             <img
               src={explore4}
               className="flex w-full h-full"

@@ -128,13 +128,13 @@ export default function Navbar({ currentTab }) {
               <div className="flex items-center justify-center space-x-4">
                 <Link>
                   <FavoriteBorderSharpIcon
-                    fontSize="large"
+                    fontSize="medium"
                     className="font-light text-gray-700"
                   />
                 </Link>
                 <Link>
                   <ShoppingCartOutlinedIcon
-                    fontSize="large"
+                    fontSize="medium"
                     className="font-light text-gray-700"
                   />
                 </Link>
@@ -146,7 +146,7 @@ export default function Navbar({ currentTab }) {
                     aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
-                    <Avatar src={profile?.profileImageUrl}></Avatar>
+                    <Avatar  src={profile?.profileImageUrl}></Avatar>
                   </Button>
                   <Menu
                     id="basic-menu"
@@ -159,7 +159,7 @@ export default function Navbar({ currentTab }) {
                   >
                     <MenuItem onClick={handleClose}>
                       {" "}
-                      <Link to={"/user-profile"}>View Profile </Link>
+                      <Link to={"/UserProfile"}>View Profile </Link>
                     </MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
