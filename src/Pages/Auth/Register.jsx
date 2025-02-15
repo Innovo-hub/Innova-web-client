@@ -86,7 +86,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className=" py-10">
+      <div className="bg-gradient-to-t from-white to-sky-900 py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
