@@ -7,9 +7,9 @@ import APILINK from "../../../Constants";
 import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import Navbar from "../../Components/Navbar";
-import rejs1 from "../../assets/AuthAssets/rejs1.jpeg";
+import rejs1 from "../../assets/AuthAssets/rejs1.svg";
 import SignupImage from "../../assets/AuthAssets/SignupImage.png";
-import customer from "../../assets/AuthAssets/customer.png";
+import customer from "../../assets/AuthAssets/customer.svg";
 import businessOwner from "../../assets/AuthAssets/businessOwner.svg";
 import Investor from "../../assets/AuthAssets/Investor.svg";
 import { RegisterUser } from "../../redux/Slices/Auth-Slice/RegisterReducer";
@@ -86,7 +86,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className="bg-gradient-to-t from-white to-amber-800 py-10">
+      <div className=" py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
@@ -94,7 +94,7 @@ function Register() {
                 <h3 className="text-2xl text-gray-500">
                   hello there 👋🏻, Welcome to
                 </h3>
-                <h1 className="font-bold text-5xl py-4 lg:text-7xl bg-gradient-to-r from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent">
+                <h1 className="font-bold text-5xl py-4 lg:text-7xl bg-gradient-to-r from-[#000000cc] to-[#126090] bg-clip-text text-transparent">
                   Innova HUB
                 </h1>
                 <p className="text-xl text-gray-400">
@@ -104,14 +104,18 @@ function Register() {
                 <div className="mt-16">
                   <a
                     href="#form"
-                    className="mt-6 a-screen1-rej text-xl border-2  py-2 px-12 rounded-2xl text-[#BA5A16] border-[#BA5A16] hover:bg-[#BA5A16] hover:text-white"
+                    className="mt-6 a-screen1-rej text-xl border-2  py-2 px-12 rounded-2xl text-[#126090] border-[#126090] hover:bg-[#126090] hover:text-white"
                   >
                     Join Us Now!
                   </a>
                 </div>
               </div>
               <div>
-                <img src={rejs1} className=" rounded-3xl" alt="register photo"></img>
+                <img
+                  src={rejs1}
+                  className=" rounded-3xl"
+                  alt="register photo"
+                ></img>
               </div>
             </div>
           </div>
@@ -121,7 +125,7 @@ function Register() {
       <div className="mt-20">
         <div className="container">
           <div>
-            <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
+            <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#126090] bg-clip-text text-transparent mb-5 text-center">
               OUR ROLES
             </h2>
             <p className="lg:text-2xl text-lg px-3 text-center ">
@@ -174,7 +178,7 @@ function Register() {
       {/* screen 3 of register Form */}
       <div className="container mt-20">
         <div>
-          <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#BA5A16] bg-clip-text text-transparent mb-5 text-center">
+          <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#126090] bg-clip-text text-transparent mb-5 text-center">
             SIGN UP NOW!
           </h2>
           <p className="text-2xl text-center">
@@ -277,13 +281,13 @@ function Register() {
                 />
                 <h6>
                   Already have an account?{" "}
-                  <span className="text-[#BA5A16]">
+                  <span className="text-[#126090]">
                     <Link to={"/auth/login"}>Log in</Link>
                   </span>
                 </h6>
                 <div className="text-center">
                   <MainButton
-                    className="bg-[#BA5A16] text-white rounded-md w-44 p-3"
+                    className="bg-[#126090] text-white rounded-md w-44 p-3"
                     ButtonText={loading ? "Loading..." : "Create Account"}
                     disabled={loading}
                     type="submit"
@@ -298,7 +302,7 @@ function Register() {
                     href={`${APILINK}/api/Account/google-login`}
                     target="_blank"
                   >
-                    <GoogleIcon sx={{ color: "#BA5A16" }} />
+                    <GoogleIcon sx={{ color: "#126090" }} />
                   </a>
                 </div>
               </div>

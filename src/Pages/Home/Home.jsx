@@ -119,7 +119,7 @@ function Home() {
             Show All <NavigateNextIcon />
           </Link>
         </div>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
           {productCategoryLoading ? (
             <div className="flex justify-center items-center my-4">
               <Loading />
@@ -147,7 +147,7 @@ function Home() {
             Show All <NavigateNextIcon />
           </Link>
         </div>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-24 my-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
           {productCategoryLoading ? (
             <div className="flex justify-center items-center my-2"></div>
           ) : (
@@ -172,7 +172,7 @@ function Home() {
           <div className="col-span-1 h-[80%]">
             <img
               src={explore1}
-              className="lg:flex w-full hidden rounded-lg h-full"
+              className="lg:flex w-full hidden rounded-lg h-[95%]"
               alt="Explore 1"
             />
           </div>
@@ -190,7 +190,7 @@ function Home() {
               />
             </div>
           </div>
-          <div className="relative col-span-1 group h-[80%]">
+          <div className="relative col-span-1 group h-[74%]">
             <img
               src={explore4}
               className="flex w-full h-full"

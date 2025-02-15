@@ -24,15 +24,12 @@ import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/forget-password" element={<ForgetPassword />} />
       <Route path="/auth/reset-password" element={<ResetPassword />} />
-     {/*<Route path="/user-profile" element={<UserProfile />} /> */}
-      <Route path="/investor/deals" element={<InvestorDeals />} /> 
+      {/*<Route path="/user-profile" element={<UserProfile />} /> */}
+      <Route path="/investor/deals" element={<InvestorDeals />} />
       <Route path="/owner/deals" element={<OwnerDeals />} />
-      <Route path="/business-profile" element={<BusinessProfile />} />
-      <Route path="/investor-profile" element={<InvestorProfile />} />
-      <Route path="/normal-user-profile" element={<NormalUserProfile />} />
- 
- 
-
+      <Route path="/UserProfile" element={<BusinessProfile />} />
+      <Route path="/UserProfile" element={<InvestorProfile />} />
+      <Route path="/UserProfile" element={<NormalUserProfile />} />
     </Routes>
   );
 }

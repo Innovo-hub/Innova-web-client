@@ -1,10 +1,10 @@
 function CategorySearch({ name, from, to, location }) {
   return (
-    <div className="bg-main-color rounded-br-3xl py-10 px-8 text-white">
-      <div className="grid lg:grid-cols-3 grid-cols-1 lg:space-y-0 space-y-3">
+    <div className="bg-main-color rounded-br-[70px] py-10 w-full text-white">
+      <div className="grid lg:grid-cols-3 grid-cols-1 lg:space-y-0 space-y-3 px-10">
         <div className="flex px-8">
           <input
-            className="rounded-2xl text-black outline-none p-2 w-full"
+            className="rounded-2xl text-black outline-none p-2 ps-5 w-full"
             placeholder="Search by name"
           />
         </div>
