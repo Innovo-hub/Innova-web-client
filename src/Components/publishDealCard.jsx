@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import profile1 from "../assets/Deals/profile1.png";
 import { FaTimes, FaUpload, FaCheckCircle } from "react-icons/fa";
 
@@ -35,7 +36,7 @@ const DealPublishCard = ({ isOpen, onClose }) => {
     setDescription("");
     setOfferMoney("");
     setOfferDeal("");
-    setUploadedImages([null, null, null, null]);
+    setUploadedImages([null, null, null]);
     onClose();
   };
 
