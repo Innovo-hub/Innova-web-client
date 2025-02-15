@@ -2,7 +2,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link } from "react-router-dom";
-import profile2 from "../../../assets/Products/profile2.png";
+import user from "../../../assets/Products/user.png";
 import Dashboard from "../../../assets/Products/Dashboard.png";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
@@ -50,7 +50,7 @@ function InvestorBanner() {
       {/* Section 2 */}
       <div className="rounded-lg w-full mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Card 1 */}
-        <div className="bg-[#C4C4C4] p-6 rounded-lg flex justify-between items-start">
+        <div className="bg-[#f0f0f3] p-6 rounded-lg flex justify-between items-start">
           <div className="flex flex-col w-full md:w-3/4">
             <p className="text-black text-base mb-2">Estimated Balance</p>
             <h2 className="text-xl font-bold" style={{ color: "#2C1DB3" }}>
@@ -75,7 +75,7 @@ function InvestorBanner() {
         </div>
 
         {/* Dashboard Link */}
-        <div className="bg-[#C4C4C4] p-6 rounded-lg flex flex-col items-center justify-center">
+        <div className="bg-[#f0f0f3] p-6 rounded-lg flex flex-col items-center justify-center">
           <div className="flex items-center justify-center rounded-full">
             <img src={Dashboard} alt="Dashboard" className="h-16 w-16" />
           </div>
@@ -116,6 +116,91 @@ function InvestorBanner() {
                 10% of total Earnings
               </td>
               <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
+            </tr>
+            <tr>
+              <td className="p-2 text-base">Pop one Store</td>
+              <td className="p-2 text-base">152,236.33 EGP</td>
+              <td className="p-2 text-green-600 text-lg text-center">
+                +16.65%
+              </td>
+              <td className="p-2 text-center text-base">
+                10% of total Earnings
+              </td>
+              <td className="p-2 text-center text-base">Mohamed Ali</td>
+              <td className="p-2 text-center text-base">✉</td>
             </tr>
           </tbody>
         </table>
