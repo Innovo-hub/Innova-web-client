@@ -97,7 +97,8 @@ const DealPublishCard = ({ isOpen, onClose }) => {
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 border rounded-md mt-1 bg-gray-100 h-20"
+                className="w-full p-2 border rounded-md mt-1 bg-gray-100 "
+                rows="4"
               ></textarea>
             </div>
             <div className="flex justify-between gap-3">
@@ -131,35 +132,58 @@ const DealPublishCard = ({ isOpen, onClose }) => {
           </div>
 
           {/* Second grid for uploading images */}
-          <div className="flex flex-col items-center pl-4">
-            <div className="grid grid-cols-2 gap-4 w-full">
-              {[0, 1, 2].map((index) => (
-                <label
-                  key={index}
-                  className="border border-gray-300 w-[88%] flex flex-col items-center justify-center cursor-pointer rounded-lg overflow-hidden"
-                >
-                  {uploadedImages[index] ? (
-                    <img
-                      src={uploadedImages[index]}
-                      alt={`Uploaded ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center text-gray-500 w-20 h-44">
-                      <FaUpload className="text-2xl mb-2" />
-                      <span className="text-sm">Photo {index + 1}</span>
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    onChange={(e) => handleImageUpload(index, e)}
-                    className="hidden"
-                    accept="image/*"
+          <div className="flex flex-col items-center p-4 w-full">
+            <div className="grid grid-cols-2 gap-4 w-full max-w-md">
+              <label className="relative border border-gray-300 bg-gray-200 flex items-center justify-center cursor-pointer rounded-lg overflow-hidden w-full  col-span-1">
+                {uploadedImages[0] ? (
+                  <img
+                    src={uploadedImages[0]}
+                    alt="Uploaded 1"
+                    className="w-full h-full object-cover"
                   />
-                </label>
-              ))}
+                ) : (
+                  <div className="flex flex-col items-center justify-center text-gray-500">
+                    <FaUpload className="text-2xl mb-2" />
+                    <span className="text-sm">Upload Picture</span>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  onChange={(e) => handleImageUpload(0, e)}
+                  className="hidden"
+                  accept="image/*"
+                />
+              </label>
+              <div className="grid grid-rows-2 gap-4 w-full">
+                {[1, 2].map((index) => (
+                  <label
+                    key={index}
+                    className="relative border border-gray-300 bg-gray-200 flex items-center justify-center cursor-pointer rounded-lg overflow-hidden w-full aspect-square"
+                  >
+                    {uploadedImages[index] ? (
+                      <img
+                        src={uploadedImages[index]}
+                        alt={`Uploaded ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center text-gray-500">
+                        <FaUpload className="text-2xl mb-2" />
+                        <span className="text-sm">Upload</span>
+                      </div>
+                    )}
+                    <input
+                      type="file"
+                      onChange={(e) => handleImageUpload(index, e)}
+                      className="hidden"
+                      accept="image/*"
+                    />
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
+          {/*  */}
         </div>
       </div>
     </div>

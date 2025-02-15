@@ -19,6 +19,7 @@ import OwnerBanner from "./DealsComponent/Owner-banner.jsx"
 import DealPublishCard from "../../Components/publishDealCard";
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
+import DealCardInvestor from "../../Components/DealCard-investor.jsx";
 
 const dealsData = [
   {
@@ -95,7 +96,7 @@ const OwnerDeals = () => {
           <div className="w-full">
             {dealsData.map((deal, index) => (
               <div key={index} className="mb-8">
-                <DealCard deal={deal} />
+                <DealCardInvestor deal={deal} />
               </div>
             ))}
           </div>
