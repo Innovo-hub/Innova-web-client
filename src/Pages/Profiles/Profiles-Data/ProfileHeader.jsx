@@ -5,26 +5,26 @@ function ProfileHeader({ user }) {
   return (
     <div className="relative w-full">
       {/* Cover image   */}
-  <div 
-    className="w-full h-48 md:h-64 bg-cover bg-center relative"
-    style={{ backgroundImage: `url(${user.coverImageUrl})` }}
-  >
-   {/*icon updating in cover_image*/}
-  <div className="absolute bottom-2 right-2 bg-[#F7F7F7E5] p-0 rounded-full cursor-pointer hover:bg-[#e0e0e0]">
-    <DriveFileRenameOutlineIcon className="text-[#126090] w-2.5 h-2.5" />
-  </div>
-</div>
-      
+      <div
+        className="w-full h-48 md:h-64 bg-cover bg-center relative"
+        style={{ backgroundImage: `url(${user.coverImageUrl})` }}
+      >
+        {/*icon updating in cover_image*/}
+        <div className="absolute bottom-2 right-2 bg-[#F7F7F7E5] p-0 rounded-full cursor-pointer hover:bg-[#e0e0e0]">
+          <DriveFileRenameOutlineIcon className="text-[#126090] w-2.5 h-2.5" />
+        </div>
+      </div>
+
       <div className="relative px-4 md:px-6 pb-0 bg-[#F7F7F7]">
         <div className="absolute -top-16 left-4 md:left-6">
           {/*Image_profile^^*/}
           <img
             src={user.profileImageUrl}
             alt="Profile"
-            className="w-20 h-20 md:w-24 md:h-24 shadow-lg" 
+            className="w-20 h-20 md:w-24 md:h-24 shadow-lg"
           />
-         {/* icon updating in image_profile */}
-         <div className="absolute bottom-0 left-0 bg-[#F7F7F7] p-0.125 rounded-full cursor-pointer hover:bg-[#e0e0e0]">
+          {/* icon updating in image_profile */}
+          <div className="absolute bottom-0 left-0 bg-[#F7F7F7] p-0.125 rounded-full cursor-pointer hover:bg-[#e0e0e0]">
             <DriveFileRenameOutlineIcon className="text-[#126090] w-1 h-1" />
           </div>
         </div>
@@ -40,15 +40,15 @@ function ProfileHeader({ user }) {
                 <span className="text-[#4B4A4A] text-lg ml-1">{user.id}</span>
               </div>
             </div>
-            
+
             <div className="flex flex-col items-end gap-2">
-          {/* Verified */}
-    {user.Role && (  // أضفنا الشرط ده
-        <div className="flex items-center gap-2 text-[#126090]">
-            <CheckCircleIcon fontSize="small" className="text-[#0000FF]" />
-            <span>Verified</span>
-        </div>
-    )}
+              {/* Verified */}
+              {user.Role && (  // أضفنا الشرط ده
+                <div className="flex items-center gap-2 text-[#126090]">
+                  <CheckCircleIcon fontSize="small" className="text-[#0000FF]" />
+                  <span>Verified</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -78,6 +78,5 @@ export default ProfileHeader;
 
 
 
- 
 
-  
+

@@ -11,7 +11,7 @@ function ProfileDetails({ user }) {
         <InfoField label="Phone" value={user.PhoneNumber} />
         
         {/* Role section with conditional rendering */}
-        <div className="flex justify-end">
+        <div className="flex lg:justify-end">
           {user.Role && (
             <InfoField 
               label="Role" 

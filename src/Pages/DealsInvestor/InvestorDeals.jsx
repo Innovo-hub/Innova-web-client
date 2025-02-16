@@ -72,7 +72,7 @@ function InvestorDeals() {
   }
   return (
     <div>
-      <Navbar />
+      <Navbar currentTab={"Deals"} />
       <HomeBanner />
       <InvestorBaaner />
 

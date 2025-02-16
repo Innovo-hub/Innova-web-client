@@ -37,7 +37,7 @@ export default function Navbar({ currentTab }) {
   };
   const navigation = [
     { name: "Home", href: "/" },
-    { name: "deals", href: "/owner/deals" },
+    { name: "Deals", href: "/owner/Deals" },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
   ];

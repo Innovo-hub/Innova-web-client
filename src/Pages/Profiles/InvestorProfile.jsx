@@ -90,9 +90,9 @@ function UserProfile() {
               <h2 className="text-2xl font-semibold text-left">
                 Your Business Analysis Dashboard
               </h2>
-              <p className="text-gray-500 mt-2">
+              {/* <p className="text-gray-500 mt-2">
                 [Placeholder for AI dashboard]
-              </p>
+              </p> */}
             </div>
           </main>
         </div>

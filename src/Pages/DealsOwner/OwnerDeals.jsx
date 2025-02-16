@@ -61,7 +61,7 @@ const OwnerDeals = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <Navbar />
+      <Navbar currentTab={"Deals"}/>
       <HomeBanner />
       <OwnerBanner />
       <div className="container"></div>
