@@ -8,13 +8,13 @@ function CategorySearch({ name, from, to, location }) {
             placeholder="Search by name"
           />
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
           <div className="flex justify-center items-center gap-2">
-            <label>from</label>
+            <label>range price from</label>
             <input className="rounded-lg text-black outline-none p-2 w-1/2" />
           </div>
           <div className="flex justify-center items-center gap-2">
-            <label>to</label>
+            <label>range price to</label>
             <input className="rounded-lg text-black outline-none p-2 w-1/2" />
           </div>
         </div>
