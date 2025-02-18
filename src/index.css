@@ -28,6 +28,7 @@
   .bg-login{
     background-image: url(/src\assets\AuthAssets\login.png);
     background-size: cover;
+    background-position: center ;
     width: 100%;
   }
 }

@@ -21,7 +21,7 @@ function UserProfile() {
     Email: "Nader_Hani@gmail.com",
     PhoneNumber: "+(20)1234567891",
     City: "Cairo, Egypt",
-    District: "Elshorouk 1, area 15, 85",
+    District: "El shorouk 1, area 15, 85",
     profileImageUrl: ProfileImage,
     coverImageUrl: CoverImage,
   };

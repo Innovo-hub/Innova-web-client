@@ -8,6 +8,7 @@ import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import Navbar from "../../Components/Navbar";
 import { loginUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
+import CopyRights from "../../Components/Copy-Rights";
 function Login() {
   const dispatch = useDispatch();
   const { loading, error, token } = useSelector((state) => state.login);
@@ -133,6 +134,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <CopyRights />
     </>
   );
 }
