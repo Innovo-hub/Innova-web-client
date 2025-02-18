@@ -1,7 +1,7 @@
 //this Component to show Data EX: City ,Email,Phone and It will recome from infoFiled to make code short
 import InfoField from "./InfoField";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-function ProfileDetails({ user }) {
+function ProfileDetails( {user} ) {
   return (
     
     <div className="bg-[#F7F7F7]">
@@ -12,10 +12,10 @@ function ProfileDetails({ user }) {
         
         {/* Role section with conditional rendering */}
         <div className="flex lg:justify-end">
-          {user.Role && (
+          {user.RoleName && (
             <InfoField 
               label="Role" 
-              value={user.Role}
+              value={user.RoleName}
               isBusinessRole={true}
             />
           )}
