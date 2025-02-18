@@ -24,9 +24,6 @@ export default function Navbar({ currentTab }) {
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(getUserProfile({ token }));
-  }, [dispatch, token]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -223,7 +220,7 @@ export default function Navbar({ currentTab }) {
         {/* Right Side Buttons for Mobile */}
         {isAuthenticated ? (
           <div className="flex justify-center items-center w-full">
-            <Link to={"/user-profile"}>
+            <Link to={"/UserProfile"}>
               <button className="px-4 w-full py-2 bg-main-color text-white my-2 font-medium rounded-md">
                 User Profile{" "}
               </button>

@@ -11,13 +11,16 @@ import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import APILINK from "../../../Constants"; // Ensure this has your API base URL
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
 
 function UserProfile() {
 
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
@@ -45,7 +48,15 @@ function UserProfile() {
 
     fetchProfile();
   }, []);
-
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      dispatch(logoutUser());
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (loading) {
     return <p className="text-center mt-10 text-blue-500">Loading profile...</p>;
   }
@@ -81,10 +92,10 @@ function UserProfile() {
                 <LocalAtmOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Payment Methods
               </a>
-              <a href="#" className="flex items-center text-gray-700 font-semibold hover:text-red-500">
+              <button onClick={handleLogout} className="flex items-center text-gray-700 font-semibold hover:text-red-500">
                 <LogoutRoundedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Log Out
-              </a>
+              </button>
             </nav>
           </aside>
 
