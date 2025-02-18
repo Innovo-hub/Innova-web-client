@@ -5,13 +5,10 @@ import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import Home from "./Pages/Home/Home";
-//import UserProfile from "./Pages/Profile/UserProfile";//Mahmoued^^
 import Category from "./Pages/CategorySearch/Category";
-import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";  
+import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/DealsOwner/OwnerDeals";
-import BusinessProfile from "./Pages/Profiles/BusinessProfile"; 
-import InvestorProfile from "./Pages/Profiles/InvestorProfile"; 
-import NormalUserProfile from "./Pages/Profiles/NormalUserProfile"; 
+import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
 
  function App() {
   return (
@@ -27,8 +24,8 @@ import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
       {/*<Route path="/user-profile" element={<UserProfile />} /> */}
       <Route path="/investor/Deals" element={<InvestorDeals />} />
       <Route path="/owner/Deals" element={<OwnerDeals />} />
-      <Route path="/UserProfile" element={<BusinessProfile />} />
-      <Route path="/UserProfile" element={<InvestorProfile />} />
+      {/* <Route path="/UserProfile" element={<BusinessProfile />} />
+      <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
     </Routes>
   );
