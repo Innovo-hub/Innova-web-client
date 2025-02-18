@@ -8,12 +8,13 @@ import MainButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import Navbar from "../../Components/Navbar";
 import rejs1 from "../../assets/AuthAssets/rejs1.svg";
-import SignupImage from "../../assets/AuthAssets/SignupImage.png";
+import SignupImage from "../../assets/AuthAssets/SignupImage.svg";
 import customer from "../../assets/AuthAssets/customer.svg";
 import businessOwner from "../../assets/AuthAssets/businessOwner.svg";
 import Investor from "../../assets/AuthAssets/Investor.svg";
 import { RegisterUser } from "../../redux/Slices/Auth-Slice/RegisterReducer";
 import RolesDropdown from "./Auth-Components/RolesDropdown";
+import CopyRights from "../../Components/Copy-Rights";
 
 function Register() {
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className="bg-gradient-to-t from-white to-sky-900 py-10">
+      <div className="bg-gradient-to-tl from-white to-sky-900 py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
@@ -194,10 +195,10 @@ function Register() {
             />
           </div>
           <div
-            className=" flex justify-center items-center bg-white p-4 lg:p-6"
+            className=" flex justify-center items-center  p-4 lg:p-6"
             id="form"
           >
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-md ">
               <div className="mb-5">
                 <p className="text-gray-500 mt-2">Enter your Information</p>
               </div>
@@ -310,6 +311,7 @@ function Register() {
           </div>
         </div>
       </div>
+      <CopyRights/>
     </>
   );
 }

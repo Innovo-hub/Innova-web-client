@@ -13,6 +13,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import APILINK from "../../../Constants"; // Ensure this has your API base URL
 
 function UserProfile() {
+
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,6 +57,7 @@ function UserProfile() {
   if (!profile) {
     return <p className="text-center mt-10 text-gray-500">No profile data found.</p>;
   }
+
 
   return (
     <div>
