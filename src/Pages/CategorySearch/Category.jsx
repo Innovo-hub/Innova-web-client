@@ -47,7 +47,7 @@ function Category() {
             Find out more and give us more power to complete our journey.
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-            {categoryData.length > 0 && categoryData.AllProductsOnspecificCategories.map(
+            {categoryData && categoryData?.AllProductsOnspecificCategories?.map(
               (product, index) => (
                 <ProductCard
                   key={index}
