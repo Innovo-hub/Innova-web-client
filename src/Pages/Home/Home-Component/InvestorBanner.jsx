@@ -37,7 +37,10 @@ function InvestorBanner() {
         </div>
         {/* Profile and Settings Section */}
         <div className="flex gap-6 justify-end">
-          <Link className="flex items-center justify-center text-gray-600">
+          <Link
+            className="flex items-center justify-center text-gray-600"
+            to={`/UserProfile`}
+          >
             <PersonOutlineOutlinedIcon /> Profile
           </Link>
           <button className="flex items-center justify-center text-gray-600">
@@ -79,7 +82,7 @@ function InvestorBanner() {
           <div className="flex items-center justify-center rounded-full">
             <img src={Dashboard} alt="Dashboard" className="h-16 w-16" />
           </div>
-          <Link to="/dashboard" className="mt-2 text-black">
+          <Link to="/UserProfile" className="mt-2 text-black">
             <span style={{ color: "#126090" }}>Go</span> To Dashboard {">"}
           </Link>
         </div>

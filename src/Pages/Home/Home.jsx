@@ -115,7 +115,7 @@ function Home() {
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Handcrafted Carpets</h2>
-          <Link className="text-main-color text-lg">
+          <Link className="text-main-color text-lg" to={`/category/13`}>
             Show All <NavigateNextIcon />
           </Link>
         </div>
@@ -143,7 +143,7 @@ function Home() {
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Shop Necklaces</h2>
-          <Link className="text-main-color text-lg">
+          <Link className="text-main-color text-lg" to={`/category/9`}>
             Show All <NavigateNextIcon />
           </Link>
         </div>
