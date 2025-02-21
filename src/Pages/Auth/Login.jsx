@@ -27,7 +27,7 @@ function Login() {
         Swal.showLoading();
         const loader = document.querySelector(".swal2-loader");
         if (loader) {
-          loader.style.borderColor = "#DB4444"; // Spinner border color
+          loader.style.borderColor = "#126090"; // Spinner border color
           loader.style.borderTopColor = "transparent"; // Spinner top border color
         }
       },
