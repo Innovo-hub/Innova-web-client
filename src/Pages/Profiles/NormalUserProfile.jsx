@@ -14,6 +14,7 @@ import APILINK from "../../../Constants"; // Ensure this has your API base URL
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
+import WishlistOrders from "./Profile-Components/whislist";
 
 function UserProfile() {
 
@@ -80,19 +81,31 @@ function UserProfile() {
           {/* Sidebar */}
           <aside className="w-full md:w-64 p-4 mb-4 md:mb-0">
             <nav className="space-y-4">
-              <a href="#" className="flex items-center text-gray-700 font-semibold hover:text-blue-600">
+              <a
+                href="#"
+                className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
+              >
                 <PermIdentityIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Personal Information
               </a>
-              <a href="#" className="flex items-center text-gray-700 font-semibold hover:text-blue-600">
+              <a
+                href="#"
+                className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
+              >
                 <VerifiedUserOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Privacy & Security
               </a>
-              <a href="#" className="flex items-center text-gray-700 font-semibold hover:text-blue-600">
+              <a
+                href="#"
+                className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
+              >
                 <LocalAtmOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Payment Methods
               </a>
-              <button onClick={handleLogout} className="flex items-center text-gray-700 font-semibold hover:text-red-500">
+              <button
+                onClick={handleLogout}
+                className="flex items-center text-gray-700 font-semibold hover:text-red-500"
+              >
                 <LogoutRoundedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Log Out
               </button>
@@ -108,9 +121,22 @@ function UserProfile() {
 
             {/* Dashboard */}
             <div className="mt-6 w-full pl-0 ml-0">
-              <h2 className="text-2xl font-semibold text-left">Your Business Analysis Dashboard</h2>
-              <p className="text-gray-500 mt-2">[Placeholder for AI dashboard]</p>
+              <h2 className="text-2xl font-semibold text-left">
+                Your Business Analysis Dashboard
+              </h2>
             </div>
+            <div className=" text-center">
+              <iframe
+                title="Sales_Analysis"
+                width="1140"
+                height="541.25"
+                src="https://app.powerbi.com/reportEmbed?reportId=cc90a135-cfb5-4d64-8094-31f63623136c&autoAuth=true&ctid=ae362704-0450-46f2-ab02-2b0a1df6406d"
+                frameborder="0"
+                allowFullScreen="true"
+              ></iframe>
+            </div>
+
+            <WishlistOrders />
           </main>
         </div>
       </div>

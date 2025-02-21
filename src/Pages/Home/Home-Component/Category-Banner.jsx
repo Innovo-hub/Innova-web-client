@@ -23,7 +23,7 @@ function CategoryBanner() {
 
       </div>
       <div className="col-span-1">
-        <img src={Slide3} className="lg:flex w-full hidden h-[90%]" />
+        <img src={Slide3} className="lg:flex w-full hidden h-[82%]" />
       </div>
     </div>
   )
