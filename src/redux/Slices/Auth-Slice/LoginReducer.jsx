@@ -4,7 +4,7 @@ import APILINK from "../../../../Constants";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (formData, {  rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${APILINK}/api/Account/login`,
@@ -16,9 +16,11 @@ export const loginUser = createAsyncThunk(
         }
       );
       const { Token } = response.data;
+      const { RoleName } = response.data;
       // Save token in localStorage
       localStorage.setItem("accessToken", Token);
-      return { Token};
+      localStorage.setItem("role", RoleName);
+      return { Token };
     } catch (err) {
       return rejectWithValue(
         err.response?.data || { message: "An error occurred" }
@@ -32,6 +34,7 @@ export const logoutUser = createAsyncThunk(
     try {
       // Clear tokens from localStorage
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("role");
       return "Logout successful";
     } catch (error) {
       console.error("Logout Error:", error);

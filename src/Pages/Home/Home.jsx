@@ -58,7 +58,7 @@ function Home() {
   }, [dispatch, token]);
 
   // Determine the user's role
-  const role = profile?.RoleName || "Customer";
+  const role = localStorage.getItem("role") || "Customer";
 
   // Get products for Handcrafted Carpets (categoryId = 1) and Shop Necklaces (categoryId = 15)
   const handcraftedCarpets =
