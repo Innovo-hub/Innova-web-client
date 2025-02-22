@@ -48,8 +48,17 @@ function Register() {
     });
   };
 
+  const validatePassword = (password) => {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const isLongEnough = password.length >= 8;
+
+    return hasUpperCase && hasSpecialChar && isLongEnough;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       Swal.fire({
         icon: "error",
@@ -58,8 +67,17 @@ function Register() {
       });
       return;
     }
+
+    if (!validatePassword(formData.password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must contain at least one uppercase letter, one special character, and be at least 8 characters long.",
+      });
+      return;
+    }
+
     try {
-      // eslint-disable-next-line no-unused-vars
       const result = await dispatch(RegisterUser(formData)).unwrap(); // Use unwrap() to get the payload or error.
       navigate("/auth/login");
     } catch (err) {
@@ -70,18 +88,6 @@ function Register() {
       });
     }
   };
-
-  // const authwithGoogle = async () => {
-  //   try {
-  //     await dispatch(RgisterWithGoogle());
-  //   } catch (error) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Google Login Failed",
-  //       text: error.message || "Unable to authenticate with Google.",
-  //     });
-  //   }
-  // };
 
   return (
     <>
