@@ -34,7 +34,6 @@ function Login() {
     });
     try {
       const formData = { email, password };
-      console.log("FormData ", formData);
 
       const result = await dispatch(loginUser(formData)).unwrap();
 
@@ -54,7 +53,7 @@ function Login() {
   useEffect(() => {
     const storedToken = localStorage.getItem("accessToken");
     if (storedToken && !token) {
-      navigate("/free-dashboard");
+      navigate("/");
     }
   }, [token, navigate]);
 
