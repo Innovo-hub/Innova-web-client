@@ -29,7 +29,7 @@ export const RegisterUser = createAsyncThunk(
 );
 
 
-// Intailize the Slice Also set the cases for each condition ("Pending , Accepted , Rejected ")
+// Initialize the Slice Also set the cases for each condition ("Pending , Accepted , Rejected ")
 const registerSlice = createSlice({
   name: "registerslice",
   initialState: {

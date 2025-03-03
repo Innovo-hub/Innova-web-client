@@ -4,8 +4,13 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Link } from 'react-router-dom';
 import user from '../../../assets/Products/user.png';
 import Dashboard from '../../../assets/Products/Dashboard.png';
+import { useState } from 'react';
+import PublishProduct from './Publish-Product';
+import { PlusCircle } from 'lucide-react';
+import PublishProductCard from './Publish-Product';
 
 function BussinessBanner() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="relative w-full my-8 px-4 lg:px-16">
       {/* Header Section */}
@@ -57,7 +62,7 @@ function BussinessBanner() {
             </h2>
             <p className="text-black text-sm mt-2">≈ $3,025.20</p>
           </div>
-          <div className="flex flex-col gap-4 mt-4 md:mt-0 md:ml-8 justify-end">
+          {/* <div className="flex flex-col gap-4 mt-4 md:mt-0 md:ml-8 justify-end">
             <button
               className="text-white px-6 py-2 rounded-lg"
               style={{ backgroundColor: "#0056B3" }}
@@ -70,7 +75,7 @@ function BussinessBanner() {
             >
               Deposit
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Dashboard Link */}
@@ -84,26 +89,24 @@ function BussinessBanner() {
         </div>
 
         {/* Publish New Product */}
-        <div className="bg-[#f0f0f3] p-6 rounded-lg flex items-center justify-start gap-4">
-          <div className="w-12 h-12 flex items-center justify-center bg-[#f0f0f3] rounded-full border-2 border-main-color">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="#126090"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={4}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-          </div>
-          <button className=" text-gray-700 text-lg font-bold">
-            Publish New Product
+        <div className="w-full flex justify-center">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center justify-between bg-[#f0f0f3] rounded-lg p-5 w-full"
+          >
+            <span className="text-gray-700 font-medium text-xl">
+              Publish New Product
+            </span>
+            <PlusCircle className="text-[#126090] w-10 h-10" />
           </button>
+
+          {/* Modal Component */}
+          {isModalOpen && (
+            <PublishProductCard
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            />
+          )}
         </div>
 
         {/* Total Views */}

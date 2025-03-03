@@ -61,7 +61,7 @@ function InvestorBanner() {
             </h2>
             <p className="text-black text-sm mt-2">≈ $3,025.20</p>
           </div>
-          <div className="flex flex-col gap-4 mt-4 md:mt-0 md:ml-8 justify-end">
+          {/* <div className="flex flex-col gap-4 mt-4 md:mt-0 md:ml-8 justify-end">
             <button
               className="text-white px-6 py-2 rounded-lg"
               style={{ backgroundColor: "#0056B3" }}
@@ -74,7 +74,7 @@ function InvestorBanner() {
             >
               Deposit
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Dashboard Link */}
