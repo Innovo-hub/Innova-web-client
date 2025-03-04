@@ -98,6 +98,7 @@ function Home() {
           {products.map((product) => (
             <ProductCard
               key={product.id}
+              productId={product.id}
               imageSrc={product.imageSrc}
               productName={product.productName}
               PriceAfterDiscount={product.PriceAfterDiscount}
@@ -128,6 +129,7 @@ function Home() {
             handcraftedCarpets.map((product, index) => (
               <ProductCard
                 key={index}
+                productId={product.id}
                 imageSrc={product.HomePicture}
                 productName={product.ProductName}
                 Price={product.ProductPrice}
@@ -153,6 +155,7 @@ function Home() {
           ) : (
             shopNecklaces.map((product, index) => (
               <ProductCard
+                productId={product.id}
                 key={index}
                 imageSrc={product.HomePicture}
                 productName={product.ProductName}

@@ -8,8 +8,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import CircleIcon from "@mui/icons-material/Circle";
 import LinkIcon from "@mui/icons-material/Link";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function ProductCard({
+  productId,
   imageSrc,
   productName,
   PriceAfterDiscount,
@@ -39,7 +41,7 @@ function ProductCard({
 
       {/* Card body */}
       <div className="flex flex-col p-4 space-y-2">
-        <h2 className="font-bold text-lg truncate">{productName}</h2>
+        <h2 className="font-bold text-lg truncate hover:underline"><Link to={`/product/${productId}`}>{productName}</Link></h2>
         <div className="flex items-center gap-2">
           <h6
             className={

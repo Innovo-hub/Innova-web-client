@@ -15,11 +15,22 @@ export const getProductByCategory = createAsyncThunk(
     }
   }
 );
-
+export const getOneProduct = createAsyncThunk(
+  "/getoneproduct",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${APILINK}/api/Product/getOneProduct/${id}`);
+      return response.data
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+)
 const productSlice = createSlice({
   name: "product",
   initialState: {
     productsByCategory: {}, // Store products by categoryId
+    product: {},
     loading: false,
     error: null,
   },
@@ -37,7 +48,19 @@ const productSlice = createSlice({
       .addCase(getProductByCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(getOneProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getOneProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload;
+      })
+      .addCase(getOneProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
   },
 });
 
