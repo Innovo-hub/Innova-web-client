@@ -10,6 +10,8 @@ import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/DealsOwner/OwnerDeals";
 import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
 import ProductDetails from "./Pages/Product/ProductDetails";
+import Checkout from "./Pages/Checkout/Checkout"
+import Payment from "./Pages/Payment/Payment"
 
 function App() {
   return (
@@ -29,6 +31,10 @@ function App() {
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+
+     <Route path="/checkout" element={<Checkout/>}/>
+      <Route path="/payment" element={<Payment/>}/>
+
     </Routes>
   );
 }
