@@ -12,6 +12,7 @@ import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
 import ProductDetails from "./Pages/Product/ProductDetails";
 import Checkout from "./Pages/Checkout/Checkout"
 import Payment from "./Pages/Payment/Payment"
+import Cart from "./Pages/cart/Cart";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
 
+     <Route path="/cart" element={<Cart/>}/>
      <Route path="/checkout" element={<Checkout/>}/>
       <Route path="/payment" element={<Payment/>}/>
 
