@@ -41,21 +41,21 @@ function Home() {
   // Fetch categories on component mount or token change
   useEffect(() => {
     dispatch(getPopularCategories());
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   // Fetch products for Handcrafted Carpets (categoryId = 1)
   useEffect(() => {
-    if (token) {
+
       dispatch(getProductByCategory({ categoryId: 13 })); // Fetch products for categoryId = 1
-    }
-  }, [dispatch, token]);
+  
+  }, [dispatch]);
 
   // Fetch products for Shop Necklaces (categoryId = 15)
   useEffect(() => {
-    if (token) {
+    
       dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 15
-    }
-  }, [dispatch, token]);
+    
+  }, [dispatch]);
 
   // Determine the user's role
   const role = localStorage.getItem("role") || "Customer";
@@ -129,7 +129,7 @@ function Home() {
             handcraftedCarpets.map((product, index) => (
               <ProductCard
                 key={index}
-                productId={product.id}
+                productId={product.ProductId}
                 imageSrc={product.HomePicture}
                 productName={product.ProductName}
                 Price={product.ProductPrice}
@@ -155,7 +155,7 @@ function Home() {
           ) : (
             shopNecklaces.map((product, index) => (
               <ProductCard
-                productId={product.id}
+                productId={product.ProductId}
                 key={index}
                 imageSrc={product.HomePicture}
                 productName={product.ProductName}

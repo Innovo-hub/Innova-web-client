@@ -9,58 +9,65 @@ export const getProductByCategory = createAsyncThunk(
       const response = await axios.get(
         `${APILINK}/api/Category/getProductsByCategory/${categoryId}`
       );
-      return { categoryId, data: response.data }; // Return both categoryId and data
+      return { categoryId, data: response.data };
     } catch (err) {
       return rejectWithValue(err.response?.data || "Failed to fetch products");
     }
   }
 );
+
 export const getOneProduct = createAsyncThunk(
-  "/getoneproduct",
+  "product/getOneProduct",
   async ({ id }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${APILINK}/api/Product/getOneProduct/${id}`);
-      return response.data
+      return response.data;
     } catch (error) {
-      rejectWithValue(error);
+      return rejectWithValue(error.response?.data || "Failed to fetch product");
     }
   }
-)
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
     productsByCategory: {}, // Store products by categoryId
     product: {},
-    loading: false,
-    error: null,
+    productLoading: false,
+    productError: null,
+    categoryLoading: false,
+    categoryError: null,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProductByCategory.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getProductByCategory.fulfilled, (state, action) => {
-        state.loading = false;
-        const { categoryId, data } = action.payload;
-        state.productsByCategory[categoryId] = data; // Store data by categoryId
-      })
-      .addCase(getProductByCategory.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      // Handle getOneProduct
       .addCase(getOneProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.productLoading = true;
+        state.productError = null;
       })
       .addCase(getOneProduct.fulfilled, (state, action) => {
-        state.loading = false;
+        state.productLoading = false;
         state.product = action.payload;
       })
       .addCase(getOneProduct.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.productLoading = false;
+        state.productError = action.payload;
       })
+
+      // Handle getProductByCategory
+      .addCase(getProductByCategory.pending, (state) => {
+        state.categoryLoading = true;
+        state.categoryError = null;
+      })
+      .addCase(getProductByCategory.fulfilled, (state, action) => {
+        state.categoryLoading = false;
+        const { categoryId, data } = action.payload;
+        state.productsByCategory[categoryId] = data;
+      })
+      .addCase(getProductByCategory.rejected, (state, action) => {
+        state.categoryLoading = false;
+        state.categoryError = action.payload;
+      });
   },
 });
 
