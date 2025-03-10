@@ -4,7 +4,7 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import Profile1 from '../../../assets/Profiles/Profile1.png';
 import wallpaper from '../../../assets/Profiles/wallpaper.png';
 function ProfileHeader({ user }) {
-  console.log("ProfileHeader received:", user); // ✅ Add this for debugging
+  console.log("ProfileHeader received:", user); // Add this for debugging
 
   return (
     <div className="relative w-full">
@@ -52,7 +52,7 @@ function ProfileHeader({ user }) {
 
             <div className="flex flex-col items-end gap-2">
               {/* Verified */}
-              {user.RoleName && ( // أضفنا الشرط ده
+              {user.RoleName && ( 
                 <div className="flex items-center gap-2 text-[#126090]">
                   <CheckCircleIcon
                     fontSize="small"
