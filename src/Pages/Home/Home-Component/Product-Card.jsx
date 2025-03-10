@@ -72,7 +72,7 @@ function ProductCard({
                 <FavoriteBorderIcon className="hover:text-red-500" />
               )}
             </button>
-            <ShoppingCartOutlinedIcon />
+            <ShoppingCartOutlinedIcon  />
           </div>
           <p>
             {inStock ? (

@@ -12,8 +12,6 @@ import {
 } from "@mui/material";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { publishProduct } from "../../../redux/Slices/Product-Slice/ProductCardReducer";
-
 const options = {
   sizes: ["sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
   colors: ["Red", "Blue", "Green", "Black", "White"],
@@ -164,7 +162,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
             onChange={handleChange}
           />
         </div>
-        <FormControl sx={{ width: "49%", marginRight:"2%" }} variant="filled">
+        <FormControl sx={{ width: "49%", marginRight: "2%" }} variant="filled">
           <InputLabel>Colors</InputLabel>
           <Select
             multiple

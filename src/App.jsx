@@ -9,8 +9,9 @@ import Category from "./Pages/CategorySearch/Category";
 import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/DealsOwner/OwnerDeals";
 import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
+import Cart from "./Pages/cart/Cart";
 
- function App() {
+function App() {
   return (
     <Routes>
       {/* Main Routes */}
@@ -27,6 +28,7 @@ import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+      <Route path="/Cart" element={<Cart />} />
     </Routes>
   );
 }

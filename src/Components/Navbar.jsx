@@ -129,7 +129,7 @@ export default function Navbar({ currentTab }) {
                     className="font-light text-gray-700"
                   />
                 </Link>
-                <Link>
+                <Link to={`/Cart`}>
                   <ShoppingCartOutlinedIcon
                     fontSize="medium"
                     className="font-light text-gray-700"
