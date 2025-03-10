@@ -45,16 +45,12 @@ function Home() {
 
   // Fetch products for Handcrafted Carpets (categoryId = 1)
   useEffect(() => {
-
-      dispatch(getProductByCategory({ categoryId: 13 })); // Fetch products for categoryId = 1
-  
+    dispatch(getProductByCategory({ categoryId: 1 })); // Fetch products for categoryId = 1
   }, [dispatch]);
 
   // Fetch products for Shop Necklaces (categoryId = 15)
   useEffect(() => {
-    
-      dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 15
-    
+    dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 15
   }, [dispatch]);
 
   // Determine the user's role
@@ -62,7 +58,7 @@ function Home() {
 
   // Get products for Handcrafted Carpets (categoryId = 1) and Shop Necklaces (categoryId = 15)
   const handcraftedCarpets =
-    productsByCategory[13]?.AllProductsOnspecificCategories || [];
+    productsByCategory[1]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
     productsByCategory[9]?.AllProductsOnspecificCategories || [];
 

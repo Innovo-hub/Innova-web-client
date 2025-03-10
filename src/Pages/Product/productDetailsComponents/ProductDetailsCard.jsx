@@ -61,7 +61,7 @@ function ProductDetailsCard({ product }) {
                     </div>
                     <div className='flex justify-between items-center flex-col py-2'>
                         <p className="text-sm text-gray-500">Weight</p>
-                        <p className="font-medium">{product?.Weight || "20"} KG</p>
+                        <p className="font-medium">{product?.Weight || "10"} KG</p>
                     </div>
                 </div>
                 <div className="flex flex-col">
