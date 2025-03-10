@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import author from '../../../assets/Products/author.png';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ProductActions from './ProductActions';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 function ProductDetailsCard({ product }) {
     if (!product) {
         return <p>Loading...</p>; // Prevents crash if product is undefined
@@ -35,7 +37,7 @@ function ProductDetailsCard({ product }) {
                     <h3>{product.AverageRating} Review</h3>
                 </div>
                 <div className="flex justify-between items-center">
-                    <h3 className='text-3xl text-main-color font-semibold'>{product.Name}</h3>
+                    <h3 className='text-3xl text-main-color font-semibold'>{product.ProductName}</h3>
                     <button onClick={toggleLoved}>
                         {isLoved ? (
                             <FavoriteIcon className="text-red-500" />
@@ -66,9 +68,21 @@ function ProductDetailsCard({ product }) {
                     <h3 className='text-main-color font-semibold'>Description</h3>
                     <h3>{product.Description}</h3>
                 </div>
-                <div className="flex">
-                    
+                <div className="flex flex-col items-start gap-4 lg:mt-48 ">
+                    {/* Quantity Selector and Stock Info */}
+                    <ProductActions max={product.Stock} />
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-12 bg-main-color px-12 py-4 rounded-tl-3xl rounded-br-3xl w-full">
+                        <button className="flex justify-center items-center gap-1 bg-white text-main-color px-4 py-2 w-1/2 rounded-lg">
+                            <span><ShoppingCartOutlinedIcon /></span> Add to Cart
+                        </button>
+                        <button className="bg-white text-main-color px-4 py-2 w-1/2 rounded-lg">
+                            Buy Now!
+                        </button>
+                    </div>
                 </div>
+
             </div>
         </div>
     );
