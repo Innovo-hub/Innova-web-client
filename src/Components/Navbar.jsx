@@ -123,7 +123,7 @@ export default function Navbar({ currentTab }) {
             {/* if Authinticated this will appear */}
             {isAuthenticated ? (
               <div className="flex items-center justify-center space-x-4">
-                <Link>
+                <Link to={`/wishlist`}>
                   <FavoriteBorderSharpIcon
                     fontSize="medium"
                     className="font-light text-gray-700"
@@ -143,7 +143,7 @@ export default function Navbar({ currentTab }) {
                     aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
-                    <Avatar  src={profile?.profileImageUrl}></Avatar>
+                    <Avatar src={profile?.profileImageUrl}></Avatar>
                   </Button>
                   <Menu
                     id="basic-menu"

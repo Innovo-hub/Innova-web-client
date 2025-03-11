@@ -15,8 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { publishProduct } from "../../../redux/Slices/Product-Slice/ProductCardReducer";
 
 const options = {
-  sizes: ["sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
-  colors: ["Red", "Blue", "Green", "Black", "White"],
+  sizes: ["-","sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
+  colors: ["-","Red", "Blue", "Green", "Black", "White"],
   categories: [
     "Carpets",
     "Bags",
@@ -93,7 +93,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
           name="name"
           fullWidth
           variant="outlined"
-          value={product.name}
+          value={product.ProductName}
           onChange={handleChange}
         />
         <FormControl
@@ -126,7 +126,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
           multiline
           rows={3}
           variant="outlined"
-          value={product.description}
+          value={product.Description}
           onChange={handleChange}
         />
         <div className="grid grid-cols-2 gap-2">
@@ -135,7 +135,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
             name="price"
             type="number"
             variant="outlined"
-            value={product.price}
+            value={product.Price}
             onChange={handleChange}
           />
           <TextField
@@ -143,7 +143,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
             name="discount"
             type="number"
             variant="outlined"
-            value={product.discount}
+            value={product.Discount}
             onChange={handleChange}
           />
         </div>
@@ -153,18 +153,27 @@ const PublishProductCard = ({ isOpen, onClose }) => {
             name="weight"
             type="number"
             variant="outlined"
-            value={product.weight}
+            value={product.Weight}
             onChange={handleChange}
           />
           <TextField
             label="Dimensions (LxWxH)"
             name="dimensions"
             variant="outlined"
-            value={product.dimensions}
+            value={product.Dimensions}
             onChange={handleChange}
           />
         </div>
-        <FormControl sx={{ width: "49%", marginRight:"2%" }} variant="filled">
+        <p>Availability Availability</p>
+        <TextField
+          label="Stock "
+          name="name"
+          fullWidth
+          variant="outlined"
+          value={product.Stock}
+          onChange={handleChange}
+        />
+        <FormControl sx={{ width: "49%", marginRight: "2%" }} variant="filled">
           <InputLabel>Colors</InputLabel>
           <Select
             multiple
