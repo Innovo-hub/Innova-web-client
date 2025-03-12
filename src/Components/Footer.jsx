@@ -10,8 +10,8 @@ function Footer() {
             love and hard work</p>
         </div>
         <div className="flex flex-col space-y-2">
-            <Link>Home</Link>
-            <Link>Categories</Link>
+            <Link to={`/`}>Home</Link>
+            <Link to={``}>Categories</Link>
             <Link>Contact</Link>
             <Link>About</Link>
         </div>
