@@ -91,7 +91,11 @@ function Home() {
       <div className="my-8 lg:px-24 px-8">
         <h2 className="text-2xl font-semibold my-2">Best Selling products</h2>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-4">
-          {products.map((product) => (
+          {catLoading ? (<>
+            <div className="flex justify-center items-center my-4">
+              <Loading />
+            </div>
+          </>) : products.map((product) => (
             <ProductCard
               key={product.id}
               productId={product.id}

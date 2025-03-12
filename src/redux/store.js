@@ -4,13 +4,15 @@ import loginSlice from './Slices/Auth-Slice/LoginReducer';
 import profileSlice from './Slices/User-Slice/UserProfile';
 import categorySlice from './Slices/Category-Slice/CategoryReducer';
 import productSlice from './Slices/Product-Slice/ProductCategoryReducer';
+import cartSlice from './Slices/Cart-Slice/cartReducer';
 const store = configureStore({
     reducer: {
         register: registerSlice,
         login: loginSlice,
         profile: profileSlice,
         category: categorySlice,
-        product: productSlice
+        product: productSlice,
+        cart: cartSlice
     }
 });
 export default store;

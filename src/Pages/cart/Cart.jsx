@@ -1,117 +1,142 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import { Button } from "@mui/material";
+import ProductCard from "./Cart-Components/ProductCard";
+import OrderSummary from "./Cart-Components/OrderSummary";
+import axios from "axios";
+import Swal from "sweetalert2";
+import APILINK from "../../../Constants";
+import Loading from "../../Components/Shared/Loading/Loading";
 import { Link } from "react-router-dom";
-import image1 from "../../assets/CartAssets/image1.png";
-import { Trash } from "lucide-react";
-import { Add, Remove } from "@mui/icons-material";
+import CopyRights from "../../Components/Copy-Rights";
+
 const Cart = () => {
-  const [quantity, setQuantity] = useState(1);
+  const [cartData, setCartData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [clearLoading, setClearLoading] = useState(false);
+
+  const fetchCart = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(`${APILINK}/api/Cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setCartData(response.data);
+    } catch (error) {
+      Swal.fire("Error", "Failed to fetch cart data", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const clearCart = async () => {
+    try {
+      setClearLoading(true);
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.delete(`${APILINK}/api/Cart/clear`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      setClearLoading(false);
+      fetchCart();
+    } catch (error) {
+      Swal.fire("Error", "Failed to Clear cart data", "error");
+    } finally {
+      setClearLoading(false);
+    }
+  }
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-36">
+        <Loading />
+      </div>
+    );
+  }
+
+  // Determine if the cart is empty
+  const isCartEmpty =
+    (cartData.Message === "Cart is empty." && cartData.Cart?.length === 0) ||
+    !cartData.cartItems ||
+    cartData.cartItems.length === 0;
+
   return (
     <>
       <Navbar />
-      <div className="container bg-[#f7f7f7] h-screen py-10 px-5 xl:px-0">
+      <div className="container bg-[#f7f7f7] py-10 px-5 xl:px-0">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
           <div className="col-span-2">
             <div className="flex justify-between">
               <h3 className="text-2xl font-medium">
                 Shopping Cart
-                <span className="text-gray-400 text-sm">
-                  ({quantity} {quantity > 1 ? "items" : "item"})
+                <span className="text-gray-400 text-sm flex items-center">
+                  ({cartData?.NumberOfProducts || 0}{" "}
+                  {cartData?.NumberOfProducts > 1 ? "items" : "item"})
                 </span>
               </h3>
-              <Button variant="outlined">Clear Cart</Button>
+              {!isCartEmpty && (
+                <Button
+                  variant="outlined"
+                  onClick={() => clearCart()}
+                >
+                  {clearLoading ? "Clearing...." : "Clear Cart"}
+                </Button>
+              )}
             </div>
 
-            <div className="mt-5">
-              <div className="w-full flex justify-between bg-white rounded-xl p-5 space-x-5 shadow">
-                <div className="">
-                  <img
-                    src={image1}
-                    alt="Item 1 cart"
-                    className="rounded-lg w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="flex justify-between w-full text-[#126090]">
-                  <div className="flex flex-col justify-between">
-                    <p className="text-lg font-medium">
-                      Lapis Set, Necklace, ring, earrings lightweight
-                    </p>
-
-                    <div className="flex items-center px-3 py-1 bg-white">
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        className="min-w-8 h-8 p-0 flex items-center justify-center"
-                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      >
-                        <Remove fontSize="small" />
-                      </Button>
-
-                      <span className="text-lg font-semibold mx-4">
-                        {quantity}
-                      </span>
-
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        className="min-w-8 h-8 p-0 flex items-center justify-center"
-                        onClick={() => setQuantity(quantity + 1)}
-                      >
-                        <Add fontSize="small" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col justify-between items-end">
-                    <span className="text-lg font-semibold">$70.00</span>
-                    <Button
-                      variant="outlined"
-                      className="text-red-600 border-red-600 flex items-center space-x-1"
+            <div className="mt-5 space-y-4">
+              {isCartEmpty ? (
+                <div className="flex flex-col justify-center items-center text-gray-500 text-lg p-16 border border-dashed border-gray-300 rounded-md">
+                  No products found. Add some and enjoy shopping with us!
+                  <div className="flex">
+                    <Link
+                      className="bg-main-color my-2 py-1 px-6 text-white rounded"
+                      to={"/"}
                     >
-                      <Trash size={16} className="text-red-600" />
-                      <span>Remove</span>
-                    </Button>
+                      Start Shopping
+                    </Link>
                   </div>
                 </div>
-              </div>
+              ) : (
+                cartData.cartItems.map((item) => (
+                  <ProductCard
+                    key={item.ProductId}
+                    productId={item.ProductId}
+                    imageSrc={item.HomePictureUrl}
+                    productName={item.ProductName}
+                    price={item.Price}
+                    quantity={item.Quantity}
+                    onDecrease={() => console.log("Decrease quantity")}
+                    onIncrease={() => console.log("Increase quantity")}
+                    onRemove={() => console.log("Remove item")}
+                  />
+                ))
+              )}
             </div>
           </div>
-          <div className="m-auto w-full ">
-            <div className="bg-white rounded-xl w-full p-5">
-              <h3 className="text-2xl font-medium">Order Summary </h3>
-              <div className="space-y-2 mt-3 relative">
-                <div className="flex justify-between">
-                  <p className="text-gray-500">Subtotal</p>
-                  <span className="text-[#126090]">$70.00</span>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-500">Shipping</p>
-                  <span className="text-[#126090]">$0.00</span>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-500">Tax</p>
-                  <span className="text-[#126090]">$2.00</span>
-                </div>
-                <hr className="my-2"></hr>
-                <div className="flex justify-between">
-                  <p className=" text-gray-500">Total</p>
-                  <span className="text-[#126090]">$72.00</span>
-                </div>
-                <Link to={`/checkOut`}>
-                  <button className="w-full bg-[#126090] text-white py-2 rounded-xl mt-6">
-                    Proceed to checkout
-                  </button>
-                </Link>
-              </div>
+
+          {!isCartEmpty && (
+            <div className="m-auto w-full">
+              <OrderSummary
+                subtotal={cartData.TotalPrice || 0}
+                shipping={0}
+                tax={2}
+                total={(cartData.TotalPrice || 0) + 2}
+              />
             </div>
-          </div>
+          )}
         </div>
       </div>
       <Footer />
+      <CopyRights />
     </>
   );
 };
+
 export default Cart;

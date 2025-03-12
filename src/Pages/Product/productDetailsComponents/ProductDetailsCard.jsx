@@ -1,26 +1,55 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import author from '../../../assets/Products/author.png';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ProductActions from './ProductActions';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Swal from "sweetalert2";
+import { addToCart } from '../../../redux/Slices/Cart-Slice/cartReducer';
+
 function ProductDetailsCard({ product }) {
     if (!product) {
-        return <p>Loading...</p>; // Prevents crash if product is undefined
+        return <p>Loading...</p>;
     }
+
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.cart);
     const [isLoved, setIsLoved] = useState(false);
+    const [quantity, setQuantity] = useState(1);
 
     const toggleLoved = () => {
         setIsLoved((prev) => !prev);
     };
+
+    const handleAddToCart = () => {
+        console.log("Product ID:", product.ProductId);
+        console.log("Quantity:", quantity);
+        dispatch(addToCart({ ProductId: product.ProductId, Quantity: quantity }))
+            .unwrap()
+            .then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Added to Cart",
+                    text: "Product added to cart successfully.",
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: error || "Failed to add product to cart.",
+                });
+            });
+    };
+
     return (
         <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-12 gap-4 lg:px-24 px-8 py-6'>
             <div className="grid grid-cols-4 gap-2">
-                {/* Main Image */}
                 <div className="w-full col-span-4">
                     <img src={product.HomePicture} alt={product.Name} className="w-full h-auto rounded-lg" />
                 </div>
-                {/* Additional Pictures */}
                 {product.Pictures?.map((pic, index) => (
                     <img key={index} src={pic} alt={`Product ${index}`} className="w-full h-auto rounded-lg" />
                 ))}
@@ -36,6 +65,7 @@ function ProductDetailsCard({ product }) {
                     </div>
                     <h3>{product.AverageRating} Review</h3>
                 </div>
+
                 <div className="flex justify-between items-center">
                     <h3 className='text-3xl text-main-color font-semibold'>{product.ProductName}</h3>
                     <button onClick={toggleLoved}>
@@ -46,43 +76,22 @@ function ProductDetailsCard({ product }) {
                         )}
                     </button>
                 </div>
-                <div className="grid grid-cols-3 bg-gray-100  rounded-2xl mt-4 text-center">
-                    <div className='flex justify-between items-center flex-col py-4 bg-[#FFFFFF] rounded-t-2xl rounded-bl-3xl'>
-                        <p className="text-sm ">Price</p>
-                        <p className="text-main-color font-semibold">${product.PriceAfterDiscount}</p>
-                    </div>
-                    <div className='rounded-2xl flex flex-col justify-between items-center'>
-                        <p className="text-sm text-gray-500 my-2">Availability</p>
-                        <div className="flex bg-white py-2 rounded-tr-2xl rounded-br-2xl justify-center items-center w-full">
-                            <p className={product.Stock > 0 ? "bg-[#1ABA1A] text-white  text-sm px-3 py-1 rounded-full inline-block" : "bg-red-500 text-white  text-sm px-3 py-1 rounded-full inline-block"}>
-                                In Stock
-                            </p>
-                        </div>
-                    </div>
-                    <div className='flex justify-between items-center flex-col py-2'>
-                        <p className="text-sm text-gray-500">Weight</p>
-                        <p className="font-medium">{product?.Weight || "10"} KG</p>
-                    </div>
-                </div>
-                <div className="flex flex-col">
-                    <h3 className='text-main-color font-semibold'>Description</h3>
-                    <h3>{product.Description}</h3>
-                </div>
-                <div className="flex flex-col items-start gap-4 lg:mt-48 ">
-                    {/* Quantity Selector and Stock Info */}
-                    <ProductActions max={product.Stock} />
 
-                    {/* Action Buttons */}
-                    <div className="flex gap-12 bg-main-color px-12 py-4 rounded-tl-3xl rounded-br-3xl w-full">
-                        <button className="flex justify-center items-center gap-1 bg-white text-main-color px-4 py-2 w-1/2 rounded-lg">
-                            <span><ShoppingCartOutlinedIcon /></span> Add to Cart
-                        </button>
-                        <button className="bg-white text-main-color px-4 py-2 w-1/2 rounded-lg">
-                            Buy Now!
-                        </button>
-                    </div>
-                </div>
+                <ProductActions max={product.Stock} quantity={quantity} setQuantity={setQuantity} />
 
+                <div className="flex gap-12 bg-main-color px-12 py-4 rounded-tl-3xl rounded-br-3xl w-full">
+                    <button
+                        className="flex justify-center items-center gap-1 bg-white text-main-color px-4 py-2 w-1/2 rounded-lg"
+                        onClick={handleAddToCart}
+                        disabled={loading}
+                    >
+                        <ShoppingCartOutlinedIcon />
+                        {loading ? 'Adding...' : 'Add to Cart'}
+                    </button>
+                    <button className="bg-white text-main-color px-4 py-2 w-1/2 rounded-lg">
+                        Buy Now!
+                    </button>
+                </div>
             </div>
         </div>
     );
