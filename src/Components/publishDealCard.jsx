@@ -1,7 +1,23 @@
-
 import { useState } from "react";
 import profile1 from "../assets/Deals/profile1.png";
 import { FaTimes, FaUpload, FaCheckCircle } from "react-icons/fa";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Grid,
+  Paper,
+  IconButton,
+  InputAdornment,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import UploadIcon from "@mui/icons-material/Upload";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const DealPublishCard = ({ isOpen, onClose }) => {
   const [businessName, setBusinessName] = useState("");
@@ -42,151 +58,253 @@ const DealPublishCard = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  // Fixed dimensions for image upload containers
+  const mainImageSize = { width: 250, height: 350 };
+  const smallImageSize = { width: 165, height: 165 };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10 z-50">
-      <div className="bg-white w-[70%] p-6 rounded-lg relative">
+    <Box
+      sx={{
+        position: "fixed",
+        inset: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        bgcolor: "rgba(0,0,0,0.5)",
+        p: 5,
+        zIndex: 50,
+      }}
+    >
+      <Paper
+        elevation={3}
+        sx={{
+          width: "70%",
+          p: 3,
+          borderRadius: 2,
+          position: "relative",
+        }}
+      >
         {/* User Info */}
-        <div>
-          <div className="flex items-center gap-4">
-            <img
+        <Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box
+              component="img"
               src={profile1}
               alt="User Avatar"
-              className="w-16 h-16 rounded-xl"
+              sx={{ width: 64, height: 64, borderRadius: 2 }}
             />
-            <div>
-              <h3 className="text-xl font-medium">Mohamed Ali</h3>
-              <p className="text-gray-600 text-sm">ID: 2333669591</p>
-              <p className="text-[#126090] text-sm font-medium flex items-center gap-1">
-                <FaCheckCircle className="text-blue-700" /> Verified
-              </p>
-            </div>
-          </div>
-          <div>
-            <button
-              className="absolute top-6 right-6 text-red-500"
-              onClick={onClose}
-            >
-              <FaTimes size={18} />
-            </button>
-          </div>
-        </div>
-        <div className="grid lg:grid-cols-2 mt-5">
+            <Box>
+              <Typography variant="h6" fontWeight="medium">
+                Mohamed Ali
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ID: 2333669591
+              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <CheckCircleIcon color="primary" fontSize="small" />
+                <Typography variant="body2" color="primary" fontWeight="medium">
+                  Verified
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <IconButton
+            color="error"
+            sx={{ position: "absolute", top: 16, right: 16 }}
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        <Grid container spacing={3} sx={{ mt: 2 }}>
           {/* First grid for publishing data inputs */}
-          <div className="space-y-3">
-            {/* ... (rest of the form inputs remain the same) ... */}
-            <div>
-              <label>Business Name:</label>
-              <input
-                type="text"
+          <Grid item xs={12} lg={6}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <TextField
+                fullWidth
+                label="Business Name"
+                variant="outlined"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
-                className="border mt-1 bg-gray-100 rounded-md p-1 w-full"
+                size="small"
               />
-            </div>
-            <div>
-              <label>Business Type:</label>
-              <input
-                type="text"
-                value={businessType}
-                onChange={(e) => setBusinessType(e.target.value)}
-                className="border mt-1 bg-gray-100 rounded-md p-1 w-full"
-              />
-            </div>
-            <div>
-              <label className="block">Description:</label>
-              <textarea
+
+              <FormControl fullWidth size="small">
+                <InputLabel>Business Type</InputLabel>
+                <Select
+                  value={businessType}
+                  label="Business Type"
+                  onChange={(e) => setBusinessType(e.target.value)}
+                >
+                  <MenuItem value="Retail">Retail</MenuItem>
+                  <MenuItem value="Technology">Technology</MenuItem>
+                  <MenuItem value="Food">Food & Beverage</MenuItem>
+                  <MenuItem value="Service">Service</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
+                </Select>
+              </FormControl>
+
+              <TextField
+                fullWidth
+                label="Description"
+                variant="outlined"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 border rounded-md mt-1 bg-gray-100 "
-                rows="4"
-              ></textarea>
-            </div>
-            <div className="flex justify-between gap-3">
-              <div>
-                <label>Offer Money:</label>
-                <input
-                  type="text"
+                multiline
+                rows={4}
+              />
+
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <TextField
+                  fullWidth
+                  label="Offer Money"
+                  variant="outlined"
                   value={offerMoney}
                   onChange={(e) => setOfferMoney(e.target.value)}
-                  className="border mt-1 bg-gray-100 rounded-md p-1 w-full"
+                  size="small"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
                 />
-              </div>
-              <div>
-                <label>Offer Percentage:</label>
-                <input
-                  type="text"
+
+                <TextField
+                  fullWidth
+                  label="Offer Percentage"
+                  variant="outlined"
                   value={offerDeal}
                   onChange={(e) => setOfferDeal(e.target.value)}
-                  className="border mt-1 bg-gray-100 rounded-md p-1 w-full"
+                  size="small"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
                 />
-              </div>
-            </div>
-            <div>
-              <button
+              </Box>
+
+              <Button
+                variant="contained"
+                color="success"
+                fullWidth
                 onClick={handleSubmit}
-                className="bg-green-500 text-white p-3 rounded-lg w-full mt-4 font-semibold"
+                sx={{ mt: 2, py: 1.5, fontWeight: "bold" }}
               >
                 Publish Deal
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Box>
+          </Grid>
 
           {/* Second grid for uploading images */}
-          <div className="flex flex-col items-center p-4 w-full">
-            <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-              <label className="relative border border-gray-300 bg-gray-200 flex items-center justify-center cursor-pointer rounded-lg overflow-hidden w-full  col-span-1">
-                {uploadedImages[0] ? (
-                  <img
-                    src={uploadedImages[0]}
-                    alt="Uploaded 1"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center text-gray-500">
-                    <FaUpload className="text-2xl mb-2" />
-                    <span className="text-sm">Upload Picture</span>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  onChange={(e) => handleImageUpload(0, e)}
-                  className="hidden"
-                  accept="image/*"
-                />
-              </label>
-              <div className="grid grid-rows-2 gap-4 w-full">
-                {[1, 2].map((index) => (
-                  <label
-                    key={index}
-                    className="relative border border-gray-300 bg-gray-200 flex items-center justify-center cursor-pointer rounded-lg overflow-hidden w-full aspect-square"
-                  >
-                    {uploadedImages[index] ? (
-                      <img
-                        src={uploadedImages[index]}
-                        alt={`Uploaded ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex flex-col items-center justify-center text-gray-500">
-                        <FaUpload className="text-2xl mb-2" />
-                        <span className="text-sm">Upload</span>
-                      </div>
-                    )}
-                    <input
-                      type="file"
-                      onChange={(e) => handleImageUpload(index, e)}
-                      className="hidden"
-                      accept="image/*"
+          <Grid item xs={12} lg={6}>
+            <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+              <Box sx={{ display: "flex", gap: 2 }}>
+                {/* Main large image upload */}
+                <Box
+                  component="label"
+                  sx={{
+                    width: mainImageSize.width,
+                    height: mainImageSize.height,
+                    border: "1px solid #ddd",
+                    borderRadius: 2,
+                    bgcolor: "#f5f5f5",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    overflow: "hidden",
+                  }}
+                >
+                  {uploadedImages[0] ? (
+                    <Box
+                      component="img"
+                      src={uploadedImages[0]}
+                      alt="Uploaded 1"
+                      sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
-                  </label>
-                ))}
-              </div>
-            </div>
-          </div>
-          {/*  */}
-        </div>
-      </div>
-    </div>
+                  ) : (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        color: "text.secondary",
+                      }}
+                    >
+                      <UploadIcon sx={{ fontSize: 32, mb: 1 }} />
+                      <Typography variant="body2">Upload Picture</Typography>
+                    </Box>
+                  )}
+                  <input
+                    type="file"
+                    onChange={(e) => handleImageUpload(0, e)}
+                    style={{ display: "none" }}
+                    accept="image/*"
+                  />
+                </Box>
+
+                {/* Two smaller image uploads */}
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {[1, 2].map((index) => (
+                    <Box
+                      key={index}
+                      component="label"
+                      sx={{
+                        width: smallImageSize.width,
+                        height: smallImageSize.height,
+                        border: "1px solid #ddd",
+                        borderRadius: 2,
+                        bgcolor: "#f5f5f5",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {uploadedImages[index] ? (
+                        <Box
+                          component="img"
+                          src={uploadedImages[index]}
+                          alt={`Uploaded ${index + 1}`}
+                          sx={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            color: "text.secondary",
+                          }}
+                        >
+                          <UploadIcon sx={{ fontSize: 24, mb: 0.5 }} />
+                          <Typography variant="body2">Upload</Typography>
+                        </Box>
+                      )}
+                      <input
+                        type="file"
+                        onChange={(e) => handleImageUpload(index, e)}
+                        style={{ display: "none" }}
+                        accept="image/*"
+                      />
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Box>
   );
 };
 

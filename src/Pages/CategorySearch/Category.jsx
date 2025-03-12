@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
+import Footer from "../../Components/Footer";
 import HomeBanner from "../../Components/Home-Banner";
 import CategorySearch from "./Category-Compnent/Category-Search";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,6 +65,8 @@ function Category() {
       ) : (
         <p className="text-center text-red-500">No category found.</p>
       )}
+      
+      <Footer/>
     </>
   );
 }
