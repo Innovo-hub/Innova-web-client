@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -7,8 +11,8 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import CircleIcon from "@mui/icons-material/Circle";
 import LinkIcon from "@mui/icons-material/Link";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { addToCart } from "../../../redux/Slices/Cart-Slice/cartReducer";
+
 
 function ProductCard({
   productId,
@@ -22,9 +26,39 @@ function ProductCard({
   NumberofRates,
 }) {
   const [isLoved, setIsLoved] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.cart); // Access loading state
 
   const toggleLoved = () => {
     setIsLoved((prev) => !prev);
+  };
+
+  const handleAddToCart = () => {
+    if (!inStock) {
+      Swal.fire({
+        icon: "error",
+        title: "Out of Stock",
+        text: "This product is currently unavailable.",
+      });
+      return;
+    }
+
+    dispatch(addToCart({ ProductId: productId, Quantity: 1 }))
+      .unwrap()
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Added to Cart",
+          text: response.Message || "Product added to cart successfully.",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error || "Failed to add product to cart.",
+        });
+      });
   };
 
   return (
@@ -32,7 +66,7 @@ function ProductCard({
       {/* Image with overlay */}
       <div className="relative">
         <img className="object-cover h-64 w-full" src={imageSrc} alt={productName} />
-        <div className="absolute inset-0 bg-[#126090] bg-opacity-50 cursor-pointer flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300  transition-all">
+        <div className="absolute inset-0 bg-[#126090] bg-opacity-50 cursor-pointer flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300 transition-all">
           <button className="text-white p-3 text-lg">
             Visit <LinkIcon />
           </button>
@@ -41,24 +75,14 @@ function ProductCard({
 
       {/* Card body */}
       <div className="flex flex-col p-4 space-y-2">
-        <h2 className="font-bold text-lg truncate hover:underline"><Link to={`/product/${productId}`}>{productName}</Link></h2>
+        <h2 className="font-bold text-lg truncate hover:underline">
+          <Link to={`/product/${productId}`}>{productName}</Link>
+        </h2>
         <div className="flex items-center gap-2">
-          <h6
-            className={
-              PriceAfterDiscount == null
-                ? "hidden"
-                : "font-bold text-xl text-green-600"
-            }
-          >
-            ${PriceAfterDiscount}
-          </h6>
-          <h6
-            className={
-              PriceAfterDiscount == null
-                ? " text-gray-600"
-                : "line-through text-gray-600"
-            }
-          >
+          {PriceAfterDiscount && (
+            <h6 className="font-bold text-xl text-green-600">${PriceAfterDiscount}</h6>
+          )}
+          <h6 className={PriceAfterDiscount ? "line-through text-gray-600" : "text-gray-600"}>
             ${Price}
           </h6>
         </div>
@@ -74,7 +98,9 @@ function ProductCard({
                 <FavoriteBorderIcon className="hover:text-red-500" />
               )}
             </button>
-            <ShoppingCartOutlinedIcon />
+            <button onClick={handleAddToCart} disabled={loading}>
+              <ShoppingCartOutlinedIcon className={`${loading ? "opacity-50" : ""}`} />
+            </button>
           </div>
           <p>
             {inStock ? (
@@ -84,8 +110,7 @@ function ProductCard({
               </>
             ) : (
               <>
-                <CircleIcon className="text-red-600" fontSize="small" /> Out Of
-                Stock
+                <CircleIcon className="text-red-600" fontSize="small" /> Out Of Stock
               </>
             )}
           </p>
