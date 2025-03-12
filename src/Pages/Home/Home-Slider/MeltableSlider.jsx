@@ -48,11 +48,11 @@ const MeltableSlider = ({ images, autoPlay = true, interval = 5000 }) => {
       {images.map((image, index) => (
         <Box
           key={index}
-          className={`absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-500
+          className={`absolute inset-0 w-full h-full bg-cover transition-all duration-500
             ${activeIndex === index ? "opacity-100 z-10" : "opacity-0 z-0"}
             ${
               isTransitioning && activeIndex === index
-                ? "scale-105 blur-sm"
+                ? ""
                 : ""
             }
           `}
