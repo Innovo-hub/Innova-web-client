@@ -58,9 +58,9 @@ function BussinessBanner() {
           <div className="flex flex-col w-full md:w-3/4">
             <p className="text-black text-base mb-2">Estimated Balance</p>
             <h2 className="text-xl font-bold" style={{ color: "#2C1DB3" }}>
-              152,326.33 EGP
+              0 EGP
             </h2>
-            <p className="text-black text-sm mt-2">≈ $3,025.20</p>
+            <p className="text-black text-sm mt-2">≈ $0</p>
           </div>
           {/* <div className="flex flex-col gap-4 mt-4 md:mt-0 md:ml-8 justify-end">
             <button
