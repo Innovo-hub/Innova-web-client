@@ -4,12 +4,13 @@ import Footer from "../../Components/Footer";
 import CopyRights from "../../Components/Copy-Rights";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartProducts } from "../../redux/Slices/Cart-Slice/cartReducer";
-import OrderCard from './CheckoutComponents/OrderCard'
+import OrderCard from "./CheckoutComponents/OrderCard";
+import ShippingForm from "./CheckoutComponents/ShippingForm";
 
 const CheckoutPage = () => {
   const [quantities, setQuantities] = useState({});
   const [subtotal, setSubtotal] = useState(0);
-  const [shippingPrice, setShippingPrice] = useState(10); // Example static shipping cost
+  const [shippingPrice, setShippingPrice] = useState(10);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const CheckoutPage = () => {
       0
     );
     setSubtotal(calculatedSubtotal);
-    const calculatedTax = calculatedSubtotal * 0.1; // Assuming 10% tax rate
+    const calculatedTax = calculatedSubtotal * 0.1;
     setTax(calculatedTax);
     setTotal(calculatedSubtotal + shippingPrice + calculatedTax);
   }, [quantities, cartProducts, shippingPrice]);
@@ -60,39 +61,7 @@ const CheckoutPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-1/2 flex flex-col">
-            <div className="bg-white rounded-md p-6 flex-grow flex flex-col h-full">
-              <div className="mb-8">
-                <h3 className="text-[24px] font-semibold">Shipping Address</h3>
-              </div>
-              <div className="flex-grow">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <input type="text" placeholder="First Name" className="border border-gray-300 rounded-md p-3 w-full" />
-                  <input type="text" placeholder="Last Name" className="border border-gray-300 rounded-md p-3 w-full" />
-                </div>
-                <input type="email" placeholder="Email" className="w-full border border-gray-300 rounded-md p-3 mb-6" />
-                <input type="text" placeholder="Street Address" className="w-full border border-gray-300 rounded-md p-3 mb-6" />
-                <input type="text" placeholder="Apartment, Suite, etc.." className="w-full border border-gray-300 rounded-md p-3 mb-6" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <input type="text" placeholder="Country" className="border border-gray-300 rounded-md p-3" />
-                  <input type="text" placeholder="City" className="border border-gray-300 rounded-md p-3" />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <input type="text" placeholder="Postal Code" className="border border-gray-300 rounded-md p-3" />
-                  <input type="text" placeholder="State/Province" className="border border-gray-300 rounded-md p-3" />
-                </div>
-                <div className="flex items-center mt-auto mb-6">
-                  <input type="checkbox" id="billingAddress" className="w-4 h-4 text-[#126090]" />
-                  <label htmlFor="billingAddress" className="ml-2 text-sm">
-                    Billing address same as shipping address
-                  </label>
-                </div>
-              </div>
-              <div className="mt-auto">
-                <button className="w-full bg-[#126090] text-white py-3 rounded-md cursor-pointer">
-                  Continue to delivery
-                </button>
-              </div>
-            </div>
+            <ShippingForm />
           </div>
 
           <div className="w-full lg:w-1/2 space-y-6">
@@ -125,6 +94,11 @@ const CheckoutPage = () => {
               <div className="flex justify-between font-semibold pt-4 border-t border-gray-200">
                 <span className="text-[#888888]">Total</span>
                 <span className="text-[#126090]">${total.toFixed(2)}</span>
+              </div>
+              <div className="mt-4">
+                <button className="w-full bg-[#126090] text-white py-3 rounded-md cursor-pointer">
+                  Go to Payment
+                </button>
               </div>
             </div>
           </div>
