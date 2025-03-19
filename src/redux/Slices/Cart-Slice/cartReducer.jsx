@@ -22,10 +22,27 @@ export const addToCart = createAsyncThunk(
         }
     }
 );
+export const getCartProducts = createAsyncThunk(
+    '/getcart',
+    async (_, { rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem("accessToken");
+            const response = await axios.get(`${APILINK}/api/cart`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            rejectWithValue(error.response.data.message || "Error Just happend");
+        }
+    }
+)
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
         items: [],
+        cartProducts: [],
         loading: false,
         error: null,
     },
@@ -43,7 +60,20 @@ const cartSlice = createSlice({
             .addCase(addToCart.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            });
+            })
+            //get Cart Products
+            .addCase(getCartProducts.pending, (state, action) => {
+                state.loading = true;
+                state.error = null
+            })
+            .addCase(getCartProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.cartProducts = action.payload.cartItems;
+            })
+            .addCase(getCartProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
     },
 });
 
