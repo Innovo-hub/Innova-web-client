@@ -34,7 +34,6 @@ const steps = [
   "Agreement Terms",
   "Signature",
   "Review & Confirm",
-  
 ];
 
 const InvestmentContractForm = () => {
@@ -59,14 +58,12 @@ const InvestmentContractForm = () => {
   });
   const [pdfPreviewOpen, setPdfPreviewOpen] = useState(false);
   const pdfContractRef = useRef(null);
-
   const handleNext = () => setActiveStep((prevStep) => prevStep + 1);
   const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
   };
-
   const calculatePlatformShare = () => {
     const { productionCost, sellingPrice } = formData;
     const productionCostNum = Number(productionCost);
@@ -81,7 +78,6 @@ const InvestmentContractForm = () => {
 
     return platformShare.toFixed(2);
   };
-
   const calculateNetProfitAfterPlatformFee = () => {
     const { productionCost, sellingPrice } = formData;
     const productionCostNum = Number(productionCost);
@@ -93,7 +89,6 @@ const InvestmentContractForm = () => {
     const platformProfit = parseFloat(calculatePlatformShare());
     return netProfit - platformProfit;
   };
-
   const calculateInvestorShare = () => {
     const { investorShare } = formData;
     const netProfitAfterFee = calculateNetProfitAfterPlatformFee();
@@ -103,7 +98,6 @@ const InvestmentContractForm = () => {
 
     return (netProfitAfterFee * (investorShareNum / 100)).toFixed(2);
   };
-
   const calculateOwnerShare = () => {
     const { investorShare } = formData;
     const netProfitAfterFee = calculateNetProfitAfterPlatformFee();
@@ -113,8 +107,6 @@ const InvestmentContractForm = () => {
     const investorProfit = parseFloat(calculateInvestorShare());
     return (netProfitAfterFee - investorProfit).toFixed(2);
   };
-
-  // بيانات الجدول للعرض في خطوة المراجعة
   const getReviewTableData = () => [
     { label: "Business Owner", value: formData.businessOwner },
     { label: "Investor", value: formData.investor },
@@ -144,21 +136,13 @@ const InvestmentContractForm = () => {
     },
     { label: "Refund Policy", value: formData.refundPolicy ? "Yes" : "No" },
   ];
-
-  // تنسيق التاريخ الحالي
   const currentDate = format(new Date(), "MMMM dd, yyyy");
-
-  // فتح نافذة معاينة الـ PDF
   const handleOpenPdfPreview = () => {
     setPdfPreviewOpen(true);
   };
-
-  // إغلاق نافذة معاينة الـ PDF
   const handleClosePdfPreview = () => {
     setPdfPreviewOpen(false);
   };
-
-  // تصدير العقد كملف PDF
   const exportToPdf = async () => {
     if (!pdfContractRef.current) return;
 
@@ -168,14 +152,12 @@ const InvestmentContractForm = () => {
       logging: false,
       useCORS: true,
     });
-
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: "a4",
     });
-
     const imgWidth = 210;
     const pageHeight = 295;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -184,21 +166,19 @@ const InvestmentContractForm = () => {
 
     pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
     heightLeft -= pageHeight;
-
     while (heightLeft >= 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
     }
-
     pdf.save(`${formData.projectName}_Investment_Contract.pdf`);
   };
 
   return (
     <>
-      <div className="bg-contract min-h-screen flex justify-center items-center py-8">
-        <div className="max-w-4xl w-full mx-auto p-6 sm:p-10 bg-white rounded-xl shadow-lg">
+      <div className=" bg-contract min-h-screen flex justify-center items-center py-8">
+        <div className="max-w-6xl w-full mx-auto p-6 sm:p-10 bg-white rounded-xl shadow-lg">
           <div className="text-center mb-6">
             <h1 className="font-bold text-2xl sm:text-3xl">
               Investment Form Contract
@@ -340,8 +320,6 @@ const InvestmentContractForm = () => {
               </div>
             )}
 
-            
-
             {activeStep === 4 && (
               <div className="space-y-5">
                 <h3 className="text-lg font-bold">6. Signature</h3>
@@ -463,8 +441,6 @@ const InvestmentContractForm = () => {
           </div>
         </div>
       </div>
-
-      {/* PDF معاينة عقد */}
       <Dialog
         open={pdfPreviewOpen}
         onClose={handleClosePdfPreview}
