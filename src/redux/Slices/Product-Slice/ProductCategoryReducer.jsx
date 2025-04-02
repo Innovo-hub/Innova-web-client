@@ -21,6 +21,7 @@ export const getOneProduct = createAsyncThunk(
   async ({ id }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${APILINK}/api/Product/getOneProduct/${id}`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to fetch product");
