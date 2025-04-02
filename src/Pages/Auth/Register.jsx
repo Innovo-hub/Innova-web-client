@@ -93,7 +93,7 @@ function Register() {
     <>
       <Navbar currentTab={"Auth"} />
       {/* Screen 1 of Register  */}
-      <div className="py-5">
+      <div className="bg-gradient-to-tl from-white to-sky-900 py-10">
         <div className="container">
           <div className="reg-screen1 bg-white w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
@@ -101,7 +101,7 @@ function Register() {
                 <h3 className="text-2xl text-gray-500">
                   hello there 👋🏻, Welcome to
                 </h3>
-                <h1 className="font-bold text-6xl py-4 lg:text-8xl bg-gradient-to-r from-[#000000cc] to-[#126090] bg-clip-text text-transparent">
+                <h1 className="font-bold text-5xl py-4 lg:text-7xl bg-gradient-to-r from-[#000000cc] to-[#126090] bg-clip-text text-transparent">
                   Innova HUB
                 </h1>
                 <p className="text-xl text-gray-400">
@@ -183,9 +183,9 @@ function Register() {
         </div>
       </div>
       {/* screen 3 of register Form */}
-      <div className=" mt-20 bg-white  pt-8">
+      <div className="container mt-20">
         <div>
-          <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#126090] bg-clip-text text-transparent mb-5 mt-5 text-center">
+          <h2 className="text-6xl font-bold bg-gradient-to-br from-[#000000cc] to-[#126090] bg-clip-text text-transparent mb-5 text-center">
             SIGN UP NOW!
           </h2>
           <p className="text-2xl text-center">
@@ -302,7 +302,7 @@ function Register() {
                   {error && <p className="text-red-500">{error.data}</p>}
                 </div>
               </form>
-              {/* <div className="flex flex-col justify-center items-center mt-4">
+              <div className="flex flex-col justify-center items-center mt-4">
                 <p>or Sign up with</p>
                 <div className="social-icons flex space-x-2">
                   <a
@@ -312,12 +312,12 @@ function Register() {
                     <GoogleIcon sx={{ color: "#126090" }} />
                   </a>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <CopyRights/>
+      <CopyRights />
     </>
   );
 }
