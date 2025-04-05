@@ -20,6 +20,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "caniuse-lite": "^1.0.30001712",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.5.0",
     "html2canvas": "^1.4.1",

@@ -14,7 +14,9 @@ import Checkout from "./Pages/Checkout/Checkout"
 import Payment from "./Pages/Payment/Payment"
 import Cart from "./Pages/cart/Cart";
 import WishList from "./Pages/WishList/WishList";
+import PaymentSuccess from "./Pages/PaymentSuccess/PaymentSuccess";
 import InvestmentContractForm from "./Pages/Contract/contract";
+
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
 
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/order/payment-success" element={<PaymentSuccess />} />
     </Routes>
   );
 }
