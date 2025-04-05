@@ -15,7 +15,7 @@ import image6 from "../../assets/Deals/image6.png";
 import image7 from "../../assets/Deals/image7.png";
 import image8 from "../../assets/Deals/image8.png";
 import image9 from "../../assets/Deals/image9.png";
-import OwnerBanner from "./DealsComponent/Owner-banner.jsx"
+import OwnerBanner from "./DealsComponent/Owner-banner.jsx";
 import DealPublishCard from "../../Components/publishDealCard";
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
@@ -61,7 +61,7 @@ const OwnerDeals = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <Navbar currentTab={"Deals"}/>
+      <Navbar currentTab={"Deals"} />
       <HomeBanner />
       <OwnerBanner />
       <div className="container"></div>

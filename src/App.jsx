@@ -15,6 +15,8 @@ import Payment from "./Pages/Payment/Payment"
 import Cart from "./Pages/cart/Cart";
 import WishList from "./Pages/WishList/WishList";
 import PaymentSuccess from "./Pages/PaymentSuccess/PaymentSuccess";
+import InvestmentContractForm from "./Pages/Contract/contract";
+
 
 function App() {
   return (
@@ -34,6 +36,10 @@ function App() {
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+      <Route
+        path="/InvestmentContractForm"
+        element={<InvestmentContractForm />}
+      />
       {/* payment and Cart Routes*/}
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/cart" element={<Cart />} />

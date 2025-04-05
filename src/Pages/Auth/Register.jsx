@@ -317,7 +317,7 @@ function Register() {
           </div>
         </div>
       </div>
-      <CopyRights/>
+      <CopyRights />
     </>
   );
 }
