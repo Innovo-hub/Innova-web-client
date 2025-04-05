@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartProducts } from "../../redux/Slices/Cart-Slice/cartReducer";
 import OrderCard from "./CheckoutComponents/OrderCard";
 import ShippingForm from "./CheckoutComponents/ShippingForm";
+import { Link } from "react-router-dom";
 
 const CheckoutPage = () => {
   const [quantities, setQuantities] = useState({});
@@ -96,9 +97,9 @@ const CheckoutPage = () => {
                 <span className="text-[#126090]">${total.toFixed(2)}</span>
               </div>
               <div className="mt-4">
-                <button className="w-full bg-[#126090] text-white py-3 rounded-md cursor-pointer">
+                <Link to={'/payment'} className="w-full bg-[#126090] text-white p-3 rounded-md cursor-pointer">
                   Go to Payment
-                </button>
+                </Link>
               </div>
             </div>
           </div>
