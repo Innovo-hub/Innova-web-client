@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import APILINK from "../../../../Constants";
+import Swal from "sweetalert2";
 
 export const publishProduct = createAsyncThunk(
   "product/publishProduct",
@@ -17,9 +18,17 @@ export const publishProduct = createAsyncThunk(
           },
         }
       );
+      Swal.fire({
+        text: "Product published successfully",
+        icon: "success",
+      })
       return response.data;
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        text: "Error publishing product",
+        icon: "error"
+      })
       return rejectWithValue(error.response?.data || error.message);
     }
   }
