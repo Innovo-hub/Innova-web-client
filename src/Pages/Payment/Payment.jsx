@@ -34,7 +34,7 @@ const CheckoutPage = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const res = await axios.post(
-        `${APILINK}/api/order/Confirm-Order?productId=1&quantity=${quantity}`,
+        `${APILINK}/api/order/Confirm-Order`,
         {
           DeliveryMethodId: selectedMethod?.Id,
           UserComment: userComment,
@@ -62,7 +62,7 @@ const CheckoutPage = () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios.post(
-          `${APILINK}/api/shipping-address/order-summary?productId=1&quantity=${quantity}`,
+          `${APILINK}/api/shipping-address/order-summary`,
           {
             DeliveryMethodId: selectedMethod.Id,
           }, {

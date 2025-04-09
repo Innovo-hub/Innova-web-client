@@ -1,31 +1,30 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import APILINK from "../../../../Constants";
-const API_URL = `${APILINK}/api/Product`;
+
 export const publishProduct = createAsyncThunk(
   "product/publishProduct",
-  async (productData, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      const formData = new FormData();
-      Object.keys(productData).forEach((key) => {
-        if (key === "otherPictures") {
-          productData.otherPictures.forEach((file, index) => {
-            formData.append(`otherPictures[${index}]`, file);
-          });
-        } else {
-          formData.append(key, productData[key]);
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        `${APILINK}/api/Product`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
-      const response = await axios.post(API_URL, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+      );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Something went wrong");
+      console.log(error);
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
+
 
 const productSlice = createSlice({
   name: "product",
@@ -42,10 +41,13 @@ const productSlice = createSlice({
       })
       .addCase(publishProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
+        console.log(action.payload);
         state.product = action.payload;
       })
       .addCase(publishProduct.rejected, (state, action) => {
         state.status = "failed";
+        console.log(action.payload);
+        
         state.error = action.payload;
       });
   },
