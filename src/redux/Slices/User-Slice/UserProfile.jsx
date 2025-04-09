@@ -13,6 +13,7 @@ export const getUserProfile = createAsyncThunk(
         }
       })
       console.log("Profile Data:", response.data); // Debug API response
+      
       return response.data;
     } catch (err) {
       console.error("Error fetching profile:", err); // Debug errors

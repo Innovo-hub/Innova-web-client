@@ -93,10 +93,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
 
     dispatch(publishProduct(formData));
     onClose();
-    Swal.fire({
-      text: "Product published successfully",
-      icon: "success",
-    })
+    
   };
 
   if (!isOpen) return null;
