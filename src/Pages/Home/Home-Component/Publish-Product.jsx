@@ -14,6 +14,7 @@ import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { publishProduct } from "../../../redux/Slices/Product-Slice/ProductCardReducer";
 import { getAllCategories } from "../../../redux/Slices/Category-Slice/CategoryReducer";
+import Swal from "sweetalert2";
 
 const options = {
   sizes: ["-", "sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
@@ -91,7 +92,11 @@ const PublishProductCard = ({ isOpen, onClose }) => {
     );
 
     dispatch(publishProduct(formData));
-    
+    onClose();
+    Swal.fire({
+      text: "Product published successfully",
+      icon: "success",
+    })
   };
 
   if (!isOpen) return null;
