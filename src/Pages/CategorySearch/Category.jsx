@@ -52,6 +52,7 @@ function Category() {
               (product, index) => (
                 <ProductCard
                   key={index}
+                  productId={product.ProductId}
                   imageSrc={product.HomePicture}
                   productName={product.ProductName}
                   Price={product.ProductPrice}
