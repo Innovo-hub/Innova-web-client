@@ -18,8 +18,10 @@ import explore1 from "../../assets/Products/prod4.png";
 import explore2 from "../../assets/Products/image-12.png";
 import explore3 from "../../assets/Products/image-13.png";
 import explore4 from "../../assets/Products/explore4.png";
-
+import la1 from "../../assets/HomeAssets/la1.jpg";
+import la2 from "../../assets/HomeAssets/la2.jpg";
 import InvestorBanner from "./Home-Component/InvestorBanner";
+import VideoSlider from "./Home-Component/video-Slider";
 
 function Home() {
   const {
@@ -48,9 +50,13 @@ function Home() {
     dispatch(getProductByCategory({ categoryId: 1 })); // Fetch products for categoryId = 1
   }, [dispatch]);
 
-  // Fetch products for Shop Necklaces (categoryId = 15)
+  // Fetch products for Shop Necklaces (categoryId = 9)
   useEffect(() => {
-    dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 15
+    dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 9
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProductByCategory({ categoryId: 13 })); // Fetch products for categoryId = 13
   }, [dispatch]);
 
   // Determine the user's role
@@ -61,6 +67,9 @@ function Home() {
     productsByCategory[1]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
     productsByCategory[9]?.AllProductsOnspecificCategories || [];
+  
+    const shopRings =
+    productsByCategory[13]?.AllProductsOnspecificCategories || [];
 
   return (
     <>
@@ -91,24 +100,46 @@ function Home() {
       <div className="my-8 lg:px-24 px-8">
         <h2 className="text-2xl font-semibold my-2">Best Selling products</h2>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-4">
-          {catLoading ? (<>
-            <div className="flex justify-center items-center my-4">
-              <Loading />
+          {catLoading ? (
+            <>
+              <div className="flex justify-center items-center my-4">
+                <Loading />
+              </div>
+            </>
+          ) : (
+            products.map((product) => (
+              <ProductCard
+                key={product.id}
+                productId={product.id}
+                imageSrc={product.imageSrc}
+                productName={product.productName}
+                PriceAfterDiscount={product.PriceAfterDiscount}
+                Price={product.Price}
+                Author={product.Author}
+                inStock={product.inStock}
+                starsNumbers={product.starsNumbers}
+                NumberofRates={product.NumberofRates}
+              />
+            ))
+          )}
+        </div>
+      </div>
+      {/* small enhancement */}
+      <div className="bg-gradient-to-r from-white to-gray-200 ">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
+            <div className="flex justify-center flex-col ">
+              <p className="text-6xl font-">
+                Handmade with passion,
+                <span className="text-blue-700"> crafted for you.</span>
+              </p>
             </div>
-          </>) : products.map((product) => (
-            <ProductCard
-              key={product.id}
-              productId={product.id}
-              imageSrc={product.imageSrc}
-              productName={product.productName}
-              PriceAfterDiscount={product.PriceAfterDiscount}
-              Price={product.Price}
-              Author={product.Author}
-              inStock={product.inStock}
-              starsNumbers={product.starsNumbers}
-              NumberofRates={product.NumberofRates}
-            />
-          ))}
+            <div>
+              <div className="border rounded-xl overflow-hidden">
+                <img src={la2} alt="group of toys" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -168,6 +199,60 @@ function Home() {
         </div>
       </div>
 
+      {/* small enhancement */}
+      <div className="bg-gradient-to-l from-white to-slate-300 ">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 p-10 space-x-10">
+            <div>
+              <div className="rounded-xl overflow-hidden">
+                <img src={la1} alt="group of toys" />
+              </div>
+            </div>
+            <div className="flex justify-center flex-col ">
+              <p className="text-5xl text-gray-700">
+                Every piece has a soul... and every
+                <span className="text-red-700"> soul has a touch.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Shop Rings Section (categoryId = 13) */}
+      <div className="my-8 lg:px-24 px-8">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-semibold my-2">Shop Rings</h2>
+          <Link className="text-main-color text-lg" to={`/category/13`}>
+            Show All <NavigateNextIcon />
+          </Link>
+        </div>
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
+          {productCategoryLoading ? (
+            <div className="flex justify-center items-center my-2"></div>
+          ) : (
+            shopRings.map((product, index) => (
+              <ProductCard
+                productId={product.ProductId}
+                key={index}
+                imageSrc={product.HomePicture}
+                productName={product.ProductName}
+                Price={product.ProductPrice}
+                Author={product.AuthorName}
+                inStock={product.IsAvailable}
+              />
+            ))
+          )}
+        </div>
+      </div>
+
+      <div>
+        <div className="py-5">
+          <p className="text-center text-2xl text-gray-500">
+            Explore how handmade products produced
+          </p>
+        </div>
+        <VideoSlider />
+      </div>
       {/* Explore Other Products Section */}
       <div className="my-2 lg:px-24 px-8">
         <h2 className="text-2xl font-semibold my-2">Explore Other Products</h2>
@@ -207,7 +292,6 @@ function Home() {
           </div>
         </div>
       </div>
-
       <Footer />
       <CopyRights />
     </>

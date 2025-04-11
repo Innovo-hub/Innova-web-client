@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 
 const options = {
   sizes: ["-", "sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
-  colors: ["-", "Red", "Blue", "Green", "Black", "White"],
+  colors: ["-", "Red", "Blue", "Green", "Black", "White","Brown"],
 };
 
 const PublishProductCard = ({ isOpen, onClose }) => {
@@ -40,6 +40,8 @@ const PublishProductCard = ({ isOpen, onClose }) => {
     homePicture: null,
     otherPictures: [],
   });
+
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -63,8 +65,27 @@ const PublishProductCard = ({ isOpen, onClose }) => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!product.ProductName) newErrors.ProductName = "Product name is required";
+    if (!product.Description) newErrors.Description = "Description is required";
+    if (!product.Price) newErrors.Price = "Price is required";
+    if (!product.CategoryId) newErrors.CategoryId = "Category is required";
+    if (!product.Stock) newErrors.Stock = "Stock is required";
+    if (!product.homePicture) newErrors.homePicture = "Home picture is required";
+    if (product.SizeNames.length === 0) newErrors.SizeNames = "At least one size is required";
+    if (product.ColorNames.length === 0) newErrors.ColorNames = "At least one color is required";
+    
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     const formData = new FormData();
 
     formData.append("ProductName", product.ProductName);
@@ -93,14 +114,13 @@ const PublishProductCard = ({ isOpen, onClose }) => {
 
     dispatch(publishProduct(formData));
     onClose();
-    
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 py-5 scroll-y">
-      <form className="bg-white p-4 rounded-lg shadow-lg  space-y-2">
+      <form className="bg-white p-4 rounded-lg shadow-lg space-y-2">
         <div className="flex justify-between mb-4">
           <h2 className="text-xl font-bold">Publish Product</h2>
           <button type="button" className="text-red-500" onClick={onClose}>
@@ -115,6 +135,8 @@ const PublishProductCard = ({ isOpen, onClose }) => {
           variant="outlined"
           value={product.ProductName}
           onChange={handleChange}
+          error={!!errors.ProductName}
+          helperText={errors.ProductName}
         />
 
         <FormControl fullWidth variant="filled" sx={{ borderRadius: "8px" }}>
@@ -124,6 +146,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
             value={product.CategoryId}
             onChange={handleChange}
             sx={{ backgroundColor: "#F7F7F7" }}
+            error={!!errors.CategoryId}
           >
             {allcategories.map((cat) => (
               <MenuItem key={cat.CategoryId} value={cat.CategoryId}>
@@ -131,6 +154,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
               </MenuItem>
             ))}
           </Select>
+          {errors.CategoryId && <p className="text-red-500 text-xs">{errors.CategoryId}</p>}
         </FormControl>
 
         <TextField
@@ -142,6 +166,8 @@ const PublishProductCard = ({ isOpen, onClose }) => {
           variant="outlined"
           value={product.Description}
           onChange={handleChange}
+          error={!!errors.Description}
+          helperText={errors.Description}
         />
 
         <div className="grid grid-cols-2 gap-2">
@@ -152,6 +178,8 @@ const PublishProductCard = ({ isOpen, onClose }) => {
             variant="outlined"
             value={product.Price}
             onChange={handleChange}
+            error={!!errors.Price}
+            helperText={errors.Price}
           />
           <TextField
             label="Discount (%)"
@@ -188,6 +216,8 @@ const PublishProductCard = ({ isOpen, onClose }) => {
           variant="outlined"
           value={product.Stock}
           onChange={handleChange}
+          error={!!errors.Stock}
+          helperText={errors.Stock}
         />
 
         <div className="flex gap-2">
@@ -206,6 +236,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
                 </div>
               )}
               sx={{ backgroundColor: "#F7F7F7", borderRadius: "8px" }}
+              error={!!errors.ColorNames}
             >
               {options.colors.map((color) => (
                 <MenuItem key={color} value={color}>
@@ -214,6 +245,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
                 </MenuItem>
               ))}
             </Select>
+            {errors.ColorNames && <p className="text-red-500 text-xs">{errors.ColorNames}</p>}
           </FormControl>
 
           <FormControl sx={{ width: "49%" }} variant="filled">
@@ -231,6 +263,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
                 </div>
               )}
               sx={{ backgroundColor: "#F7F7F7", borderRadius: "8px" }}
+              error={!!errors.SizeNames}
             >
               {options.sizes.map((size) => (
                 <MenuItem key={size} value={size}>
@@ -239,12 +272,21 @@ const PublishProductCard = ({ isOpen, onClose }) => {
                 </MenuItem>
               ))}
             </Select>
+            {errors.SizeNames && <p className="text-red-500 text-xs">{errors.SizeNames}</p>}
           </FormControl>
         </div>
 
         <div>
           <label className="font-bold me-4 text-[#126090]">Home picture</label>
-          <input type="file" name="homePicture" onChange={handleFileChange} />
+          <input
+            type="file"
+            name="homePicture"
+            onChange={handleFileChange}
+            required
+          />
+          {errors.homePicture && (
+            <p className="text-red-500 text-xs">{errors.homePicture}</p>
+          )}
         </div>
 
         <div>
