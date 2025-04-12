@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../Components/Navbar";
-import Footer from "../../Components/Footer";
-import CopyRights from "../../Components/Copy-Rights";
+import Navbar from "../../../Components/Navbar";
+import Footer from "../../../Components/Footer";
+import CopyRights from "../../../Components/Copy-Rights";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartProducts } from "../../redux/Slices/Cart-Slice/cartReducer";
+import { getCartProducts } from "../../../redux/Slices/Cart-Slice/cartReducer";
 import OrderCard from "./CheckoutComponents/OrderCard";
 import ShippingForm from "./CheckoutComponents/ShippingForm";
 import { Link } from "react-router-dom";

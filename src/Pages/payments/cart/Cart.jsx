@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../Components/Navbar";
-import Footer from "../../Components/Footer";
+import Navbar from "../../../Components/Navbar";
+import Footer from "../../../Components/Footer";
 import { Button } from "@mui/material";
 import ProductCard from "./Cart-Components/ProductCard";
 import OrderSummary from "./Cart-Components/OrderSummary";
 import axios from "axios";
 import Swal from "sweetalert2";
-import APILINK from "../../../Constants";
-import Loading from "../../Components/Shared/Loading/Loading";
+import APILINK from "../../../../Constants";
+import Loading from "../../../Components/Shared/Loading/Loading";
 import { Link } from "react-router-dom";
-import CopyRights from "../../Components/Copy-Rights";
+import CopyRights from "../../../Components/Copy-Rights";
 
 const Cart = () => {
   const [cartData, setCartData] = useState(null);

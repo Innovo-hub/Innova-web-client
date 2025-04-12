@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { Trash } from "lucide-react";
 import { Add, Remove } from "@mui/icons-material";
 import axios from "axios";
-import APILINK from "../../../../Constants";
+import APILINK from "../../../../../Constants";
 import { useState } from "react";
 
 const ProductCard = ({ imageSrc, productId, productName, price, quantity, onDecrease, onIncrease }) => {

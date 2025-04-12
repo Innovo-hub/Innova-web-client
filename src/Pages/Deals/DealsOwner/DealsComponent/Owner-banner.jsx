@@ -2,7 +2,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link } from "react-router-dom";
-import profile1 from "../../../assets/Deals/Profile1.png";
+import profile1 from "../../../../assets/Deals/profile1.png";
 function OwnerBanner() {
   return (
     <div className="container">
