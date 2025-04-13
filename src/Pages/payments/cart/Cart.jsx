@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../Components/Navbar";
-import Footer from "../../Components/Footer";
+import Navbar from "../../../Components/Navbar";
+import Footer from "../../../Components/Footer";
 import { Button } from "@mui/material";
 import ProductCard from "./Cart-Components/ProductCard";
 import OrderSummary from "./Cart-Components/OrderSummary";
 import axios from "axios";
 import Swal from "sweetalert2";
-import APILINK from "../../../Constants";
-import Loading from "../../Components/Shared/Loading/Loading";
+import APILINK from "../../../../Constants";
+import Loading from "../../../Components/Shared/Loading/Loading";
 import { Link } from "react-router-dom";
-import CopyRights from "../../Components/Copy-Rights";
+import CopyRights from "../../../Components/Copy-Rights";
 
 const Cart = () => {
   const [cartData, setCartData] = useState(null);
@@ -31,15 +31,16 @@ const Cart = () => {
       setLoading(false);
     }
   };
+
   const clearCart = async () => {
     try {
       setClearLoading(true);
       const token = localStorage.getItem("accessToken");
       const response = await axios.delete(`${APILINK}/api/Cart/clear`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setClearLoading(false);
       fetchCart();
     } catch (error) {
@@ -47,7 +48,8 @@ const Cart = () => {
     } finally {
       setClearLoading(false);
     }
-  }
+  };
+
   useEffect(() => {
     fetchCart();
   }, []);
@@ -69,8 +71,8 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <div className="container bg-[#f7f7f7] py-10 px-5 xl:px-0">
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+      <div className="min-h-screen flex flex-col bg-[#f7f7f7] pt-10 px-5 xl:px-0">
+        <div className="grid container grid-cols-1 xl:grid-cols-3 gap-10 flex-grow">
           <div className="col-span-2">
             <div className="flex justify-between">
               <h3 className="text-2xl font-medium">
@@ -81,10 +83,7 @@ const Cart = () => {
                 </span>
               </h3>
               {!isCartEmpty && (
-                <Button
-                  variant="outlined"
-                  onClick={() => clearCart()}
-                >
+                <Button variant="outlined" onClick={() => clearCart()}>
                   {clearLoading ? "Clearing...." : "Clear Cart"}
                 </Button>
               )}
@@ -132,9 +131,9 @@ const Cart = () => {
             </div>
           )}
         </div>
+        <Footer />
+        <CopyRights />
       </div>
-      <Footer />
-      <CopyRights />
     </>
   );
 };

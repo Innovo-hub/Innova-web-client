@@ -61,7 +61,7 @@ function Login() {
     <>
       <Navbar currentTab={"Auth"} />
 
-      <div className="sm:bg-login w-full py-10">
+      <div className="sm:bg-login w-full py-10 min-h-screen">
         <div className="login-screen bg-white w-[90%] m-auto lg:w-[25%] pb-12 ">
           <div className="grid grid-cols-1">
             {/* left side form */}

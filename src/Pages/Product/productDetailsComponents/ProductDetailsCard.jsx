@@ -18,6 +18,8 @@ function ProductDetailsCard({ product }) {
     const { loading } = useSelector((state) => state.cart);
     const [isLoved, setIsLoved] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [selectedImage, setSelectedImage] = useState(product.HomePicture); // حفظ الصورة المختارة
+    const [homeImage, setHomeImage] = useState(product.HomePicture); // حفظ صورة ال home
 
     const toggleLoved = () => {
         setIsLoved((prev) => !prev);
@@ -44,14 +46,29 @@ function ProductDetailsCard({ product }) {
             });
     };
 
+    const handleImageClick = (pic) => {
+        setSelectedImage(homeImage); 
+        setHomeImage(pic); 
+    };
+
     return (
         <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-12 gap-4 lg:px-24 px-8 py-6'>
             <div className="grid grid-cols-4 gap-2">
                 <div className="w-full col-span-4">
-                    <img src={product.HomePicture} alt={product.Name} className="w-full h-auto rounded-lg" />
+                    <img
+                        src={homeImage}
+                        alt={product.Name}
+                        className=" h-[650px] w-[90%] object-cover rounded-lg"
+                    />
                 </div>
                 {product.Pictures?.map((pic, index) => (
-                    <img key={index} src={pic} alt={`Product ${index}`} className="w-full h-auto rounded-lg" />
+                    <img
+                        key={index}
+                        src={pic}
+                        alt={`Product ${index}`}
+                        className="w-[100px] h-[100px] object-contain rounded-lg cursor-pointer"
+                        onClick={() => handleImageClick(pic)} 
+                    />
                 ))}
             </div>
             <div className="flex flex-col gap-4">

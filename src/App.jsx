@@ -6,15 +6,16 @@ import Register from "./Pages/Auth/Register";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import Home from "./Pages/Home/Home";
 import Category from "./Pages/CategorySearch/Category";
-import InvestorDeals from "./Pages/DealsInvestor/InvestorDeals";
-import OwnerDeals from "./Pages/DealsOwner/OwnerDeals";
 import NormalUserProfile from "./Pages/Profiles/NormalUserProfile";
 import ProductDetails from "./Pages/Product/ProductDetails";
-import Checkout from "./Pages/Checkout/Checkout"
-import Payment from "./Pages/Payment/Payment"
-import Cart from "./Pages/cart/Cart";
+import Checkout from "./Pages/payments/Checkout/Checkout";
+import Payment from "./Pages/payments/Payment/Payment";
+import Cart from "./Pages/payments/cart/Cart";
 import WishList from "./Pages/WishList/WishList";
-import PaymentSuccess from "./Pages/PaymentSuccess/PaymentSuccess";
+import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
+import InvestmentContractForm from "./Pages/Contract/contract";
+import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
+import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+      <Route
+        path="/InvestmentContractForm"
+        element={<InvestmentContractForm />}
+      />
       {/* payment and Cart Routes*/}
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/cart" element={<Cart />} />

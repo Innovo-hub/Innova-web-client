@@ -1,6 +1,5 @@
 import { useState } from "react";
 import profile1 from "../assets/Deals/profile1.png";
-import { FaTimes, FaUpload, FaCheckCircle } from "react-icons/fa";
 import {
   TextField,
   Button,
@@ -19,14 +18,112 @@ import CloseIcon from "@mui/icons-material/Close";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
+// Component for image upload area
+const ImageUploadBox = ({
+  width,
+  height,
+  image,
+  onUpload,
+  label = "Upload",
+}) => (
+  <Box
+    component="label"
+    sx={{
+      width,
+      height,
+      border: "1px solid #ddd",
+      borderRadius: 2,
+      bgcolor: "#f5f5f5",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      overflow: "hidden",
+    }}
+  >
+    {image ? (
+      <Box
+        component="img"
+        src={image}
+        alt="Uploaded image"
+        sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
+    ) : (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          color: "text.secondary",
+        }}
+      >
+        <UploadIcon
+          sx={{
+            fontSize: label === "Upload Picture" ? 32 : 24,
+            mb: label === "Upload Picture" ? 1 : 0.5,
+          }}
+        />
+        <Typography variant="body2">{label}</Typography>
+      </Box>
+    )}
+    <input
+      type="file"
+      onChange={onUpload}
+      style={{ display: "none" }}
+      accept="image/*"
+    />
+  </Box>
+);
+
+// Component for the user profile section
+const UserProfileHeader = ({ onClose }) => (
+  <Box>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+      <Box
+        component="img"
+        src={profile1}
+        alt="User Avatar"
+        sx={{ width: 64, height: 64, borderRadius: 2 }}
+      />
+      <Box>
+        <Typography variant="h6" fontWeight="medium">
+          Mohamed Ali
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          ID: 2333669591
+        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <CheckCircleIcon color="primary" fontSize="small" />
+          <Typography variant="body2" color="primary" fontWeight="medium">
+            Verified
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
+    <IconButton
+      color="error"
+      sx={{ position: "absolute", top: 16, right: 16 }}
+      onClick={onClose}
+    >
+      <CloseIcon />
+    </IconButton>
+  </Box>
+);
+
+// Main component
 const DealPublishCard = ({ isOpen, onClose }) => {
-  const [businessName, setBusinessName] = useState("");
-  const [businessType, setBusinessType] = useState("");
-  const [description, setDescription] = useState("");
-  const [offerMoney, setOfferMoney] = useState("");
-  const [offerDeal, setOfferDeal] = useState("");
+  // State management
+  const [formData, setFormData] = useState({
+    businessName: "",
+    businessType: "",
+    description: "",
+    offerMoney: "",
+    offerDeal: "",
+  });
   const [uploadedImages, setUploadedImages] = useState([null, null, null]);
 
+  // Image upload handler
   const handleImageUpload = (index, event) => {
     const file = event.target.files[0];
     if (file) {
@@ -36,31 +133,40 @@ const DealPublishCard = ({ isOpen, onClose }) => {
     }
   };
 
+  // Form input change handler
+  const handleChange = (field) => (event) => {
+    setFormData({
+      ...formData,
+      [field]: event.target.value,
+    });
+  };
+
+  // Form submission handler
   const handleSubmit = () => {
     const dealData = {
-      businessName,
-      businessType,
-      description,
-      offerMoney,
-      offerDeal,
+      ...formData,
       uploadedImages,
     };
     console.log("Publishing Deal:", dealData);
-    // Here you can send `dealData` to an API
-    setBusinessName("");
-    setBusinessType("");
-    setDescription("");
-    setOfferMoney("");
-    setOfferDeal("");
+    // Reset form after submission
+    setFormData({
+      businessName: "",
+      businessType: "",
+      description: "",
+      offerMoney: "",
+      offerDeal: "",
+    });
     setUploadedImages([null, null, null]);
     onClose();
   };
 
   if (!isOpen) return null;
 
-  // Fixed dimensions for image upload containers
-  const mainImageSize = { width: 250, height: 350 };
-  const smallImageSize = { width: 165, height: 165 };
+  // Image size constants
+  const IMAGE_SIZES = {
+    main: { width: 250, height: 350 },
+    small: { width: 165, height: 165 },
+  };
 
   return (
     <Box
@@ -84,64 +190,40 @@ const DealPublishCard = ({ isOpen, onClose }) => {
           position: "relative",
         }}
       >
-        {/* User Info */}
-        <Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Box
-              component="img"
-              src={profile1}
-              alt="User Avatar"
-              sx={{ width: 64, height: 64, borderRadius: 2 }}
-            />
-            <Box>
-              <Typography variant="h6" fontWeight="medium">
-                Mohamed Ali
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                ID: 2333669591
-              </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                <CheckCircleIcon color="primary" fontSize="small" />
-                <Typography variant="body2" color="primary" fontWeight="medium">
-                  Verified
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <IconButton
-            color="error"
-            sx={{ position: "absolute", top: 16, right: 16 }}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Box>
+        {/* User Profile Section */}
+        <UserProfileHeader onClose={onClose} />
 
         <Grid container spacing={3} sx={{ mt: 2 }}>
-          {/* First grid for publishing data inputs */}
+          {/* Form Section */}
           <Grid item xs={12} lg={6}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
                 fullWidth
                 label="Business Name"
                 variant="outlined"
-                value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
+                value={formData.businessName}
+                onChange={handleChange("businessName")}
                 size="small"
               />
 
               <FormControl fullWidth size="small">
                 <InputLabel>Business Type</InputLabel>
                 <Select
-                  value={businessType}
+                  value={formData.businessType}
                   label="Business Type"
-                  onChange={(e) => setBusinessType(e.target.value)}
+                  onChange={handleChange("businessType")}
                 >
-                  <MenuItem value="Retail">Retail</MenuItem>
-                  <MenuItem value="Technology">Technology</MenuItem>
-                  <MenuItem value="Food">Food & Beverage</MenuItem>
-                  <MenuItem value="Service">Service</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
+                  {[
+                    "Retail",
+                    "Technology",
+                    "Food & Beverage",
+                    "Service",
+                    "Other",
+                  ].map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
 
@@ -149,8 +231,8 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                 fullWidth
                 label="Description"
                 variant="outlined"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={formData.description}
+                onChange={handleChange("description")}
                 multiline
                 rows={4}
               />
@@ -160,8 +242,8 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                   fullWidth
                   label="Offer Money"
                   variant="outlined"
-                  value={offerMoney}
-                  onChange={(e) => setOfferMoney(e.target.value)}
+                  value={formData.offerMoney}
+                  onChange={handleChange("offerMoney")}
                   size="small"
                   InputProps={{
                     startAdornment: (
@@ -174,8 +256,8 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                   fullWidth
                   label="Offer Percentage"
                   variant="outlined"
-                  value={offerDeal}
-                  onChange={(e) => setOfferDeal(e.target.value)}
+                  value={formData.offerDeal}
+                  onChange={handleChange("offerDeal")}
                   size="small"
                   InputProps={{
                     endAdornment: (
@@ -197,106 +279,30 @@ const DealPublishCard = ({ isOpen, onClose }) => {
             </Box>
           </Grid>
 
-          {/* Second grid for uploading images */}
+          {/* Image Upload Section */}
           <Grid item xs={12} lg={6}>
             <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
               <Box sx={{ display: "flex", gap: 2 }}>
                 {/* Main large image upload */}
-                <Box
-                  component="label"
-                  sx={{
-                    width: mainImageSize.width,
-                    height: mainImageSize.height,
-                    border: "1px solid #ddd",
-                    borderRadius: 2,
-                    bgcolor: "#f5f5f5",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    overflow: "hidden",
-                  }}
-                >
-                  {uploadedImages[0] ? (
-                    <Box
-                      component="img"
-                      src={uploadedImages[0]}
-                      alt="Uploaded 1"
-                      sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  ) : (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        color: "text.secondary",
-                      }}
-                    >
-                      <UploadIcon sx={{ fontSize: 32, mb: 1 }} />
-                      <Typography variant="body2">Upload Picture</Typography>
-                    </Box>
-                  )}
-                  <input
-                    type="file"
-                    onChange={(e) => handleImageUpload(0, e)}
-                    style={{ display: "none" }}
-                    accept="image/*"
-                  />
-                </Box>
+                <ImageUploadBox
+                  width={IMAGE_SIZES.main.width}
+                  height={IMAGE_SIZES.main.height}
+                  image={uploadedImages[0]}
+                  onUpload={(e) => handleImageUpload(0, e)}
+                  label="Upload Picture"
+                />
 
                 {/* Two smaller image uploads */}
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   {[1, 2].map((index) => (
-                    <Box
+                    <ImageUploadBox
                       key={index}
-                      component="label"
-                      sx={{
-                        width: smallImageSize.width,
-                        height: smallImageSize.height,
-                        border: "1px solid #ddd",
-                        borderRadius: 2,
-                        bgcolor: "#f5f5f5",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {uploadedImages[index] ? (
-                        <Box
-                          component="img"
-                          src={uploadedImages[index]}
-                          alt={`Uploaded ${index + 1}`}
-                          sx={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      ) : (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            color: "text.secondary",
-                          }}
-                        >
-                          <UploadIcon sx={{ fontSize: 24, mb: 0.5 }} />
-                          <Typography variant="body2">Upload</Typography>
-                        </Box>
-                      )}
-                      <input
-                        type="file"
-                        onChange={(e) => handleImageUpload(index, e)}
-                        style={{ display: "none" }}
-                        accept="image/*"
-                      />
-                    </Box>
+                      width={IMAGE_SIZES.small.width}
+                      height={IMAGE_SIZES.small.height}
+                      image={uploadedImages[index]}
+                      onUpload={(e) => handleImageUpload(index, e)}
+                      label="Upload"
+                    />
                   ))}
                 </Box>
               </Box>
