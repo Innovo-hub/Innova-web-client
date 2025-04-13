@@ -120,6 +120,8 @@ const DealPublishCard = ({ isOpen, onClose }) => {
     description: "",
     offerMoney: "",
     offerDeal: "",
+    ManufacturingCost: "",
+    EstimatedPrice: "",
   });
   const [uploadedImages, setUploadedImages] = useState([null, null, null]);
 
@@ -155,6 +157,8 @@ const DealPublishCard = ({ isOpen, onClose }) => {
       description: "",
       offerMoney: "",
       offerDeal: "",
+      ManufacturingCost: "",
+      EstimatedPrice: "",
     });
     setUploadedImages([null, null, null]);
     onClose();
@@ -262,6 +266,34 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
+                />
+              </Box>
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <TextField
+                  fullWidth
+                  label="Manufacturing Cost"
+                  variant="outlined"
+                  value={formData.ManufacturingCost}
+                  onChange={handleChange("ManufacturingCost")}
+                  size="small"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  label="Estimated Price"
+                  variant="outlined"
+                  value={formData.EstimatedPrice}
+                  onChange={handleChange("EstimatedPrice")}
+                  size="small"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
                     ),
                   }}
                 />
