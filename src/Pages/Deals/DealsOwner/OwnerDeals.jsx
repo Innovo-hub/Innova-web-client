@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDealsByOwner } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx"; 
+import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
 import CopyRights from "../../../Components/Copy-Rights.jsx";
 import DealCardInvestor from "../../../Components/DealCard-investor.jsx";
 import DealPublishCard from "../../../Components/publishDealCard.jsx";
@@ -14,14 +14,19 @@ const OwnerDeals = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // ← استبدل بالـ ownerId الحقيقي
-  const ownerId = "27460e81-c17a-476f-b0b5-c8f1a78e6fe5";
-
-  const { ownerDeals, status } = useSelector((state) => state.deals);
+  // Select allDeals instead of ownerDeals since we want to show all deals
+  const { allDeals, status, error } = useSelector((state) => state.deals);
 
   useEffect(() => {
-    dispatch(fetchDealsByOwner(ownerId));
+    // Fetch all deals without an owner ID parameter
+    dispatch(fetchAllDeals());
   }, [dispatch]);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    // Refresh deals after publishing a new one
+    dispatch(fetchAllDeals());
+  };
 
   return (
     <>
@@ -45,26 +50,34 @@ const OwnerDeals = () => {
             {isModalOpen && (
               <DealPublishCard
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                onClose={handleCloseModal}
               />
             )}
           </div>
 
           <h1 className="text-2xl font-semibold text-left mb-4">
-            Recent Published Deals
+            All Published Deals
           </h1>
 
           <div className="w-full">
             {status === "loading" ? (
-              <p>Loading deals...</p>
-            ) : ownerDeals.length === 0 ? (
-              <p>No deals found.</p>
+              <div className="flex justify-center items-center h-40">
+                <p className="text-lg">Loading deals...</p>
+              </div>
+            ) : status === "failed" ? (
+              <div className="text-red-500 p-4 bg-red-50 rounded">
+                <p>Error loading deals: {error}</p>
+              </div>
+            ) : allDeals.length === 0 ? (
+              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
+                <p className="text-gray-500">No deals found.</p>
+              </div>
             ) : (
-              ownerDeals.map((deal, index) => (
-                <div key={index} className="mb-8">
+              allDeals.map((deal, index) => (
+                <div key={deal.id || index} className="mb-8">
                   <DealCardInvestor
                     deal={{
-                      ownerImage: "", // مفيش صورة owner في البيانات غالبًا
+                      ownerImage: deal.BusinessOwnerImage || "",
                       ownerName: deal.BusinessOwnerName,
                       ownerId: deal.BusinessOwnerId,
                       businessName: deal.BusinessName,

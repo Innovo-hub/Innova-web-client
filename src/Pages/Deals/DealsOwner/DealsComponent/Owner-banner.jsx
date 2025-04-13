@@ -1,9 +1,12 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { Link } from "react-router-dom";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import profile1 from "../../../../assets/Deals/profile1.png";
+import { Badge } from "@mui/material";
+import { useState } from "react";
+import NotificationPanel from "../../Notification/Notfication";
 function OwnerBanner() {
+   const [openNotify, setOpenNotify] = useState(false);
+ const [notificationCount, setNotificationCount] = useState(0);
   return (
     <div className="container">
       <div className="relative w-full my-8 px-4 lg:px-16">
@@ -35,13 +38,25 @@ function OwnerBanner() {
           </div>
           {/* Profile and Settings Section */}
           <div className="flex gap-6 justify-end">
-            <Link className="flex items-center justify-center text-gray-600">
-              <PersonOutlineOutlinedIcon /> Profile
-            </Link>
-            <button className="flex items-center justify-center text-gray-600">
-              <SettingsOutlinedIcon />
-              Settings
-            </button>
+            <div className="relative">
+              {/* زر الإشعارات */}
+              <button
+                onClick={() => setOpenNotify(!openNotify)}
+                className="flex items-center gap-1 text-gray-600"
+              >
+                <Badge badgeContent={notificationCount} color="error">
+                  <NotificationsNoneOutlinedIcon />
+                </Badge>
+                <span>Notification</span>
+              </button>
+
+              {/* كومبوننت الإشعارات */}
+              <NotificationPanel
+                open={openNotify}
+                onClose={() => setOpenNotify(false)}
+                setNotificationCount={setNotificationCount} // تمرير الدالة هنا لتحديث العدد
+              />
+            </div>
           </div>
         </div>
       </div>
