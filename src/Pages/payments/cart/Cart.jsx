@@ -125,8 +125,8 @@ const Cart = () => {
               <OrderSummary
                 subtotal={cartData.TotalPrice || 0}
                 shipping={0}
-                tax={2}
-                total={(cartData.TotalPrice || 0) + 2}
+                tax={cartData.TotalPrice * 0.01 || 0}
+                total={(cartData.TotalPrice || 0) + (cartData.TotalPrice * 0.01 || 0)}
               />
             </div>
           )}

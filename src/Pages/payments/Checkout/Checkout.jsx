@@ -31,11 +31,11 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     const calculatedSubtotal = cartProducts.reduce(
-      (acc, product) => acc + product.Price * (quantities[product.id] || 1),
+      (acc, product) => acc + product.Price * (product.Quantity || 1),
       0
     );
     setSubtotal(calculatedSubtotal);
-    const calculatedTax = calculatedSubtotal * 0.1;
+    const calculatedTax = calculatedSubtotal * 0.01;
     setTax(calculatedTax);
     setTotal(calculatedSubtotal + shippingPrice + calculatedTax);
   }, [quantities, cartProducts, shippingPrice]);
@@ -72,7 +72,7 @@ const CheckoutPage = () => {
                 product={product}
                 increment={() => incrementQuantity(product.id)}
                 decrement={() => decrementQuantity(product.id)}
-                quantity={quantities[product.id] || 1}
+                quantity={product.Quantity}
               />
             ))}
 

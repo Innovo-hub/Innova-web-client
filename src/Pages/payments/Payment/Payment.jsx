@@ -24,7 +24,7 @@ const CheckoutPage = () => {
 
   // product salary for one(defult)
   const unitPrice = 70.0;
-  const taxRate = 0.02857;
+  const taxRate = 0.01;
 
   //calculation to updata sumary order with your order
   const subtotal = unitPrice * quantity;

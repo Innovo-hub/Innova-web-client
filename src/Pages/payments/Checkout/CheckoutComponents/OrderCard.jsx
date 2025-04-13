@@ -1,6 +1,8 @@
 import React from "react";
 
 const OrderCard = ({ product, increment, decrement, quantity }) => {
+  console.log(product);
+  
   return (
     <div className="bg-white rounded-md p-4 flex flex-col md:flex-row items-start gap-4">
       <div className="w-24 h-24 bg-gray-100 rounded-md overflow-hidden">
@@ -13,7 +15,7 @@ const OrderCard = ({ product, increment, decrement, quantity }) => {
             <h4 className="text-[#126090]">{product.ProductName}</h4>
             <p className="text-[#126090]">{product.description}</p>
           </div>
-          <span className="font-medium text-[#126090]">${product.Price}</span>
+          <span className="font-medium text-[#126090]">${product.Price * quantity}</span>
         </div>
 
         <div className="flex justify-between items-center mt-2">
