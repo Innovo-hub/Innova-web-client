@@ -47,7 +47,7 @@ function Home() {
 
   // Fetch products for Handcrafted Carpets (categoryId = 1)
   useEffect(() => {
-    dispatch(getProductByCategory({ categoryId: 1 })); // Fetch products for categoryId = 1
+    dispatch(getProductByCategory({ categoryId: 12 })); // Fetch products for categoryId = 1
   }, [dispatch]);
 
   // Fetch products for Shop Necklaces (categoryId = 9)
@@ -64,7 +64,7 @@ function Home() {
 
   // Get products for Handcrafted Carpets (categoryId = 1) and Shop Necklaces (categoryId = 15)
   const handcraftedCarpets =
-    productsByCategory[1]?.AllProductsOnspecificCategories || [];
+    productsByCategory[12]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
     productsByCategory[9]?.AllProductsOnspecificCategories || [];
   
@@ -143,7 +143,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Handcrafted Carpets Section (categoryId = 13) */}
+      {/* Handcrafted Carpets Section (categoryId = 12) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold my-2">Handcrafted Carpets</h2>
@@ -246,9 +246,9 @@ function Home() {
       </div>
 
       <div>
-        <div className="py-5">
-          <p className="text-center text-2xl text-gray-500">
-            Explore how handmade products produced
+        <div className="py-10">
+          <p className="text-center text-3xl text-gray-500">
+            Explore how handmade products are produced
           </p>
         </div>
         <VideoSlider />

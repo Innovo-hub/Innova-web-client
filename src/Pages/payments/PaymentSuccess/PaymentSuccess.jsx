@@ -5,7 +5,7 @@ import axios from "axios";
 function PaymentSuccess() {
     const [searchParams] = useSearchParams();
     const [status, setStatus] = useState("Processing...");
-    const [countdown, setCountdown] = useState(10);
+    const [countdown, setCountdown] = useState(5);
     const navigate = useNavigate();
 
     useEffect(() => {

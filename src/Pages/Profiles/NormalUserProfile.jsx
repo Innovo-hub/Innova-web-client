@@ -78,7 +78,7 @@ function UserProfile() {
     <div>
       <Navbar />
       <HomeBanner />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
         <div className="flex flex-col md:flex-row mt-8">
           {/* Sidebar */}
           <aside className="w-full md:w-64 p-4 mb-4 md:mb-0">
@@ -97,7 +97,7 @@ function UserProfile() {
                 <VerifiedUserOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Privacy & Security
               </a>
-              
+
               {profile?.RoleName === "BusinessOwner" ||
               profile?.RoleName === "Investor" ? (
                 <a
@@ -108,14 +108,15 @@ function UserProfile() {
                   Current Deals
                 </a>
               ) : null}
-              { profile?.RoleName ==="BusinessOwner" ?
-              (<a
-                href="#"
-                className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
-              >
-                <InventoryIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
-                My Orders
-              </a>):null}
+              {profile?.RoleName === "BusinessOwner" ? (
+                <a
+                  href="#"
+                  className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
+                >
+                  <InventoryIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
+                  My Orders
+                </a>
+              ) : null}
 
               <a
                 href="#"
