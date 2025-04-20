@@ -1,104 +1,81 @@
-import React from "react";
-import Navbar from "../../../Components/Navbar";
-import Footer from "../../../Components/Footer";
-import HomeBanner from "../../../Components/Home-Banner";
-import InvestorBaaner from "./Deals-Component/Investor-Banner";
-import CopyRights from "../../../Components/Copy-Rights";
-import DealCard from "../../../Components/DealCard";
-import profile1 from "../../../assets/Deals/profile1.png";
-import profile2 from "../../../assets/Deals/profile2.png";
-import profile3 from "../../../assets/Deals/profile3.png";
-import image1 from "../../../assets/Deals/image1.png";
-import image2 from "../../../assets/Deals/image2.png";
-import image3 from "../../../assets/Deals/image3.png";
-import image4 from "../../../assets/Deals/image4.png";
-import image5 from "../../../assets/Deals/image5.png";
-import image6 from "../../../assets/Deals/image6.png";
-import image7 from "../../../assets/Deals/image7.png";
-import image8 from "../../../assets/Deals/image8.png";
-import image9 from "../../../assets/Deals/image9.png";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
+import CopyRights from "../../../Components/Copy-Rights.jsx";
+import DealCardInvestor from "../../../Components/DealCard-investor.jsx";
+import Footer from "../../../Components/Footer.jsx";
+import HomeBanner from "../../../Components/Home-Banner.jsx";
+import Navbar from "../../../Components/Navbar.jsx";
+import BussinessBanner from "./Deals-Component/Investor-Banner.jsx";
 
-// Static data that will remove after get Api link^^
-const dealsData = [
-  {
-    ownerImage: profile1,
-    ownerName: "Mohamed Ali",
-    ownerId: "2333669591",
-    businessName: "Aqua-Candels",
-    category: "Home accessories",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    offerMoney: "10,000 EGP",
-    offerDeal: "20% of total project",
-    productImages: [image1, image2, image3],
-  },
-  {
-    ownerImage: profile2,
-    ownerName: "Ahmed Amr",
-    ownerId: "2678669591",
-    businessName: "Handmade Crafts",
-    category: "Handicrafts",
-    description: "Unique handmade crafts designed with care and creativity.",
-    offerMoney: "15,000 EGP",
-    offerDeal: "30% of total project",
-    productImages: [image4, image5, image6],
-  },
-  {
-    ownerImage: profile3,
-    ownerName: "Asmaa Ragab",
-    ownerId: "2333669591",
-    businessName: "Caty-life",
-    category: "Pet Accessories",
-    description: "Luxury pet accessories for your lovely cats and dogs.",
-    offerMoney: "60,000 EGP",
-    offerDeal: "45% of total project",
-    productImages: [image7, image8, image9],
-  },
-];
+const OwnerDeals = () => {
+  const dispatch = useDispatch();
 
-function InvestorDeals() {
-  {
-    /*
-    //to store data from Api in useState[]
-  const [dealsData, setDealsData] = useState([]);
+  // Select allDeals instead of ownerDeals since we want to show all deals
+  const { allDeals, status, error } = useSelector((state) => state.deals);
 
-    //get data from api
-     useEffect(() => {
-     fetch("https://api.example.com/deals") // will put api that related ro this page
-      .then((response) => response.json()) // confovert form of data to json ,as react can deal with response 
-      .then((data) => setDealsData(data)) // after data arrive, reponse to appear data on website
-      .catch((error) => console.error("Error fetching deals:", error));//error handling
-     }, []);
-     */
-  }
+  useEffect(() => {
+    // Fetch all deals without an owner ID parameter
+    dispatch(fetchAllDeals());
+  }, [dispatch]);
+
+ 
+
   return (
-    <div>
+    <>
       <Navbar currentTab={"Deals"} />
       <HomeBanner />
-      <InvestorBaaner />
+      <BussinessBanner />
 
-      {/* container of 3 card |_|*/}
       <div className="container">
         <div className="bg-gray-100 p-6 rounded-lg mx-auto max-w-[1600px] min-h-screen flex flex-col items-start mt-6 mb-10 px-10">
-          {/* text of container */}
+
           <h1 className="text-2xl font-semibold text-left mb-4">
-            Recent Published Deals
+            All Published Deals
           </h1>
-          {/*   3cards on container and, map to appear 3*/}
+
           <div className="w-full">
-            {dealsData.map((deal, index) => (
-              <div key={index} className="mb-8">
-                <DealCard deal={deal} />
+            {status === "loading" ? (
+              <div className="flex justify-center items-center h-40">
+                <p className="text-lg">Loading deals...</p>
               </div>
-            ))}
+            ) : status === "failed" ? (
+              <div className="text-red-500 p-4 bg-red-50 rounded">
+                <p>Error loading deals: {error}</p>
+              </div>
+            ) : allDeals.length === 0 ? (
+              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
+                <p className="text-gray-500">No deals found.</p>
+              </div>
+            ) : (
+              allDeals.map((deal, index) => (
+                <div key={deal.id || index} className="mb-8">
+                  <DealCardInvestor
+                    deal={{
+                      ownerImage: deal.BusinessOwnerImage || "",
+                      ownerName: deal.BusinessOwnerName,
+                      ownerId: deal.BusinessOwnerId,
+                      businessName: deal.BusinessName,
+                      category: deal.CategoryName,
+                      description: deal.Description,
+                      offerMoney: `${deal.OfferMoney} EGP`,
+                      offerDeal: `${deal.OfferDeal}%`,
+                      productImages: deal.Pictures || [],
+                    }}
+                  />
+                  <button>hello</button>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
-      {/* add margin between cards*/}
+
       <div className="mb-20"></div>
       <Footer />
       <CopyRights />
-    </div>
+    </>
   );
-}
+};
 
-export default InvestorDeals;
+export default OwnerDeals;
