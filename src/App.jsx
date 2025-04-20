@@ -16,6 +16,7 @@ import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
 import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
+import Privacy from "./Pages/Profiles/Profile-Components/privecy";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+      <Route path="/UserProfile/privacy" element={<Privacy />} />
       <Route
         path="/InvestmentContractForm"
         element={<InvestmentContractForm />}

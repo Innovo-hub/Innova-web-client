@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import author from "../../../assets/Products/author.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ProductActions from "./ProductActions";
 import {
   AttachMoney,
   CreditCard,
@@ -14,18 +14,17 @@ import {
 import Swal from "sweetalert2";
 
 function ProductDetailsCard({ product }) {
-  if (!product) {
-    return <div className="p-4 text-center">Loading product details...</div>;
-  }
-
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.cart);
 
   // State
   const [isLoved, setIsLoved] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(product.HomePicture);
-  const [homeImage, setHomeImage] = useState(product.HomePicture);
+  const [homeImage, setHomeImage] = useState(product?.HomePicture || "");
+
+  if (!product) {
+    return <div className="p-4 text-center">Loading product details...</div>;
+  }
 
   // Product rating info
   const rating = 5.0;
@@ -33,7 +32,6 @@ function ProductDetailsCard({ product }) {
 
   // Handlers
   const handleImageClick = (pic) => {
-    setSelectedImage(homeImage);
     setHomeImage(pic);
   };
 
@@ -46,16 +44,21 @@ function ProductDetailsCard({ product }) {
   };
 
   const handleAddToCart = () => {
+    if (!dispatch) return;
+
+    // Replace with your actual addToCart action
+    const addToCart = (payload) => ({ type: "ADD_TO_CART", payload });
+
     dispatch(addToCart({ ProductId: product.ProductId, Quantity: quantity }))
-      .unwrap()
-      .then(() => {
+      .unwrap?.()
+      .then?.(() => {
         Swal.fire({
           icon: "success",
           title: "Added to Cart",
           text: "Product added to cart successfully.",
         });
       })
-      .catch((error) => {
+      .catch?.((error) => {
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -71,7 +74,7 @@ function ProductDetailsCard({ product }) {
         <div className="w-full relative pb-4">
           <img
             src={homeImage}
-            alt={product.ProductName}
+            alt={product.ProductName || "Product Image"}
             className="w-full object-cover"
           />
           <button
@@ -91,7 +94,7 @@ function ProductDetailsCard({ product }) {
             <img
               key={index}
               src={pic}
-              alt={`${product.ProductName} - View ${index + 1}`}
+              alt={`${product.ProductName || "Product"} - View ${index + 1}`}
               className="w-20 h-20 object-contain rounded-lg cursor-pointer"
               onClick={() => handleImageClick(pic)}
             />
@@ -105,10 +108,10 @@ function ProductDetailsCard({ product }) {
           {/* Product Info */}
           <div className="mb-4">
             <h3 className="text-gray-500 text-xl py-2">
-              {product.CategoryName}
+              {product.CategoryName || "Category"}
             </h3>
             <h1 className="text-3xl font-semibold mb-2">
-              {product.ProductName}
+              {product.ProductName || "Product Name"}
             </h1>
 
             {/* Ratings */}
@@ -133,7 +136,7 @@ function ProductDetailsCard({ product }) {
           <div className="mb-6">
             <div className="flex items-baseline mb-2">
               <span className="text-gray-700 text-2xl font-bold">
-                EGP {product.PriceAfterDiscount}
+                EGP {product.PriceAfterDiscount || 0}
               </span>
               <span className="text-gray-500 text-sm ml-2">
                 Inclusive of Tax
@@ -153,7 +156,7 @@ function ProductDetailsCard({ product }) {
               <p className="text-gray-600 text-sm">
                 Stock Availability
                 <span className="ml-2 text-gray-600 text-sm">
-                  {product.Stock}
+                  {product.Stock || 0}
                 </span>
               </p>
             </div>
@@ -207,12 +210,11 @@ function ProductDetailsCard({ product }) {
                 <span className="text-lg font-bold">{quantity}</span>
               </div>
             </div>
-
             {/* Add to Cart Button */}
             <button
               className="flex-1 border border-[#126090] rounded-md py-3 text-[#126090] font-medium hover:bg-blue-50 disabled:opacity-50"
-                    onClick={handleAddToCart}
-                    disabled={loading || product.Stock < 1}
+              onClick={handleAddToCart}
+              disabled={loading || (product.Stock || 0) < 1}
             >
               {loading ? "Adding..." : "Add to Cart"}
             </button>
@@ -221,26 +223,45 @@ function ProductDetailsCard({ product }) {
           <hr className="bg-gray-900 my-4" />
 
           {/* Payment Info */}
-          <div className="p-4 border border-[#126090] rounded-xl text-center my-4">
-            <p className="text-[#126090] text-xl flex items-center justify-center">
-              <CreditCard className="text-red-600 mr-4" />
-              Buy with your credit card easily
-            </p>
+          <div className="p-6 border-2 border-[#126090] rounded-xl text-center my-4 bg-gradient-to-r from-blue-50 to-white hover:shadow-lg transition-all duration-300">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="bg-white p-3 rounded-full shadow-md">
+                <CreditCard className="text-[#126090] text-3xl" />
+              </div>
+              <p className="text-[#126090] text-xl font-semibold">
+                Buy with your credit card easily
+              </p>
+              <p className="text-gray-600 text-sm">
+                Secure payment with SSL encryption
+              </p>
+            </div>
           </div>
 
           {/* Features */}
           <div className="flex justify-between gap-4">
-            <div className="text-center p-5 border border-[red] rounded-xl">
-              <LocalShipping fontSize="large" color="error" />
-              <p className="text-sm">Fast Shipping</p>
+            <div className="group text-center p-5 border-2 border-red-500 rounded-xl hover:bg-red-50 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <div className="transform group-hover:scale-110 transition-transform duration-300">
+                <LocalShipping fontSize="large" className="text-red-500" />
+              </div>
+              <p className="text-sm mt-2 font-medium text-gray-700 group-hover:text-red-500 transition-colors duration-300">
+                Fast Shipping
+              </p>
             </div>
-            <div className="text-center p-5 border border-[green] rounded-xl">
-              <Replay fontSize="large" color="success" />
-              <p className="text-sm">Low Returns</p>
+            <div className="group text-center p-5 border-2 border-green-500 rounded-xl hover:bg-green-50 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <div className="transform group-hover:scale-110 transition-transform duration-300">
+                <Replay fontSize="large" className="text-green-500" />
+              </div>
+              <p className="text-sm mt-2 font-medium text-gray-700 group-hover:text-green-500 transition-colors duration-300">
+                Low Returns
+              </p>
             </div>
-            <div className="text-center p-5 border border-[blue] rounded-xl">
-              <AttachMoney fontSize="large" color="primary" />
-              <p className="text-sm">Cash Delivery</p>
+            <div className="group text-center p-5 border-2 border-blue-500 rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <div className="transform group-hover:scale-110 transition-transform duration-300">
+                <AttachMoney fontSize="large" className="text-blue-500" />
+              </div>
+              <p className="text-sm mt-2 font-medium text-gray-700 group-hover:text-blue-500 transition-colors duration-300">
+                Cash Delivery
+              </p>
             </div>
           </div>
         </div>
@@ -279,7 +300,9 @@ function ProductDetailsCard({ product }) {
             {/* Description */}
             <div className="mb-4">
               <p className="text-gray-500 my-2">Description</p>
-              <p className="ps-5 text-gray-600">{product.Description}</p>
+              <p className="ps-5 text-gray-600">
+                {product.Description || "No description available"}
+              </p>
             </div>
 
             <hr className="bg-gray-900 my-2" />
@@ -293,25 +316,29 @@ function ProductDetailsCard({ product }) {
                     <td className="text-gray-600 font-medium py-1 px-4">
                       Color
                     </td>
-                    <td className="py-1 px-4">{product.ProductColors}</td>
+                    <td className="py-1 px-4">
+                      {product.ProductColors || "N/A"}
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-300">
                     <td className="text-gray-600 font-medium py-1 px-4">
                       Size
                     </td>
-                    <td className="py-1 px-4">{product.ProductSizes}</td>
+                    <td className="py-1 px-4">
+                      {product.ProductSizes || "N/A"}
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-300">
                     <td className="text-gray-600 font-medium py-1 px-4">
                       Weight
                     </td>
-                    <td className="py-1 px-4">{product.Weight}</td>
+                    <td className="py-1 px-4">{product.Weight || "N/A"}</td>
                   </tr>
                   <tr className="border-b border-gray-300">
                     <td className="text-gray-600 font-medium py-1 px-4">
                       Dimensions
                     </td>
-                    <td className="py-1 px-4">{product.Dimensions}</td>
+                    <td className="py-1 px-4">{product.Dimensions || "N/A"}</td>
                   </tr>
                 </tbody>
               </table>
@@ -322,5 +349,26 @@ function ProductDetailsCard({ product }) {
     </div>
   );
 }
+
+ProductDetailsCard.propTypes = {
+  product: PropTypes.shape({
+    ProductId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    ProductName: PropTypes.string,
+    CategoryName: PropTypes.string,
+    HomePicture: PropTypes.string,
+    Pictures: PropTypes.array,
+    PriceAfterDiscount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    Stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    AuthorName: PropTypes.string,
+    Description: PropTypes.string,
+    ProductColors: PropTypes.string,
+    ProductSizes: PropTypes.string,
+    Weight: PropTypes.string,
+    Dimensions: PropTypes.string,
+  }),
+};
 
 export default ProductDetailsCard;
