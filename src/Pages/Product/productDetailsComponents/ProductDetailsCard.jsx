@@ -1,117 +1,326 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import author from '../../../assets/Products/author.png';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import author from "../../../assets/Products/author.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ProductActions from './ProductActions';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ProductActions from "./ProductActions";
+import {
+  AttachMoney,
+  CreditCard,
+  LocalShipping,
+  Replay,
+  Star,
+} from "@mui/icons-material";
 import Swal from "sweetalert2";
-import { addToCart } from '../../../redux/Slices/Cart-Slice/cartReducer';
 
 function ProductDetailsCard({ product }) {
-    if (!product) {
-        return <p>Loading...</p>;
-    }
+  if (!product) {
+    return <div className="p-4 text-center">Loading product details...</div>;
+  }
 
-    const dispatch = useDispatch();
-    const { loading } = useSelector((state) => state.cart);
-    const [isLoved, setIsLoved] = useState(false);
-    const [quantity, setQuantity] = useState(1);
-    const [selectedImage, setSelectedImage] = useState(product.HomePicture); // حفظ الصورة المختارة
-    const [homeImage, setHomeImage] = useState(product.HomePicture); // حفظ صورة ال home
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.cart);
 
-    const toggleLoved = () => {
-        setIsLoved((prev) => !prev);
-    };
+  // State
+  const [isLoved, setIsLoved] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(product.HomePicture);
+  const [homeImage, setHomeImage] = useState(product.HomePicture);
 
-    const handleAddToCart = () => {
-        console.log("Product ID:", product.ProductId);
-        console.log("Quantity:", quantity);
-        dispatch(addToCart({ ProductId: product.ProductId, Quantity: quantity }))
-            .unwrap()
-            .then(() => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Added to Cart",
-                    text: "Product added to cart successfully.",
-                });
-            })
-            .catch((error) => {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: error || "Failed to add product to cart.",
-                });
-            });
-    };
+  // Product rating info
+  const rating = 5.0;
+  const reviewCount = 120;
 
-    const handleImageClick = (pic) => {
-        setSelectedImage(homeImage); 
-        setHomeImage(pic); 
-    };
+  // Handlers
+  const handleImageClick = (pic) => {
+    setSelectedImage(homeImage);
+    setHomeImage(pic);
+  };
 
-    return (
-        <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-12 gap-4 lg:px-24 px-8 py-6'>
-            <div className="grid grid-cols-4 gap-2">
-                <div className="w-full col-span-4">
-                    <img
-                        src={homeImage}
-                        alt={product.Name}
-                        className=" h-[650px] w-[90%] object-cover rounded-lg"
-                    />
-                </div>
-                {product.Pictures?.map((pic, index) => (
-                    <img
-                        key={index}
-                        src={pic}
-                        alt={`Product ${index}`}
-                        className="w-[100px] h-[100px] object-contain rounded-lg cursor-pointer"
-                        onClick={() => handleImageClick(pic)} 
-                    />
-                ))}
-            </div>
-            <div className="flex flex-col gap-4">
-                <div className="flex justify-between items-center">
-                    <div className="flex gap-2">
-                        <img src={author} className='h-12' />
-                        <div className="flex flex-col justify-center items-center">
-                            <h3 className='font-semibold'>{product.AuthorName}</h3>
-                            <h3>Business Owner</h3>
-                        </div>
-                    </div>
-                    <h3>{product.AverageRating} Review</h3>
-                </div>
+  const toggleLoved = () => setIsLoved((prev) => !prev);
 
-                <div className="flex justify-between items-center">
-                    <h3 className='text-3xl text-main-color font-semibold'>{product.ProductName}</h3>
-                    <button onClick={toggleLoved}>
-                        {isLoved ? (
-                            <FavoriteIcon className="text-red-500" />
-                        ) : (
-                            <FavoriteBorderIcon className="hover:text-red-500" />
-                        )}
-                    </button>
-                </div>
+  const increaseQuantity = () => setQuantity((prev) => prev + 1);
 
-                <ProductActions max={product.Stock} quantity={quantity} setQuantity={setQuantity} />
+  const decreaseQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
 
-                <div className="flex gap-12 bg-main-color px-12 py-4 rounded-tl-3xl rounded-br-3xl w-full">
-                    <button
-                        className="flex justify-center items-center gap-1 bg-white text-main-color px-4 py-2 w-1/2 rounded-lg"
-                        onClick={handleAddToCart}
-                        disabled={loading}
-                    >
-                        <ShoppingCartOutlinedIcon />
-                        {loading ? 'Adding...' : 'Add to Cart'}
-                    </button>
-                    <button className="bg-white text-main-color px-4 py-2 w-1/2 rounded-lg">
-                        Buy Now!
-                    </button>
-                </div>
-            </div>
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ProductId: product.ProductId, Quantity: quantity }))
+      .unwrap()
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Added to Cart",
+          text: "Product added to cart successfully.",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error || "Failed to add product to cart.",
+        });
+      });
+  };
+
+  return (
+    <div className="grid lg:grid-cols-3 grid-cols-1 lg:gap-8 gap-6 lg:px-8 py-10">
+      {/* Product Images Section */}
+      <div>
+        <div className="w-full relative pb-4">
+          <img
+            src={homeImage}
+            alt={product.ProductName}
+            className="w-full object-cover"
+          />
+          <button
+            className="absolute top-2 right-2 bg-white p-2 rounded-md shadow-md hover:bg-gray-100 transition"
+            onClick={toggleLoved}
+            aria-label={isLoved ? "Remove from favorites" : "Add to favorites"}
+          >
+            {isLoved ? (
+              <FavoriteIcon className="text-red-500" />
+            ) : (
+              <FavoriteBorderIcon className="hover:text-red-500" />
+            )}
+          </button>
         </div>
-    );
+        <div className="flex gap-2 mt-2">
+          {product.Pictures?.map((pic, index) => (
+            <img
+              key={index}
+              src={pic}
+              alt={`${product.ProductName} - View ${index + 1}`}
+              className="w-20 h-20 object-contain rounded-lg cursor-pointer"
+              onClick={() => handleImageClick(pic)}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Product Details Section */}
+      <div>
+        <div className="bg-gray-100 rounded-sm p-6">
+          {/* Product Info */}
+          <div className="mb-4">
+            <h3 className="text-gray-500 text-xl py-2">
+              {product.CategoryName}
+            </h3>
+            <h1 className="text-3xl font-semibold mb-2">
+              {product.ProductName}
+            </h1>
+
+            {/* Ratings */}
+            <div className="flex items-center gap-2 mb-4">
+              <span className="font-bold text-lg">{rating.toFixed(1)}</span>
+              <div className="flex">
+                {[...Array(5)].map((_, index) => (
+                  <Star
+                    key={index}
+                    fontSize="small"
+                    className="text-yellow-400"
+                  />
+                ))}
+              </div>
+              <span className="text-gray-700 text-sm">
+                {reviewCount} Rating
+              </span>
+            </div>
+          </div>
+
+          {/* Price and Availability */}
+          <div className="mb-6">
+            <div className="flex items-baseline mb-2">
+              <span className="text-gray-700 text-2xl font-bold">
+                EGP {product.PriceAfterDiscount}
+              </span>
+              <span className="text-gray-500 text-sm ml-2">
+                Inclusive of Tax
+              </span>
+            </div>
+
+            <div className="mb-4">
+              <div className="inline-block bg-green-500 text-white px-4 py-1 rounded-xl rounded-br-full font-bold text-sm">
+                EXPRESS
+              </div>
+              <span className="ml-2 text-gray-600 text-sm">
+                Get it Tomorrow
+              </span>
+            </div>
+
+            <div className="mb-4">
+              <p className="text-gray-600 text-sm">
+                Stock Availability
+                <span className="ml-2 text-gray-600 text-sm">
+                  {product.Stock}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          {/* Quantity and Cart */}
+          <div className="flex items-center gap-2 mb-4">
+            {/* Quantity Selector */}
+            <div className="border border-[#126090] rounded-md flex items-center w-16">
+              <div className="flex flex-col border-r border-[#126090]">
+                <button
+                  onClick={increaseQuantity}
+                  className="text-[#126090] px-2 py-1 hover:bg-blue-50"
+                  aria-label="Increase quantity"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <button
+                  onClick={decreaseQuantity}
+                  className="text-[#126090] px-2 py-1 border-t border-[#126090] hover:bg-blue-50"
+                  aria-label="Decrease quantity"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 text-center">
+                <span className="text-lg font-bold">{quantity}</span>
+              </div>
+            </div>
+
+            {/* Add to Cart Button */}
+            <button
+              className="flex-1 border border-[#126090] rounded-md py-3 text-[#126090] font-medium hover:bg-blue-50 disabled:opacity-50"
+                    onClick={handleAddToCart}
+                    disabled={loading || product.Stock < 1}
+            >
+              {loading ? "Adding..." : "Add to Cart"}
+            </button>
+          </div>
+
+          <hr className="bg-gray-900 my-4" />
+
+          {/* Payment Info */}
+          <div className="p-4 border border-[#126090] rounded-xl text-center my-4">
+            <p className="text-[#126090] text-xl flex items-center justify-center">
+              <CreditCard className="text-red-600 mr-4" />
+              Buy with your credit card easily
+            </p>
+          </div>
+
+          {/* Features */}
+          <div className="flex justify-between gap-4">
+            <div className="text-center p-5 border border-[red] rounded-xl">
+              <LocalShipping fontSize="large" color="error" />
+              <p className="text-sm">Fast Shipping</p>
+            </div>
+            <div className="text-center p-5 border border-[green] rounded-xl">
+              <Replay fontSize="large" color="success" />
+              <p className="text-sm">Low Returns</p>
+            </div>
+            <div className="text-center p-5 border border-[blue] rounded-xl">
+              <AttachMoney fontSize="large" color="primary" />
+              <p className="text-sm">Cash Delivery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Author and Product Details */}
+      <div>
+        {/* Author Info */}
+        <div className="mt-6">
+          <div className="flex gap-2 p-4 border border-[#126090] rounded-xl">
+            <img src={author} className="h-12" alt="Business Owner" />
+            <div className="flex flex-col justify-center">
+              <h3 className="font-semibold">
+                {product.AuthorName || "Business Owner"}
+              </h3>
+              <p className="text-gray-500 text-sm">Business Owner</p>
+            </div>
+          </div>
+
+          {/* Product Overview */}
+          <div className="p-6 my-3 border border-[#126090] rounded-xl">
+            <h2 className="text-xl text-gray-500">Product Overview</h2>
+            <hr className="bg-gray-900 my-2" />
+
+            {/* Highlights */}
+            <div className="mb-4">
+              <p className="text-gray-500 my-2">Highlights</p>
+              <ul className="ps-5 list-disc list-inside text-gray-600">
+                <li>Premium Quality</li>
+                <li>Against Color Change</li>
+              </ul>
+            </div>
+
+            <hr className="bg-gray-900 my-2" />
+
+            {/* Description */}
+            <div className="mb-4">
+              <p className="text-gray-500 my-2">Description</p>
+              <p className="ps-5 text-gray-600">{product.Description}</p>
+            </div>
+
+            <hr className="bg-gray-900 my-2" />
+
+            {/* Specifications */}
+            <div>
+              <p className="text-gray-500 mb-2">Specifications</p>
+              <table className="w-full table-auto border-spacing-y-2">
+                <tbody>
+                  <tr className="border-b border-gray-300">
+                    <td className="text-gray-600 font-medium py-1 px-4">
+                      Color
+                    </td>
+                    <td className="py-1 px-4">{product.ProductColors}</td>
+                  </tr>
+                  <tr className="border-b border-gray-300">
+                    <td className="text-gray-600 font-medium py-1 px-4">
+                      Size
+                    </td>
+                    <td className="py-1 px-4">{product.ProductSizes}</td>
+                  </tr>
+                  <tr className="border-b border-gray-300">
+                    <td className="text-gray-600 font-medium py-1 px-4">
+                      Weight
+                    </td>
+                    <td className="py-1 px-4">{product.Weight}</td>
+                  </tr>
+                  <tr className="border-b border-gray-300">
+                    <td className="text-gray-600 font-medium py-1 px-4">
+                      Dimensions
+                    </td>
+                    <td className="py-1 px-4">{product.Dimensions}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default ProductDetailsCard;
