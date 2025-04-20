@@ -47,6 +47,7 @@ const OwnerDeals = () => {
               <div className="text-center p-8 bg-white rounded-lg shadow-sm">
                 <p className="text-gray-500">No deals found.</p>
               </div>
+              
             ) : (
               allDeals.map((deal, index) => (
                 <div key={deal.id || index} className="mb-8">
@@ -63,7 +64,7 @@ const OwnerDeals = () => {
                       productImages: deal.Pictures || [],
                     }}
                   />
-                  <button>hello</button>
+                  
                 </div>
               ))
             )}

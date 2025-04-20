@@ -1,9 +1,8 @@
-
-import React from 'react';
+import React from "react";
 //this component for reuse cards again
 const DealCardInvestor = ({ deal }) => {
   console.log(deal);
-  
+
   return (
     <div className="container">
       <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200">
@@ -116,7 +115,7 @@ const DealCardInvestor = ({ deal }) => {
 
             {/* Timestamp */}
             <p className="text-xs text-gray-500 text-right mt-2">
-              5:45 AM 20-1-2025
+              {deal.ApprovedAt}
             </p>
           </div>
         </div>
