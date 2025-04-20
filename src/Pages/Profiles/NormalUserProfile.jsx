@@ -13,10 +13,11 @@ import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import APILINK from "../../../Constants"; // Ensure this has your API base URL
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
 import WishlistOrders from "./Profile-Components/whislist";
+import Privacy from "./Profile-Components/privecy";
 
 function UserProfile() {
 
@@ -90,13 +91,13 @@ function UserProfile() {
                 <PermIdentityIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Personal Information
               </a>
-              <a
-                href="#"
+              <Link
+                to={'/UserProfile/privacy'}
                 className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
               >
                 <VerifiedUserOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Privacy & Security
-              </a>
+              </Link>
 
               {profile?.RoleName === "BusinessOwner" ||
               profile?.RoleName === "Investor" ? (
