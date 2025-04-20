@@ -12,6 +12,7 @@ import {
   Star,
 } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import { addToCart } from "../../../redux/Slices/Cart-Slice/cartReducer";
 
 function ProductDetailsCard({ product }) {
   const dispatch = useDispatch();
@@ -46,19 +47,16 @@ function ProductDetailsCard({ product }) {
   const handleAddToCart = () => {
     if (!dispatch) return;
 
-    // Replace with your actual addToCart action
-    const addToCart = (payload) => ({ type: "ADD_TO_CART", payload });
-
     dispatch(addToCart({ ProductId: product.ProductId, Quantity: quantity }))
-      .unwrap?.()
-      .then?.(() => {
+      .unwrap()
+      .then((response) => {
         Swal.fire({
           icon: "success",
           title: "Added to Cart",
-          text: "Product added to cart successfully.",
+          text: response.Message || "Product added to cart successfully.",
         });
       })
-      .catch?.((error) => {
+      .catch((error) => {
         Swal.fire({
           icon: "error",
           title: "Error",
