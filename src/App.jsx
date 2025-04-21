@@ -18,6 +18,7 @@ import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
 import Privacy from "./Pages/Profiles/Profile-Components/privecy";
 import ContactPage from "./Pages/Contact/Contact";
+import About from "./Pages/About/About";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       {/* Main Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/about" element={<About />} />
       <Route path="/category/:id" element={<Category />} />
       {/* Auth Routes */}
       <Route path="/auth/register" element={<Register />} />
