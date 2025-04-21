@@ -17,12 +17,14 @@ import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
 import Privacy from "./Pages/Profiles/Profile-Components/privecy";
+import ContactPage from "./Pages/Contact/Contact";
 
 function App() {
   return (
     <Routes>
       {/* Main Routes */}
       <Route path="/" element={<Home />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="/category/:id" element={<Category />} />
       {/* Auth Routes */}
       <Route path="/auth/register" element={<Register />} />

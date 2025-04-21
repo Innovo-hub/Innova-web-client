@@ -21,16 +21,17 @@ function BussinessBanner() {
             <div className="flex items-center gap-6">
               {/* User Name and Details */}
               <div className="flex space-x-4 items-center">
-                <div className="rounded-full overflow-hidden shadow-md">
+                <div className="relative">
                   <img
                     src={user}
                     width={70}
                     height={70}
                     alt="User"
-                    className="object-cover"
+                    className="rounded-full border-2 border-blue-500 p-1 object-cover"
                   />
+                  <span className="absolute bottom-0 right-0 bg-green-500 w-4 h-4 rounded-full border-2 border-white"></span>
                 </div>
-                <div className="flex flex-col justify-start items-start">
+                <div className="flex flex-col">
                   <h1 className="text-xl font-bold text-gray-800">
                     Mohamed Ali
                   </h1>
@@ -39,23 +40,23 @@ function BussinessBanner() {
                       fontSize="small"
                       className="text-blue-500"
                     />
-                    <span className="font-medium">Verified</span>
+                    <span className="font-medium">Verified Account</span>
                   </p>
                 </div>
               </div>
               {/* Divider */}
-              <div className="w-px h-12 bg-gray-200"></div>
+              <div className="h-12 w-px bg-gray-300"></div>
               {/* Business Owner details */}
-              <div>
+              <div className="bg-gray-50 p-3 rounded-lg">
                 <p className="text-sm font-medium text-gray-700">
                   Business Owner ID
                 </p>
-                <p className="text-sm text-gray-500 font-mono">2233666951</p>
+                <p className="text-lg font-bold text-blue-600">2233666951</p>
               </div>
             </div>
           </div>
           {/* Profile and Settings Section */}
-          <div className="flex gap-6 justify-end">
+          <div className="flex gap-6 justify-end items-center">
             <Link className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
               <PersonOutlineOutlinedIcon />
               <span className="font-medium">Profile</span>
@@ -69,13 +70,13 @@ function BussinessBanner() {
       </div>
 
       {/* Section 2 */}
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Card 1 - Estimated Balance */}
-        <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        {/* Card 1 - Balance */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
           <div className="flex flex-col w-full">
-            <p className="text-gray-600 text-base mb-3">Estimated Balance</p>
+            <p className="text-gray-600 text-lg mb-3">Estimated Balance</p>
             <h2 className="text-3xl font-bold text-[#2C1DB3] mb-2">0 EGP</h2>
-            <p className="text-gray-500 text-sm">≈ $0</p>
+            <p className="text-gray-500 text-base">≈ $0</p>
           </div>
         </div>
 
@@ -96,12 +97,12 @@ function BussinessBanner() {
         <div className="w-full">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="w-full bg-white shadow-lg rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex items-center justify-between group"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg group"
           >
-            <span className="text-gray-700 font-semibold text-xl">
-              Publish New Product
-            </span>
-            <PlusCircle className="text-[#126090] w-10 h-10 transform group-hover:rotate-90 transition-transform duration-300" />
+            <div className="flex items-center justify-between">
+              <span className="text-xl font-semibold">Publish New Product</span>
+              <PlusCircle className="w-8 h-8 transform group-hover:rotate-90 transition-transform duration-300" />
+            </div>
           </button>
 
           {isModalOpen && (
@@ -115,59 +116,71 @@ function BussinessBanner() {
         {/* Total Views */}
         <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
-            <h3 className="text-gray-700 text-xl font-semibold">Total Views</h3>
-            <p className="text-2xl font-bold text-[#0056B3]">23</p>
+            <h3 className="text-xl font-semibold text-gray-800">Total Views</h3>
+            <p className="text-3xl font-bold text-[#0056B3]">23</p>
           </div>
         </div>
       </div>
 
       {/* Latest Product Overview(table) */}
       <div className="mt-12">
-        <h3 className="text-2xl font-semibold mb-6">Latest Product Overview</h3>
-        <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="p-4 text-left text-[#126090] font-semibold">
-                  Product Name
-                </th>
-                <th className="p-4 text-left text-[#126090] font-semibold">
-                  Product ID
-                </th>
-                <th className="p-4 text-left text-[#126090] font-semibold">
-                  Total Earnings
-                </th>
-                <th className="p-4 text-center text-[#126090] font-semibold">
-                  %
-                </th>
-                <th className="p-4 text-center text-[#126090] font-semibold">
-                  Total Views
-                </th>
-                <th className="p-4 text-center text-[#126090] font-semibold">
-                  Number of Selling
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="hover:bg-gray-50 transition-colors duration-200">
-                <td className="p-4 text-gray-700">Pop one Store</td>
-                <td className="p-4 font-mono text-gray-600">552986765</td>
-                <td className="p-4 font-semibold text-gray-800">
-                  152,236.33 EGP
-                </td>
-                <td className="p-4 text-green-600 font-semibold text-center">
-                  +16.65%
-                </td>
-                <td className="p-4 text-center text-gray-700">23</td>
-                <td className="p-4 text-center text-gray-700">8</td>
-              </tr>
-            </tbody>
-          </table>
+        <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          Latest Product Overview
+        </h3>
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
+                    Product Name
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
+                    Product ID
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
+                    Total Earnings
+                  </th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
+                    %
+                  </th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
+                    Total Views
+                  </th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
+                    Number of Selling
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                <tr className="hover:bg-gray-50 transition-colors duration-200">
+                  <td className="px-6 py-4 text-sm text-gray-800 font-medium">
+                    Pop one Store
+                  </td>
+                  <td className="px-6 py-4 text-sm font-mono text-gray-600">552986765</td>
+                  <td className="px-6 py-4 text-sm font-medium text-gray-800">
+                    152,236.33 EGP
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                      +16.65%
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-center text-sm text-gray-600">
+                    23
+                  </td>
+                  <td className="px-6 py-4 text-center text-sm text-gray-600">
+                    8
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       {/* Exploring Others Products */}
-      <h3 className="text-2xl font-semibold text-center mt-12 mb-8">
+      <h3 className="text-2xl font-bold text-gray-800 text-center mt-12 mb-8">
         Exploring Others Products
       </h3>
     </div>

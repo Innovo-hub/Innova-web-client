@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 //this component for reuse cards again
 const DealCard = ({ deal }) => {
   return (
