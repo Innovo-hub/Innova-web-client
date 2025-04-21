@@ -126,13 +126,14 @@ const Cart = () => {
                 subtotal={cartData.TotalPrice || 0}
                 shipping={0}
                 tax={cartData.TotalPrice * 0.01 || 0}
-                total={(cartData.TotalPrice || 0) + (cartData.TotalPrice * 0.01 || 0)}
+                total={
+                  (cartData.TotalPrice || 0) + (cartData.TotalPrice * 0.01 || 0)
+                }
               />
             </div>
           )}
         </div>
         <Footer />
-        <CopyRights />
       </div>
     </>
   );
