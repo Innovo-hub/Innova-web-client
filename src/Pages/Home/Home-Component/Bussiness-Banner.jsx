@@ -14,7 +14,7 @@ function BussinessBanner() {
   return (
     <div className="relative w-full my-12 px-4 lg:px-16">
       {/* Header Section */}
-      <div className="bg-white shadow-lg rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
+      <div className="bg-white shadow-lg rounded-xl p-6 w-full transition-all duration-300 hover:shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* User Info Section */}
           <div className="flex items-center gap-6">
@@ -25,8 +25,9 @@ function BussinessBanner() {
                   <img
                     src={user}
                     width={70}
+                    height={70}
                     alt="User"
-                    className="rounded-full border-2 border-blue-500 p-1"
+                    className="rounded-full border-2 border-blue-500 p-1 object-cover"
                   />
                   <span className="absolute bottom-0 right-0 bg-green-500 w-4 h-4 rounded-full border-2 border-white"></span>
                 </div>
@@ -56,11 +57,11 @@ function BussinessBanner() {
           </div>
           {/* Profile and Settings Section */}
           <div className="flex gap-6 justify-end items-center">
-            <Link className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700">
+            <Link className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
               <PersonOutlineOutlinedIcon />
               <span className="font-medium">Profile</span>
             </Link>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
               <SettingsOutlinedIcon />
               <span className="font-medium">Settings</span>
             </button>
@@ -71,40 +72,36 @@ function BussinessBanner() {
       {/* Section 2 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         {/* Card 1 - Balance */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
           <div className="flex flex-col w-full">
             <p className="text-gray-600 text-lg mb-3">Estimated Balance</p>
-            <h2 className="text-3xl font-bold text-indigo-700 mb-2">0 EGP</h2>
+            <h2 className="text-3xl font-bold text-[#2C1DB3] mb-2">0 EGP</h2>
             <p className="text-gray-500 text-base">≈ $0</p>
           </div>
         </div>
 
         {/* Dashboard Link */}
-        <div className="bg-gradient-to-r from-cyan-50 to-blue-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
-          <div className="flex flex-col items-center justify-center">
-            <img
-              src={Dashboard}
-              alt="Dashboard"
-              className="h-20 w-20 mb-4 transform hover:scale-110 transition-transform duration-300"
-            />
-            <a
-              href="#"
-              className="text-lg font-medium hover:text-blue-700 transition-colors duration-200"
-            >
-              <span className="text-blue-600">Go</span> To Dashboard →
-            </a>
+        <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center cursor-pointer group">
+          <div className="transform group-hover:scale-110 transition-transform duration-300">
+            <img src={Dashboard} alt="Dashboard" className="h-20 w-20" />
           </div>
+          <a href="#" className="mt-4 text-lg font-medium">
+            <span className="text-[#126090]">Go</span> To Dashboard
+            <span className="group-hover:translate-x-2 inline-block transition-transform duration-300">
+              →
+            </span>
+          </a>
         </div>
 
         {/* Publish New Product */}
         <div className="w-full">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg group"
           >
             <div className="flex items-center justify-between">
               <span className="text-xl font-semibold">Publish New Product</span>
-              <PlusCircle className="w-8 h-8" />
+              <PlusCircle className="w-8 h-8 transform group-hover:rotate-90 transition-transform duration-300" />
             </div>
           </button>
 
@@ -117,10 +114,10 @@ function BussinessBanner() {
         </div>
 
         {/* Total Views */}
-        <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-gray-800">Total Views</h3>
-            <p className="text-3xl font-bold text-blue-600">23</p>
+            <p className="text-3xl font-bold text-[#0056B3]">23</p>
           </div>
         </div>
       </div>
@@ -135,22 +132,22 @@ function BussinessBanner() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
                     Product Name
                   </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
                     Product ID
                   </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
                     Total Earnings
                   </th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
                     %
                   </th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
                     Total Views
                   </th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
                     Number of Selling
                   </th>
                 </tr>
@@ -160,11 +157,11 @@ function BussinessBanner() {
                   <td className="px-6 py-4 text-sm text-gray-800 font-medium">
                     Pop one Store
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">552986765</td>
+                  <td className="px-6 py-4 text-sm font-mono text-gray-600">552986765</td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800">
                     152,236.33 EGP
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-center">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                       +16.65%
                     </span>

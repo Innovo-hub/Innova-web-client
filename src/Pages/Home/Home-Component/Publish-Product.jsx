@@ -14,7 +14,6 @@ import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { publishProduct } from "../../../redux/Slices/Product-Slice/ProductCardReducer";
 import { getAllCategories } from "../../../redux/Slices/Category-Slice/CategoryReducer";
-import Swal from "sweetalert2";
 
 const options = {
   sizes: ["-", "sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
@@ -81,7 +80,6 @@ const PublishProductCard = ({ isOpen, onClose }) => {
       newErrors.ColorNames = "At least one color is required";
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
@@ -144,7 +142,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
           {/* Content Area with Auto Scroll if needed */}
           <div className="flex-1 overflow-auto p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-              {/* Right Column */}
+              {/* Left Column */}
               <div className="space-y-4">
                 <div className="bg-blue-50 p-3 rounded-lg">
                   <h3 className="text-[#126090] font-semibold">
@@ -257,7 +255,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
                 />
               </div>
 
-              {/* Left Column */}
+              {/* Right Column */}
               <div className="space-y-4">
                 <div className="bg-blue-50 p-3 rounded-lg">
                   <h3 className="text-[#126090] font-semibold">
