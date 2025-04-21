@@ -71,8 +71,8 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex flex-col bg-[#f7f7f7] pt-10 px-5 xl:px-0">
-        <div className="grid container grid-cols-1 xl:grid-cols-3 gap-10 flex-grow">
+      <div className="min-h-screen flex flex-col bg-[#f7f7f7] pt-10 px-5 xl:px-0 my-6">
+        <div className="grid container grid-cols-1 xl:grid-cols-3 gap-10 flex-grow my-8">
           <div className="col-span-2">
             <div className="flex justify-between">
               <h3 className="text-2xl font-medium">
