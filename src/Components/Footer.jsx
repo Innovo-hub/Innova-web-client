@@ -87,10 +87,10 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
             <div className="flex flex-col space-y-4">
-              <div className="flex items-center text-gray-300">
+              {/* <div className="flex items-center text-gray-300">
                 <LocationOnIcon className="h-5 w-5 mr-3" />
                 <span>123 Street Name, City, Country</span>
-              </div>
+              </div> */}
               <div className="flex items-center text-gray-300">
                 <PhoneIcon className="h-5 w-5 mr-3" />
                 <span>+1 234 567 8900</span>
