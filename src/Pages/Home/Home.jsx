@@ -402,7 +402,6 @@ function Home() {
         </div>
       </div>
       <Footer />
-      <CopyRights />
     </>
   );
 }

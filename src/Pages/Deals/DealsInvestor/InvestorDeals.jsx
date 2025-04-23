@@ -74,7 +74,6 @@ const OwnerDeals = () => {
 
       <div className="mb-20"></div>
       <Footer />
-      <CopyRights />
     </>
   );
 };

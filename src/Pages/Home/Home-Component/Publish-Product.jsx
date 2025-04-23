@@ -17,7 +17,29 @@ import { getAllCategories } from "../../../redux/Slices/Category-Slice/CategoryR
 
 const options = {
   sizes: ["-", "sm", "M", "L", "XL", "2XL", "3XL", "4XL"],
-  colors: ["-", "Red", "Blue", "Green", "Black", "White", "Brown"],
+  colors: [
+    "-",
+    "Red",
+    "Green",
+    "Blue",
+    "Yellow",
+    "Orange",
+    "Purple",
+    "Pink",
+    "Brown",
+    "Black",
+    "White",
+    "Gray",
+    "Cyan",
+    "Magenta",
+    "Teal",
+    "Indigo",
+    "Lime",
+    "Maroon",
+    "Navy",
+    "Olive",
+    "Turquoise",
+  ],
 };
 
 const PublishProductCard = ({ isOpen, onClose }) => {

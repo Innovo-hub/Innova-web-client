@@ -38,7 +38,6 @@ function ProductDetails() {
                 <RelatedProducts categoryId={product.CategoryId} />
             )}
             <Footer />
-            <CopyRights />
         </div>
     );
 }
