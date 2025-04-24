@@ -100,7 +100,7 @@ export default function NotificationPanel({
 
   return (
     <>
-      <div className="absolute right-0 top-12 w-[380px] bg-white shadow-2xl border rounded-xl z-50 overflow-hidden">
+      <div className="absolute right-0 top-12 w-[450px] bg-white shadow-2xl border rounded-xl z-50 overflow-hidden">
         <NotificationHeader onClose={onClose} />
 
         <NotificationTabs

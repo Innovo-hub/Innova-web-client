@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
-import CopyRights from "../../../Components/Copy-Rights.jsx";
-import DealCardInvestor from "../../../Components/DealCard-investor.jsx";
 import Footer from "../../../Components/Footer.jsx";
 import HomeBanner from "../../../Components/Home-Banner.jsx";
 import Navbar from "../../../Components/Navbar.jsx";
-import BussinessBanner from "./Deals-Component/Investor-Banner.jsx";
-
+import invDealsBanner from "./Deals-Component/InvDealsBanner";
+import DealShowCard from "../../../Components/DealCard.jsx";
 const OwnerDeals = () => {
   const dispatch = useDispatch();
 
@@ -25,11 +23,10 @@ const OwnerDeals = () => {
     <>
       <Navbar currentTab={"Deals"} />
       <HomeBanner />
-      <BussinessBanner />
+      <invDealsBanner />
 
       <div className="container">
         <div className="bg-gray-100 p-6 rounded-lg mx-auto max-w-[1600px] min-h-screen flex flex-col items-start mt-6 mb-10 px-10">
-
           <h1 className="text-2xl font-semibold text-left mb-4">
             All Published Deals
           </h1>
@@ -47,11 +44,10 @@ const OwnerDeals = () => {
               <div className="text-center p-8 bg-white rounded-lg shadow-sm">
                 <p className="text-gray-500">No deals found.</p>
               </div>
-              
             ) : (
               allDeals.map((deal, index) => (
                 <div key={deal.id || index} className="mb-8">
-                  <DealCardInvestor
+                  <DealShowCard
                     deal={{
                       ownerImage: deal.BusinessOwnerImage || "",
                       ownerName: deal.BusinessOwnerName,
@@ -64,7 +60,6 @@ const OwnerDeals = () => {
                       productImages: deal.Pictures || [],
                     }}
                   />
-                  
                 </div>
               ))
             )}

@@ -1,14 +1,30 @@
-import React from "react";
-import { Link } from "react-router-dom";
-//this component for reuse cards again
-const DealCard = ({ deal }) => {
+import React, { useState } from "react";
+import DiscussDealPopup from "../Pages/Deals/DealsInvestor/Deals-Component/Discuss-Deal"; 
+
+const DealShowCard = ({ deal }) => {
+  const [discussPopupOpen, setDiscussPopupOpen] = useState(false);
+
+  const handleOpenDiscussPopup = () => {
+    setDiscussPopupOpen(true);
+  };
+
+  const handleCloseDiscussPopup = () => {
+    setDiscussPopupOpen(false);
+  };
+
+  const handleSubmitDiscussion = (dealId, message) => {
+    // Here you would implement the logic to send the discussion message
+    console.log("Discussing deal:", dealId, "with message:", message);
+    // Call your API or perform state updates as needed
+  };
+
+  const role = localStorage.getItem("role");
+
   return (
     <div className="container">
       <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200">
-        {/*this is classname for card(feature wanted in it)*/}
         <div className="flex flex-col lg:flex-row gap-4">
-          {/*divided card and component*/}
-          {/* Left side content(profile,description)*/}
+          {/* Left side content */}
           <div className="flex-1">
             {/* Owner info section */}
             <div className="flex items-start gap-4 mb-4">
@@ -60,17 +76,7 @@ const DealCard = ({ deal }) => {
                 Description
               </p>
               <p className="text-base text-gray-600 w-[80%]">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem
-                ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                {deal.description}
               </p>
             </div>
 
@@ -86,17 +92,23 @@ const DealCard = ({ deal }) => {
             </div>
 
             {/* Action buttons */}
-            <div className="flex gap-2 mt-4 w-full lg:w-[42%]">
-              <Link
-                to={`/InvestmentContractForm`}
-                className="bg-green-500 text-white px-5 py-2.5 rounded-lg flex-1 hover:bg-green-600 transition-colors"
-              >
-                Accept Offer
-              </Link>
-              <button className="bg-yellow-400 text-white px-5 py-2.5 rounded-lg flex-1 hover:bg-yellow-500 transition-colors">
-                Discuss Offer
-              </button>
-            </div>
+            {role === "Investor" ? (
+              <div className="flex gap-4">
+                <div className="flex gap-2">
+                  <button className="bg-green-500 text-white px-16 py-2 rounded-md">
+                    Accept Deal
+                  </button>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    className="bg-amber-600 text-white px-16 py-2 rounded-md"
+                    onClick={handleOpenDiscussPopup}
+                  >
+                    Discuss Deal
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {/* Right side - Product images */}
@@ -135,13 +147,21 @@ const DealCard = ({ deal }) => {
 
             {/* Timestamp */}
             <p className="text-xs text-gray-500 text-right mt-2">
-              5:45 AM 20-1-2025
+              {deal.ApprovedAt}
             </p>
           </div>
         </div>
       </div>
+
+      {/* Discuss Deal Popup */}
+      <DiscussDealPopup
+        open={discussPopupOpen}
+        handleClose={handleCloseDiscussPopup}
+        dealId={deal.Id}
+        onSubmit={handleSubmitDiscussion}
+      />
     </div>
   );
 };
 
-export default DealCard;
+export default DealShowCard;

@@ -58,6 +58,7 @@ export const addDeal = createAsyncThunk(
       const response = await axios.post(`${BASE_URL}/add`, dealData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       });
 

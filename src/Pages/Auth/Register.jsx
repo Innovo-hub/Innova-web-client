@@ -177,7 +177,7 @@ function Register() {
                   </svg>
                 </motion.a>
                 <motion.a
-                  href="#features"
+                  href="/about"
                   className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 border-2 border-[#19376D]/30 text-[#19376D] rounded-full text-base md:text-lg font-semibold hover:bg-[#19376D]/5 transition-all duration-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

@@ -40,8 +40,8 @@ function AcceptanceModal({ notification, onClose, onAccept }) {
           <p className="text-gray-700">
             [{notification.investorName}] has accepted your offer for the
             project &quot;{notification.projectName}&quot; with an investment
-            amount of {notification.offerAmount} and a{" "}
-            {notification.equityPercentage} equity share.
+            amount of &quot;{notification.offerAmount}&quot; and a &quot;
+            {notification.equityPercentage}&quot; equity share.
           </p>
 
           <p className="text-gray-700">
@@ -87,7 +87,7 @@ function AcceptanceModal({ notification, onClose, onAccept }) {
           <span className="text-sm font-semibold text-gray-700">
             Innova Hub Team
           </span>
-          <span className="text-xs text-gray-500">2023</span>
+          <span className="text-xs text-gray-500">2025</span>
         </div>
       </div>
     </div>
