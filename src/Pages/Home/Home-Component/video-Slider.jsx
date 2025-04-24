@@ -23,12 +23,9 @@ const VideoSlider = () => {
   const [videoWidth, setVideoWidth] = useState(0);
   const [videoHeight, setVideoHeight] = useState(0);
 
-  // حساب نصف عرض وارتفاع الشاشة
   useEffect(() => {
     const updateDimensions = () => {
-      // استخدام نصف عرض الشاشة
       setVideoWidth(window.innerWidth * 0.5);
-      // استخدام ارتفاع مناسب
       setVideoHeight(window.innerHeight * 0.5);
     };
 

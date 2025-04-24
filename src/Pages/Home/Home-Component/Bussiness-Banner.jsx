@@ -57,14 +57,14 @@ function BussinessBanner() {
           </div>
           {/* Profile and Settings Section */}
           <div className="flex gap-6 justify-end items-center">
-            <Link className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
+            <Link to="/userProfile" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
               <PersonOutlineOutlinedIcon />
               <span className="font-medium">Profile</span>
             </Link>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
+            {/* <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
               <SettingsOutlinedIcon />
               <span className="font-medium">Settings</span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -114,12 +114,12 @@ function BussinessBanner() {
         </div>
 
         {/* Total Views */}
-        <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300">
+        {/* <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-gray-800">Total Views</h3>
             <p className="text-3xl font-bold text-[#0056B3]">23</p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Latest Product Overview(table) */}

@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
-import CopyRights from "../../../Components/Copy-Rights.jsx";
-import DealCardInvestor from "../../../Components/DealCard-investor.jsx";
 import DealPublishCard from "../../../Components/publishDealCard.jsx";
 import Footer from "../../../Components/Footer.jsx";
 import HomeBanner from "../../../Components/Home-Banner.jsx";
 import Navbar from "../../../Components/Navbar.jsx";
 import OwnerBanner from "./DealsComponent/Owner-banner.jsx";
 import { PlusCircle } from "lucide-react";
+import DealShowCard from "../../../Components/DealCard.jsx";
 
 const OwnerDeals = () => {
   const dispatch = useDispatch();
@@ -75,7 +74,7 @@ const OwnerDeals = () => {
             ) : (
               allDeals.map((deal, index) => (
                 <div key={deal.id || index} className="mb-8">
-                  <DealCardInvestor
+                  <DealShowCard
                     deal={{
                       ownerImage: deal.BusinessOwnerImage || "",
                       ownerName: deal.BusinessOwnerName,

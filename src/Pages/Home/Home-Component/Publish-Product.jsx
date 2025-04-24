@@ -224,7 +224,7 @@ const PublishProductCard = ({ isOpen, onClose }) => {
                     value={product.Price}
                     onChange={handleChange}
                     error={!!errors.Price}
-                    helperText={errors.Price || "Enter price in USD"}
+                    helperText={errors.Price || "Enter price in EGP"}
                     fullWidth
                   />
                   <TextField

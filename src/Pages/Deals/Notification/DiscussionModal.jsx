@@ -80,7 +80,7 @@ function DiscussionModal({
           <span className="text-sm font-semibold text-gray-700">
             Innova Hub Team
           </span>
-          <span className="text-xs text-gray-500">2023</span>
+          <span className="text-xs text-gray-500">2025</span>
         </div>
       </div>
     </div>

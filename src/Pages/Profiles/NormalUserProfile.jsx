@@ -20,7 +20,6 @@ import WishlistOrders from "./Profile-Components/whislist";
 import Privacy from "./Profile-Components/privecy";
 
 function UserProfile() {
-
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,21 +55,27 @@ function UserProfile() {
   const handleLogout = async () => {
     try {
       dispatch(logoutUser());
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
   if (loading) {
-    return <p className="text-center mt-10 text-blue-500">Loading profile...</p>;
+    return (
+      <p className="text-center mt-10 text-blue-500">Loading profile...</p>
+    );
   }
 
   if (error) {
-    return <p className="text-center mt-10 text-red-500">Error: {error.message}</p>;
+    return (
+      <p className="text-center mt-10 text-red-500">Error: {error.message}</p>
+    );
   }
 
   if (!profile) {
-    return <p className="text-center mt-10 text-gray-500">No profile data found.</p>;
+    return (
+      <p className="text-center mt-10 text-gray-500">No profile data found.</p>
+    );
   }
 
   console.log("User Profile Data:", profile);
@@ -79,7 +84,7 @@ function UserProfile() {
     <div>
       <Navbar />
       <HomeBanner />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
         <div className="flex flex-col md:flex-row mt-8">
           {/* Sidebar */}
           <aside className="w-full md:w-64 p-4 mb-4 md:mb-0">
@@ -92,7 +97,7 @@ function UserProfile() {
                 Personal Information
               </a>
               <Link
-                to={'/UserProfile/privacy'}
+                to={"/UserProfile/privacy"}
                 className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
               >
                 <VerifiedUserOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
@@ -119,13 +124,6 @@ function UserProfile() {
                 </a>
               ) : null}
 
-              <a
-                href="#"
-                className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
-              >
-                <LocalAtmOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
-                Payment Methods
-              </a>
               <button
                 onClick={handleLogout}
                 className="flex items-center text-gray-700 font-semibold hover:text-red-500"
@@ -169,7 +167,6 @@ function UserProfile() {
       </div>
 
       <Footer />
-      <CopyRights />
     </div>
   );
 }
