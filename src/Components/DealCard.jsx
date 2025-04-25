@@ -11,7 +11,7 @@ const DealShowCard = ({ deal }) => {
   const handleCloseDiscussPopup = () => {
     setDiscussPopupOpen(false);
   };
-
+  console.log(deal);
   const handleSubmitDiscussion = (dealId, message) => {
     // Here you would implement the logic to send the discussion message
     console.log("Discussing deal:", dealId, "with message:", message);
