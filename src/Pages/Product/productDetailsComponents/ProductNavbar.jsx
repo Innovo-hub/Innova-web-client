@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ProductNavbar({ productCategory }) {
+function ProductNavbar() {
     return (
-        <div className='bg-main-color h-20 flex justify-center items-center text-3xl rounded-br-full text-white'>
-            {productCategory}
+        <div className='bg-main-color h-10 flex justify-center items-center text-sm text-white'>
+            Handmade Products made with love and Success.
         </div>
     )
 }

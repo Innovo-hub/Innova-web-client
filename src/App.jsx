@@ -16,16 +16,24 @@ import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
 import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
+<<<<<<< HEAD
 import Orders from "./Pages/Orders/Orders";
 import RetuenOrder from "./Pages/Orders/ReturnOrder"
 import WriteReview from "./Pages/Orders/WriteReview"
 
+=======
+import Privacy from "./Pages/Profiles/Profile-Components/privecy";
+import ContactPage from "./Pages/Contact/Contact";
+import About from "./Pages/About/About";
+>>>>>>> 153ec1e125bb3aeb0ee84245a917ded694baf7b0
 
 function App() {
   return (
     <Routes>
       {/* Main Routes */}
       <Route path="/" element={<Home />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/about" element={<About />} />
       <Route path="/category/:id" element={<Category />} />
       {/* Auth Routes */}
       <Route path="/auth/register" element={<Register />} />
@@ -39,6 +47,7 @@ function App() {
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+      <Route path="/UserProfile/privacy" element={<Privacy />} />
       <Route
         path="/InvestmentContractForm"
         element={<InvestmentContractForm />}

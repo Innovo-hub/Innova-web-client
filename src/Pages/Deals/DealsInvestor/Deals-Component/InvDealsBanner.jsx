@@ -1,14 +1,12 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import profile1 from "../../../../assets/Deals/profile1.png";
-import { Badge } from "@mui/material";
-import { useState } from "react";
+import user from "../../../../assets/Deals/Profile.png";
 import NotificationPanel from "../../Notification/Notfication";
-
-function OwnerBanner() {
+import { useState } from "react";
+import { Badge } from "@mui/material";
+const invDealsBanner = () => {
   const [openNotify, setOpenNotify] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
-
   return (
     <div className="container">
       <div className="relative w-full my-6 px-4 lg:px-12">
@@ -20,7 +18,7 @@ function OwnerBanner() {
               {/* Profile Image */}
               <div className="w-12 h-12 rounded-full overflow-hidden">
                 <img
-                  src={profile1}
+                  src={user}
                   className="h-full w-full object-cover"
                   alt="Mohamed Ali"
                 />
@@ -37,8 +35,7 @@ function OwnerBanner() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-500">
-                  Business Owner ID:{" "}
-                  <span className="font-mono">2233666951</span>
+                  Investor ID: <span className="font-mono">2233666951</span>
                 </p>
               </div>
             </div>
@@ -75,4 +72,4 @@ function OwnerBanner() {
   );
 }
 
-export default OwnerBanner;
+export default invDealsBanner;

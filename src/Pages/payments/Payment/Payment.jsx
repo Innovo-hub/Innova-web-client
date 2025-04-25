@@ -132,9 +132,11 @@ const CheckoutPage = () => {
           <div className="w-full lg:w-1/2 space-y-6">
             {/*  Comment 2 */}
             <div className="bg-white rounded-lg p-4">
-              <h3 className="text-[23px] font-semibold">Comment</h3>
+              <h3 className="text-[23px] font-semibold">
+                Additional information
+              </h3>
               <textarea
-                placeholder="Add Comment..."
+                placeholder="Add information..."
                 className="w-full border border-gray-300 rounded-lg p-3 h-24 resize-none"
                 value={userComment}
                 onChange={(e) => setUserComment(e.target.value)}

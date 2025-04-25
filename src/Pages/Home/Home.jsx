@@ -9,19 +9,16 @@ import CategoryBanner from "./Home-Component/Category-Banner";
 import CategoryCard from "./Home-Component/Category-Card";
 import ProductCard from "./Home-Component/Product-Card";
 import Footer from "../../Components/Footer";
-import CopyRights from "../../Components/Copy-Rights";
 import Loading from "../../Components/Shared/Loading/Loading";
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import products from "./Home-data/Products"; // Keep the static data for Best Selling Products
-import explore1 from "../../assets/Products/prod4.png";
-import explore2 from "../../assets/Products/image-12.png";
-import explore3 from "../../assets/Products/image-13.png";
-import explore4 from "../../assets/Products/explore4.png";
-import la1 from "../../assets/HomeAssets/la1.jpg";
 import la2 from "../../assets/HomeAssets/la2.jpg";
 import InvestorBanner from "./Home-Component/InvestorBanner";
 import VideoSlider from "./Home-Component/video-Slider";
+import ExploreProducts from "./Home-Component/ExploreProducts";
+import Card2Home from "./Home-Component/Card2-Home";
+import Card1Home from "./Home-Component/Card1-Home";
 
 function Home() {
   const {
@@ -67,15 +64,14 @@ function Home() {
     productsByCategory[12]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
     productsByCategory[9]?.AllProductsOnspecificCategories || [];
-  
-    const shopRings =
+
+  const shopRings =
     productsByCategory[13]?.AllProductsOnspecificCategories || [];
 
   return (
     <>
       <Navbar currentTab={"Home"} />
       <HomeBanner />
-
       {/* Conditionally render the banner based on the role */}
       {role === "BusinessOwner" ? (
         <BussinessBanner />
@@ -95,7 +91,6 @@ function Home() {
           />
         ))}
       </div>
-
       {/* Best Selling Products Section (Keep as it is) */}
       <div className="my-8 lg:px-24 px-8">
         <h2 className="text-2xl font-semibold my-2">Best Selling products</h2>
@@ -125,24 +120,7 @@ function Home() {
         </div>
       </div>
       {/* small enhancement */}
-      <div className="bg-gradient-to-r from-white to-gray-200 ">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 p-10">
-            <div className="flex justify-center flex-col ">
-              <p className="text-6xl font-">
-                Handmade with passion,
-                <span className="text-blue-700"> crafted for you.</span>
-              </p>
-            </div>
-            <div>
-              <div className="border rounded-xl overflow-hidden">
-                <img src={la2} alt="group of toys" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <Card1Home />
       {/* Handcrafted Carpets Section (categoryId = 12) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
@@ -171,7 +149,6 @@ function Home() {
           )}
         </div>
       </div>
-
       {/* Shop Necklaces Section (categoryId = 9) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
@@ -198,26 +175,8 @@ function Home() {
           )}
         </div>
       </div>
-
       {/* small enhancement */}
-      <div className="bg-gradient-to-l from-white to-slate-300 ">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 p-10 space-x-10">
-            <div>
-              <div className="rounded-xl overflow-hidden">
-                <img src={la1} alt="group of toys" />
-              </div>
-            </div>
-            <div className="flex justify-center flex-col ">
-              <p className="text-5xl text-gray-700">
-                Every piece has a soul... and every
-                <span className="text-red-700"> soul has a touch.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <Card2Home />
       {/* Shop Rings Section (categoryId = 13) */}
       <div className="my-8 lg:px-24 px-8">
         <div className="flex justify-between items-center">
@@ -244,56 +203,18 @@ function Home() {
           )}
         </div>
       </div>
-
       <div>
         <div className="py-10">
           <p className="text-center text-3xl text-gray-500">
             Explore how handmade products are produced
           </p>
         </div>
-        <VideoSlider />
       </div>
+      {/* Video Slider */}
+      <VideoSlider />
       {/* Explore Other Products Section */}
-      <div className="my-2 lg:px-24 px-8">
-        <h2 className="text-2xl font-semibold my-2">Explore Other Products</h2>
-        <div className="grid lg:grid-cols-3 grid-cols-1 mt-8 gap-8">
-          <div className="col-span-1 h-[80%]">
-            <img
-              src={explore1}
-              className="lg:flex w-full hidden rounded-lg h-[95%]"
-              alt="Explore 1"
-            />
-          </div>
-          <div className="lg:col-span-1 col-span-1 space-y-6">
-            <img
-              src={explore2}
-              className="lg:flex w-full hidden rounded-lg h-56"
-              alt="Explore 2"
-            />
-            <div className="w-full">
-              <img
-                src={explore3}
-                className="lg:flex w-full hidden rounded-lg h-56"
-                alt="Explore 3"
-              />
-            </div>
-          </div>
-          <div className="relative col-span-1 group h-[74%]">
-            <img
-              src={explore4}
-              className="flex w-full h-full"
-              alt="Explore 4"
-            />
-            <div className="px-3 absolute inset-0 w-full grayscale shadow-md bg-white/30 rounded-lg flex flex-col items-center justify-center transition-opacity">
-              <Link className="font-semibold text-center text-xl text-gray-700">
-                Explore Now <NavigateNextIcon />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ExploreProducts />
       <Footer />
-      <CopyRights />
     </>
   );
 }
