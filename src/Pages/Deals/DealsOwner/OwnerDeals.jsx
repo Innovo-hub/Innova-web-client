@@ -15,7 +15,6 @@ const OwnerDeals = () => {
 
   // Select allDeals instead of ownerDeals since we want to show all deals
   const { allDeals, status, error } = useSelector((state) => state.deals);
-
   useEffect(() => {
     // Fetch all deals without an owner ID parameter
     dispatch(fetchAllDeals());
