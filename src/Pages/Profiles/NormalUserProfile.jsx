@@ -116,7 +116,7 @@ function UserProfile() {
               ) : null}
               {profile?.RoleName === "BusinessOwner" ? (
                 <a
-                  href="#"
+                  href="/UserProfile/orders"
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
                 >
                   <InventoryIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
