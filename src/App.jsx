@@ -16,16 +16,12 @@ import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
 import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
-<<<<<<< HEAD
 import Orders from "./Pages/Orders/Orders";
-import RetuenOrder from "./Pages/Orders/ReturnOrder"
 import WriteReview from "./Pages/Orders/WriteReview"
-
-=======
 import Privacy from "./Pages/Profiles/Profile-Components/privecy";
 import ContactPage from "./Pages/Contact/Contact";
 import About from "./Pages/About/About";
->>>>>>> 153ec1e125bb3aeb0ee84245a917ded694baf7b0
+import Returnorder from "./Pages/Orders/ReturnOrder";
 
 function App() {
   return (
@@ -59,9 +55,9 @@ function App() {
       <Route path="/payment" element={<Payment />} />
       <Route path="/order/payment-success" element={<PaymentSuccess />} />
       {/*Your orders*/}
-      <Route path="/order" element={<Orders />} />
-      <Route path="/return_order" element={<RetuenOrder />} />
-      <Route path="/write_review" element={<WriteReview />} />
+      <Route path="/UserProfile/orders" element={<Orders />} />
+      <Route path="/UserProfile/return_order" element={<Returnorder />} />
+      <Route path="/UserProfile/orders/write_review" element={<WriteReview />} />
 
 
     </Routes>
