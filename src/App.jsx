@@ -16,6 +16,10 @@ import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
 import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
+import Orders from "./Pages/Orders/Orders";
+import RetuenOrder from "./Pages/Orders/ReturnOrder"
+import WriteReview from "./Pages/Orders/WriteReview"
+
 
 function App() {
   return (
@@ -42,10 +46,15 @@ function App() {
       {/* payment and Cart Routes*/}
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/cart" element={<Cart />} />
-
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order/payment-success" element={<PaymentSuccess />} />
+      {/*Your orders*/}
+      <Route path="/order" element={<Orders />} />
+      <Route path="/return_order" element={<RetuenOrder />} />
+      <Route path="/write_review" element={<WriteReview />} />
+
+
     </Routes>
   );
 }
