@@ -11,12 +11,12 @@ function ProfileHeader({ user }) {
       {/* Cover image   */}
       <div
         className="w-full h-auto md:h-64 bg-cover bg-center relative"
-        // style={{ backgroundImage: `url(${user.coverImageUrl})` }}
+        // style={{ backgroundImage: `url(${user.ProfileCoverUrl})` }}
       >
         <img
           src={user.ProfileCoverUrl || wallpaper}
           alt=""
-          className="w-full h-auto md:h-64 bg- bg-center"
+          className="w-full h-[300px] md:h-64 bg-cover bg-center"
         />
         {/*icon updating in cover_image*/}
         <div className="absolute bottom-2 right-2 bg-[#F7F7F7E5] p-2 rounded-full cursor-pointer hover:bg-[#e0e0e0]">

@@ -5,10 +5,8 @@ import ProfileHeader from "./Profiles-Data/ProfileHeader";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import HomeBanner from "../../Components/Home-Banner";
-import CopyRights from "../../Components/Copy-Rights";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
-import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
@@ -17,8 +15,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
 import WishlistOrders from "./Profile-Components/whislist";
-import Privacy from "./Profile-Components/privecy";
-
 function UserProfile() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
