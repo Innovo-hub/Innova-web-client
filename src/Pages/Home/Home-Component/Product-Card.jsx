@@ -13,7 +13,6 @@ import CircleIcon from "@mui/icons-material/Circle";
 import LinkIcon from "@mui/icons-material/Link";
 import { addToCart } from "../../../redux/Slices/Cart-Slice/cartReducer";
 
-
 function ProductCard({
   productId,
   imageSrc,
@@ -65,7 +64,11 @@ function ProductCard({
     <div className="card flex flex-col bg-[#FFFFFF] shadow-lg rounded-xl relative group overflow-hidden">
       {/* Image with overlay */}
       <div className="relative">
-        <img className="object-cover h-64 w-full" src={imageSrc} alt={productName} />
+        <img
+          className="object-cover h-64 w-full"
+          src={imageSrc}
+          alt={productName}
+        />
         <div className="absolute inset-0 bg-[#126090] bg-opacity-50 cursor-pointer flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300 transition-all">
           <button className="text-white p-3 text-lg">
             Visit <LinkIcon />
@@ -80,9 +83,17 @@ function ProductCard({
         </h2>
         <div className="flex items-center gap-2">
           {PriceAfterDiscount && (
-            <h6 className="font-bold text-xl text-green-600">${PriceAfterDiscount}</h6>
+            <h6 className="font-bold text-xl text-green-600">
+              ${PriceAfterDiscount}
+            </h6>
           )}
-          <h6 className={PriceAfterDiscount ? "line-through text-gray-600" : "text-gray-600"}>
+          <h6
+            className={
+              PriceAfterDiscount
+                ? "line-through text-gray-600"
+                : "text-gray-600"
+            }
+          >
             ${Price}
           </h6>
         </div>
@@ -99,7 +110,9 @@ function ProductCard({
               )}
             </button>
             <button onClick={handleAddToCart} disabled={loading}>
-              <ShoppingCartOutlinedIcon className={`${loading ? "opacity-50" : ""}`} />
+              <ShoppingCartOutlinedIcon
+                className={`${loading ? "opacity-50" : ""}`}
+              />
             </button>
           </div>
           <p>
@@ -110,7 +123,8 @@ function ProductCard({
               </>
             ) : (
               <>
-                <CircleIcon className="text-red-600" fontSize="small" /> Out Of Stock
+                <CircleIcon className="text-red-600" fontSize="small" /> Out Of
+                Stock
               </>
             )}
           </p>

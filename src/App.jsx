@@ -16,12 +16,20 @@ import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
 import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
+import Orders from "./Pages/Orders/Orders";
+import WriteReview from "./Pages/Orders/WriteReview"
+import Privacy from "./Pages/Profiles/Profile-Components/privecy";
+import ContactPage from "./Pages/Contact/contact";
+import About from "./Pages/About/About";
+import Returnorder from "./Pages/Orders/ReturnOrder";
 
 function App() {
   return (
     <Routes>
       {/* Main Routes */}
       <Route path="/" element={<Home />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/about" element={<About />} />
       <Route path="/category/:id" element={<Category />} />
       {/* Auth Routes */}
       <Route path="/auth/register" element={<Register />} />
@@ -35,6 +43,7 @@ function App() {
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
+      <Route path="/UserProfile/privacy" element={<Privacy />} />
       <Route
         path="/InvestmentContractForm"
         element={<InvestmentContractForm />}
@@ -42,10 +51,15 @@ function App() {
       {/* payment and Cart Routes*/}
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/cart" element={<Cart />} />
-
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order/payment-success" element={<PaymentSuccess />} />
+      {/*Your orders*/}
+      <Route path="/UserProfile/orders" element={<Orders />} />
+      <Route path="/UserProfile/return_order" element={<Returnorder />} />
+      <Route path="/UserProfile/orders/write_review" element={<WriteReview />} />
+
+
     </Routes>
   );
 }

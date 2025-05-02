@@ -91,7 +91,7 @@ const CheckoutPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
           {/*Address Screen */}
-          <div className="w-full lg:w-1/2 flex flex-col">
+           <div className="w-full lg:w-1/2 flex flex-col">
             <div className="bg-white rounded-md p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-[24px] font-semibold">Address</h2>
@@ -99,7 +99,7 @@ const CheckoutPage = () => {
                   Edit
                 </button>
               </div>
-              <div className="mb-6">
+             <div className="mb-6">
                 <h3 className="text-md font-medium mb-2">Shipping Address</h3>
                 <div className="text-[#545454] space-y-1">
                   <p>Nador Hari</p>
@@ -107,7 +107,7 @@ const CheckoutPage = () => {
                   <p>44519, Cairo</p>
                   <p>nadenhar7f88@gmail.com, 01203520019</p>
                 </div>
-              </div>
+              </div> 
               <div className="flex items-center mb-6">
                 <input
                   type="checkbox"
@@ -132,9 +132,11 @@ const CheckoutPage = () => {
           <div className="w-full lg:w-1/2 space-y-6">
             {/*  Comment 2 */}
             <div className="bg-white rounded-lg p-4">
-              <h3 className="text-[23px] font-semibold">Comment</h3>
+              <h3 className="text-[23px] font-semibold">
+                Additional information
+              </h3>
               <textarea
-                placeholder="Add Comment..."
+                placeholder="Add information..."
                 className="w-full border border-gray-300 rounded-lg p-3 h-24 resize-none"
                 value={userComment}
                 onChange={(e) => setUserComment(e.target.value)}

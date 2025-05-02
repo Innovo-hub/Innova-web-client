@@ -42,6 +42,3 @@ function Input({ LabelText, type = "text", sx, value, onChange, name }) {
 }
 
 export default Input;
-
-
-

@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import S1 from "../../../assets/Products/s1.jpg";
 import S2 from "../../../assets/Products/s2.jpg";
 import S3 from "../../../assets/Products/s3.jpg";
+import SS1 from "../../../assets/Products/SS1.jpg";
+import SS2 from "../../../assets/Products/SS2.jpg";
+import SS3 from "../../../assets/Products/SS3.jpg";
 import Categorieslist from "./Categories-list";
 import MeltableSlider from "../Home-Slider/MeltableSlider";
 
@@ -14,19 +17,19 @@ const CategoryBanner = () => {
   // Thumbnail data
   const thumbnails = [
     {
-      image: S1,
+      image: SS1,
       title: "Necklace Product",
       description: "Discover unique artisan crafts",
       categoryId: "9",
     },
     {
-      image: S2,
+      image: SS3,
       title: "Home Decor",
       description: "Beautiful items for your home",
       categoryId: "2",
     },
     {
-      image: S3,
+      image: SS2,
       title: "Accessories",
       description: "Complete your style",
       categoryId: "3",

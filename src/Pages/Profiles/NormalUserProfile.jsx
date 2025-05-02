@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfileDetails from "./Profiles-Data/ProfileDetails";
 import ProfileHeader from "./Profiles-Data/ProfileHeader";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import HomeBanner from "../../Components/Home-Banner";
-import CopyRights from "../../Components/Copy-Rights";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
-import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import APILINK from "../../../Constants"; // Ensure this has your API base URL
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
 import WishlistOrders from "./Profile-Components/whislist";
-
+import Loading from "../../Components/Shared/Loading/Loading";
 function UserProfile() {
-
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -38,8 +35,7 @@ function UserProfile() {
         const response = await axios.get(`${APILINK}/api/Profile/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log("Profile Data:", response.data); // Debug API response
+        // console.log("Profile Data:", response.data); // Debug API response
         setProfile(response.data);
       } catch (err) {
         console.error("Error fetching profile:", err);
@@ -55,48 +51,56 @@ function UserProfile() {
   const handleLogout = async () => {
     try {
       dispatch(logoutUser());
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.log(error);
+       console.log(error);
     }
   };
   if (loading) {
-    return <p className="text-center mt-10 text-blue-500">Loading profile...</p>;
+    return (
+      <dev className="flex justify-center items-center my-8">
+        <Loading />
+      </dev>
+    );
   }
 
   if (error) {
-    return <p className="text-center mt-10 text-red-500">Error: {error.message}</p>;
+    return (
+      <p className="text-center mt-10 text-red-500">Error: {error.message}</p>
+    );
   }
 
   if (!profile) {
-    return <p className="text-center mt-10 text-gray-500">No profile data found.</p>;
+    return (
+      <p className="text-center mt-10 text-gray-500">No profile data found.</p>
+    );
   }
 
-  console.log("User Profile Data:", profile);
+  // console.log("User Profile Data:", profile);
 
   return (
     <div>
       <Navbar />
       <HomeBanner />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
+      <div className="  px-4 sm:px-6 lg:px-8 min-h-screen">
         <div className="flex flex-col md:flex-row mt-8">
           {/* Sidebar */}
-          <aside className="w-full md:w-64 p-4 mb-4 md:mb-0">
+          <aside className="w-full  p-2 mb-4 md:mb-0">
             <nav className="space-y-4">
-              <a
-                href="#"
+              <Link
+                to={"/UserProfile"}
                 className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
               >
-                <PermIdentityIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
+                <PermIdentityIcon className="text-[#126090]  h-3.5 mr-3" />
                 Personal Information
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/UserProfile/privacy"}
                 className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
               >
                 <VerifiedUserOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                 Privacy & Security
-              </a>
+              </Link>
 
               {profile?.RoleName === "BusinessOwner" ||
               profile?.RoleName === "Investor" ? (
@@ -110,7 +114,7 @@ function UserProfile() {
               ) : null}
               {profile?.RoleName === "BusinessOwner" ? (
                 <a
-                  href="#"
+                  href="/UserProfile/orders"
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
                 >
                   <InventoryIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
@@ -118,13 +122,6 @@ function UserProfile() {
                 </a>
               ) : null}
 
-              <a
-                href="#"
-                className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
-              >
-                <LocalAtmOutlinedIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
-                Payment Methods
-              </a>
               <button
                 onClick={handleLogout}
                 className="flex items-center text-gray-700 font-semibold hover:text-red-500"
@@ -153,7 +150,7 @@ function UserProfile() {
                   <div className="text-center my-6">
                     <iframe
                       title="Sales_Analysis"
-                      width="1140"
+                      width="1120"
                       height="541.25"
                       src="https://app.powerbi.com/reportEmbed?reportId=cc90a135-cfb5-4d64-8094-31f63623136c&autoAuth=true&ctid=ae362704-0450-46f2-ab02-2b0a1df6406d"
                       frameBorder="0"
@@ -168,7 +165,6 @@ function UserProfile() {
       </div>
 
       <Footer />
-      <CopyRights />
     </div>
   );
 }
