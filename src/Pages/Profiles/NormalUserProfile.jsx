@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfileDetails from "./Profiles-Data/ProfileDetails";
 import ProfileHeader from "./Profiles-Data/ProfileHeader";
@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
 import WishlistOrders from "./Profile-Components/whislist";
+import Loading from "../../Components/Shared/Loading/Loading";
 function UserProfile() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,8 +35,7 @@ function UserProfile() {
         const response = await axios.get(`${APILINK}/api/Profile/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log("Profile Data:", response.data); // Debug API response
+        // console.log("Profile Data:", response.data); // Debug API response
         setProfile(response.data);
       } catch (err) {
         console.error("Error fetching profile:", err);
@@ -53,12 +53,14 @@ function UserProfile() {
       dispatch(logoutUser());
       navigate("/");
     } catch (error) {
-      console.log(error);
+       console.log(error);
     }
   };
   if (loading) {
     return (
-      <p className="text-center mt-10 text-blue-500">Loading profile...</p>
+      <dev className="flex justify-center items-center my-8">
+        <Loading />
+      </dev>
     );
   }
 
@@ -74,24 +76,24 @@ function UserProfile() {
     );
   }
 
-  console.log("User Profile Data:", profile);
+  // console.log("User Profile Data:", profile);
 
   return (
     <div>
       <Navbar />
       <HomeBanner />
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
+      <div className="  px-4 sm:px-6 lg:px-8 min-h-screen">
         <div className="flex flex-col md:flex-row mt-8">
           {/* Sidebar */}
-          <aside className="w-full md:w-64 p-4 mb-4 md:mb-0">
+          <aside className="w-full  p-2 mb-4 md:mb-0">
             <nav className="space-y-4">
-              <a
-                href="#"
+              <Link
+                to={"/UserProfile"}
                 className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
               >
-                <PermIdentityIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
+                <PermIdentityIcon className="text-[#126090]  h-3.5 mr-3" />
                 Personal Information
-              </a>
+              </Link>
               <Link
                 to={"/UserProfile/privacy"}
                 className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
@@ -148,7 +150,7 @@ function UserProfile() {
                   <div className="text-center my-6">
                     <iframe
                       title="Sales_Analysis"
-                      width="1140"
+                      width="1120"
                       height="541.25"
                       src="https://app.powerbi.com/reportEmbed?reportId=cc90a135-cfb5-4d64-8094-31f63623136c&autoAuth=true&ctid=ae362704-0450-46f2-ab02-2b0a1df6406d"
                       frameBorder="0"

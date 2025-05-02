@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
+import DealShowCard from "../../../Components/DealCard.jsx";
 import Footer from "../../../Components/Footer.jsx";
 import HomeBanner from "../../../Components/Home-Banner.jsx";
 import Navbar from "../../../Components/Navbar.jsx";
-import invDealsBanner from "./Deals-Component/InvDealsBanner";
-import DealShowCard from "../../../Components/DealCard.jsx";
+import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
 const OwnerDeals = () => {
   const dispatch = useDispatch();
 

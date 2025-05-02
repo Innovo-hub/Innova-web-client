@@ -19,7 +19,7 @@ import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
 import Orders from "./Pages/Orders/Orders";
 import WriteReview from "./Pages/Orders/WriteReview"
 import Privacy from "./Pages/Profiles/Profile-Components/privecy";
-import ContactPage from "./Pages/Contact/Contact";
+import ContactPage from "./Pages/Contact/contact";
 import About from "./Pages/About/About";
 import Returnorder from "./Pages/Orders/ReturnOrder";
 

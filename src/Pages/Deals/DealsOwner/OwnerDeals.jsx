@@ -13,16 +13,13 @@ const OwnerDeals = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Select allDeals instead of ownerDeals since we want to show all deals
   const { allDeals, status, error } = useSelector((state) => state.deals);
   useEffect(() => {
-    // Fetch all deals without an owner ID parameter
     dispatch(fetchAllDeals());
   }, [dispatch]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Refresh deals after publishing a new one
     dispatch(fetchAllDeals());
   };
 

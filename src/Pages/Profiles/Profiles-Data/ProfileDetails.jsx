@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //this Component to show Data EX: City ,Email,Phone and It will recome from infoFiled to make code short
 import InfoField from "./InfoField";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
