@@ -24,6 +24,7 @@ import About from "./Pages/About/About";
 import Returnorder from "./Pages/Orders/ReturnOrder";
 
 function App() {
+  const role = localStorage.getItem("role");
   return (
     <Routes>
       {/* Main Routes */}
@@ -38,7 +39,7 @@ function App() {
       <Route path="/auth/reset-password" element={<ResetPassword />} />
       {/*<Route path="/user-profile" element={<UserProfile />} /> */}
       <Route path="/investor/Deals" element={<InvestorDeals />} />
-      <Route path="/owner/Deals" element={<OwnerDeals />} />
+      <Route path={role === "investor" ? "/investor/deals" : "/owner/Deals"} element={<OwnerDeals />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}

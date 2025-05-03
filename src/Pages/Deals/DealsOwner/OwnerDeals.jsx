@@ -72,7 +72,7 @@ const OwnerDeals = () => {
                 <div key={deal.id || index} className="mb-8">
                   <DealShowCard
                     deal={{
-                      ownerImage: deal.BusinessOwnerImage || "",
+                      ownerImage: deal.BusinessOwnerPictureUrl || "",
                       ownerName: deal.BusinessOwnerName,
                       ownerId: deal.BusinessOwnerId,
                       businessName: deal.BusinessName,
