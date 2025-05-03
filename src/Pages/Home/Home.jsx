@@ -1,32 +1,31 @@
-import React, { useEffect } from "react";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import  { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Footer from "../../Components/Footer";
+import HomeBanner from "../../Components/Home-Banner";
+import Navbar from "../../Components/Navbar";
+import Loading from "../../Components/Shared/Loading/Loading";
 import { getPopularCategories } from "../../redux/Slices/Category-Slice/CategoryReducer";
 import { getProductByCategory } from "../../redux/Slices/Product-Slice/ProductCategoryReducer"; // Import the thunk
-import Navbar from "../../Components/Navbar";
-import HomeBanner from "../../Components/Home-Banner";
 import BussinessBanner from "./Home-Component/Bussiness-Banner";
+import Card1Home from "./Home-Component/Card1-Home";
+import Card2Home from "./Home-Component/Card2-Home";
 import CategoryBanner from "./Home-Component/Category-Banner";
 import CategoryCard from "./Home-Component/Category-Card";
-import ProductCard from "./Home-Component/Product-Card";
-import Footer from "../../Components/Footer";
-import Loading from "../../Components/Shared/Loading/Loading";
-import { Link } from "react-router-dom";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import products from "./Home-data/Products"; // Keep the static data for Best Selling Products
-import la2 from "../../assets/HomeAssets/la2.jpg";
-import InvestorBanner from "./Home-Component/InvestorBanner";
-import VideoSlider from "./Home-Component/video-Slider";
 import ExploreProducts from "./Home-Component/ExploreProducts";
-import Card2Home from "./Home-Component/Card2-Home";
-import Card1Home from "./Home-Component/Card1-Home";
+import InvestorBanner from "./Home-Component/InvestorBanner";
+import ProductCard from "./Home-Component/Product-Card";
+import VideoSlider from "./Home-Component/video-Slider";
+import products from "./Home-data/Products"; // Keep the static data for Best Selling Products
 
 function Home() {
-  const {
-    token,
-    profile,
-    loading: loginLoading,
-    isAuthenticated,
-  } = useSelector((state) => state.login);
+  // const {
+  //   token,
+  //   profile,
+  //   loading: loginLoading,
+  //   isAuthenticated,
+  // } = useSelector((state) => state.login);
   const {
     popularcategory,
     error: catError,

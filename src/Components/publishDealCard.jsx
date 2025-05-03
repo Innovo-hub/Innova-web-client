@@ -20,6 +20,10 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import axios from "axios";
+import APILINK from "../../Constants";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategories } from "../redux/Slices/Category-Slice/CategoryReducer";
 
 // Component for image upload area
 const ImageUploadBox = ({
@@ -160,12 +164,12 @@ const DealPublishCard = ({ isOpen, onClose }) => {
   // State management
   const [formData, setFormData] = useState({
     businessName: "",
-    businessType: "",
     description: "",
     offerMoney: "",
     offerDeal: "",
     ManufacturingCost: "",
     EstimatedPrice: "",
+    categoryId: "",
   });
   const [errors, setErrors] = useState({});
   const [uploadedImages, setUploadedImages] = useState([null, null, null]);
@@ -187,7 +191,7 @@ const DealPublishCard = ({ isOpen, onClose }) => {
     const newErrors = {};
     if (!formData.businessName)
       newErrors.businessName = "Business name is required";
-    if (!formData.businessType)
+    if (!formData.categoryId)
       newErrors.businessType = "Business type is required";
     if (!formData.description)
       newErrors.description = "Description is required";
@@ -206,7 +210,11 @@ const DealPublishCard = ({ isOpen, onClose }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  const { allcategories } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
   // Image upload handler
   const handleImageUpload = (index, event) => {
     const file = event.target.files[0];
@@ -230,7 +238,7 @@ const DealPublishCard = ({ isOpen, onClose }) => {
   const handleChange = (field) => (event) => {
     setFormData({
       ...formData,
-      [field]: event.target.value,
+      [field === "businessType" ? "categoryId" : field]: event.target.value,
     });
     // Clear error when user types
     if (errors[field]) {
@@ -242,34 +250,72 @@ const DealPublishCard = ({ isOpen, onClose }) => {
   };
 
   // Form submission handler
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateForm()) {
-      const dealData = {
-        ...formData,
-        uploadedImages,
-      };
-      console.log("Publishing Deal:", dealData);
+      try {
+        // Create FormData object to handle file uploads
+        const formDataToSend = new FormData();
 
-      Swal.fire({
-        icon: "success",
-        title: "Deal Published Successfully!",
-        text: "Your deal has been published and is now visible to investors.",
-        showConfirmButton: false,
-        timer: 2000,
-      }).then(() => {
-        // Reset form after submission
-        setFormData({
-          businessName: "",
-          businessType: "",
-          description: "",
-          offerMoney: "",
-          offerDeal: "",
-          ManufacturingCost: "",
-          EstimatedPrice: "",
+        // Append the form data fields
+        formDataToSend.append("BusinessName", formData.businessName);
+        formDataToSend.append("Description", formData.description);
+        formDataToSend.append("OfferMoney", formData.offerMoney);
+        formDataToSend.append("OfferDeal", formData.offerDeal);
+        formDataToSend.append("CategoryId", formData.categoryId);
+        formDataToSend.append("ManufacturingCost", formData.ManufacturingCost);
+        formDataToSend.append("EstimatedPrice", formData.EstimatedPrice);
+
+        // Append the image files
+        for (let i = 0; i < uploadedImages.length; i++) {
+          if (uploadedImages[i]) {
+            // Convert data URL to blob
+            const blob = await fetch(uploadedImages[i]).then((r) => r.blob());
+            formDataToSend.append(`Pictures`, blob, `image${i}.jpg`);
+          }
+        }
+
+        const response = await axios.post(
+          `${APILINK}/api/Deals/add`,
+          formDataToSend,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        Swal.fire({
+          icon: "success",
+          title: "Deal Published Successfully!",
+          text:
+            response.data.message ||
+            "Your deal has been published and is now visible to investors.",
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          // Reset form after submission
+          setFormData({
+            businessName: "",
+            description: "",
+            offerMoney: "",
+            offerDeal: "",
+            ManufacturingCost: "",
+            EstimatedPrice: "",
+            categoryId: "",
+          });
+          setUploadedImages([null, null, null]);
+          onClose();
         });
-        setUploadedImages([null, null, null]);
-        onClose();
-      });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text:
+            error.response?.data?.message ||
+            "Failed to publish deal. Please try again.",
+        });
+      }
     } else {
       Swal.fire({
         icon: "error",
@@ -354,19 +400,13 @@ const DealPublishCard = ({ isOpen, onClose }) => {
               >
                 <InputLabel>Business Type</InputLabel>
                 <Select
-                  value={formData.businessType}
+                  value={formData.categoryId}
                   label="Business Type"
                   onChange={handleChange("businessType")}
                 >
-                  {[
-                    "Retail",
-                    "Technology",
-                    "Food & Beverage",
-                    "Service",
-                    "Other",
-                  ].map((type) => (
-                    <MenuItem key={type} value={type}>
-                      {type}
+                  {allcategories.map((type) => (
+                    <MenuItem key={type.CategoryId} value={type.CategoryId}>
+                      {type.CategoryName}
                     </MenuItem>
                   ))}
                 </Select>
