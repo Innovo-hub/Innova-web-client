@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../../Components/Navbar";
-import Footer from "../../../Components/Footer";
 import { Button } from "@mui/material";
-import ProductCard from "./Cart-Components/ProductCard";
-import OrderSummary from "./Cart-Components/OrderSummary";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import APILINK from "../../../../Constants";
+import Footer from "../../../Components/Footer";
+import Navbar from "../../../Components/Navbar";
 import Loading from "../../../Components/Shared/Loading/Loading";
-import { Link } from "react-router-dom";
-import CopyRights from "../../../Components/Copy-Rights";
+import OrderSummary from "./Cart-Components/OrderSummary";
+import ProductCard from "./Cart-Components/ProductCard";
 
 const Cart = () => {
   const [cartData, setCartData] = useState(null);
@@ -25,8 +24,12 @@ const Cart = () => {
         },
       });
       setCartData(response.data);
+      localStorage.setItem(
+        "cartCount",
+        response.data.NumberOfProducts || 0
+      );
     } catch (error) {
-      Swal.fire("Error", "Failed to fetch cart data", "error");
+      Swal.fire(error.message||"Error", "Failed to fetch cart data", "error");
     } finally {
       setLoading(false);
     }

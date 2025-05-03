@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CircleIcon from "@mui/icons-material/Circle";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import LinkIcon from "@mui/icons-material/Link";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import CircleIcon from "@mui/icons-material/Circle";
-import LinkIcon from "@mui/icons-material/Link";
 import { addToCart } from "../../../redux/Slices/Cart-Slice/cartReducer";
+import {
+  addToWishlist
+} from "../../../redux/Slices/Wishlist-Slice/WIshlistReducer";
 
 function ProductCard({
   productId,
@@ -23,6 +26,7 @@ function ProductCard({
   inStock,
   starsNumbers,
   NumberofRates,
+  loved,
 }) {
   const [isLoved, setIsLoved] = useState(false);
   const dispatch = useDispatch();
@@ -30,6 +34,15 @@ function ProductCard({
 
   const toggleLoved = () => {
     setIsLoved((prev) => !prev);
+    dispatch(addToWishlist(productId));
+    loved = false;
+    Swal.fire({
+      icon: "success",
+      title: isLoved ? "Removed from Wishlist" : "Added to Wishlist",
+      text: isLoved
+        ? "Product removed from wishlist."
+        : "Product added to wishlist.",
+    });
   };
 
   const handleAddToCart = () => {
@@ -103,7 +116,7 @@ function ProductCard({
         <div className="flex justify-between items-center mt-4">
           <div className="flex space-x-4">
             <button onClick={toggleLoved}>
-              {isLoved ? (
+              {isLoved || loved ? (
                 <FavoriteIcon className="text-red-500" />
               ) : (
                 <FavoriteBorderIcon className="hover:text-red-500" />

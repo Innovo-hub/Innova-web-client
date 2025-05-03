@@ -62,7 +62,7 @@ const cartSlice = createSlice({
                 state.error = action.payload;
             })
             //get Cart Products
-            .addCase(getCartProducts.pending, (state, action) => {
+            .addCase(getCartProducts.pending, (state) => {
                 state.loading = true;
                 state.error = null
             })
