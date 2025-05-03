@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { Box, IconButton } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 const VideoSlider = () => {
-  // تحويل روابط يوتيوب إلى تنسيق قابل للتضمين
   const videos = useMemo(
     () => [
       {
