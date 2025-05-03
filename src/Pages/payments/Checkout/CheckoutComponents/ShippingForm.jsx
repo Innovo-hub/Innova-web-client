@@ -24,14 +24,14 @@ const ShippingForm = () => {
             try {
                 const token = localStorage.getItem("accessToken");
 
-                const existResponse = await axios.get(`${APILINK}/api/shipping-address/exists`, {
+                const existResponse = await axios.get(`${APILINK}/api/shippingaddress/exists`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
                 setIsExist(existResponse.data.HasAddress);
 
                 if (existResponse.data.HasAddress) {
-                    const addressResponse = await axios.get(`${APILINK}/api/shipping-address`, {
+                    const addressResponse = await axios.get(`${APILINK}/api/shippingaddress`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
                     setAddress(addressResponse.data);

@@ -2,7 +2,7 @@ import { Disclosure, DisclosureButton } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Avatar } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -32,7 +32,10 @@ export default function Navbar({ currentTab }) {
   const role = localStorage.getItem("role");
   const navigation = [
     { name: "Home", href: "/" },
-    { name: "Deals", href: `${role === "Investor" ? "investor/deals" : "/owner/Deals" }` },
+    {
+      name: "Deals",
+      href: `${role === "Investor" ? "investor/deals" : "/owner/Deals"}`,
+    },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
   ];
@@ -62,7 +65,8 @@ export default function Navbar({ currentTab }) {
       handleClose(); // Close the dropdown menu
     }
   };
-
+  const wishlistCount = localStorage.getItem("wishlistCount");
+  const cartCount = localStorage.getItem("cartCount");
   return (
     <Disclosure as="nav" className="bg-[#F8F8F8]">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -122,16 +126,28 @@ export default function Navbar({ currentTab }) {
             {isAuthenticated ? (
               <div className="flex items-center justify-center space-x-4">
                 <Link to={`/wishlist`}>
-                  <FavoriteBorderSharpIcon
-                    fontSize="medium"
-                    className="font-light text-gray-700"
-                  />
+                  <Badge
+                    badgeContent={wishlistCount > 0 ? wishlistCount : null}
+                    color="error"
+                    overlap="circular"
+                  >
+                    <FavoriteBorderSharpIcon
+                      fontSize="medium"
+                      className="font-light text-gray-700"
+                    />
+                  </Badge>
                 </Link>
                 <Link to={`/cart`}>
-                  <ShoppingCartOutlinedIcon
+                 <Badge
+                  badgeContent={cartCount > 0 ? cartCount : null}
+                  color="error"
+                  overlap="circular"
+                 >
+                 <ShoppingCartOutlinedIcon
                     fontSize="medium"
                     className="font-light text-gray-700"
                   />
+                 </Badge>
                 </Link>
                 <div>
                   <Button
