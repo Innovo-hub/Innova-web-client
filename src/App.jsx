@@ -38,8 +38,8 @@ function App() {
       <Route path="/auth/forget-password" element={<ForgetPassword />} />
       <Route path="/auth/reset-password" element={<ResetPassword />} />
       {/*<Route path="/user-profile" element={<UserProfile />} /> */}
-      <Route path="/investor/Deals" element={<InvestorDeals />} />
-      <Route path={role === "investor" ? "/investor/deals" : "/owner/Deals"} element={<OwnerDeals />} />
+      {/* <Route path="/investor/Deals" element={<InvestorDeals />} /> */}
+      <Route path={role === "Investor" ? "/investor/deals" : "/owner/Deals"} element={role === "Investor"?<InvestorDeals/> : <OwnerDeals />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}

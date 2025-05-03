@@ -1,8 +1,8 @@
 import { Container, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import S1 from "../../../assets/Products/s1.jpg";
-import S2 from "../../../assets/Products/s2.jpg";
-import S3 from "../../../assets/Products/s3.jpg";
+import S1 from "../../../assets/Products/S1.jpg";
+import S2 from "../../../assets/Products/S2.jpg";
+import S3 from "../../../assets/Products/S3.jpg";
 import SS1 from "../../../assets/Products/SS1.jpg";
 import SS2 from "../../../assets/Products/SS2.jpg";
 import SS3 from "../../../assets/Products/SS3.jpg";

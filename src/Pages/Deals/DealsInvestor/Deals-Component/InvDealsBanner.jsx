@@ -4,7 +4,7 @@ import user from "../../../../assets/Deals/Profile.png";
 import NotificationPanel from "../../Notification/Notfication";
 import { useState } from "react";
 import { Badge } from "@mui/material";
-const invDealsBanner = () => {
+const InvDealsBanner = () => {
   const [openNotify, setOpenNotify] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
   return (
@@ -70,6 +70,6 @@ const invDealsBanner = () => {
       </div>
     </div>
   );
-}
+};
 
-export default invDealsBanner;
+export default InvDealsBanner;
