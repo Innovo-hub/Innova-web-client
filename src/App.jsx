@@ -21,6 +21,7 @@ import Privacy from "./Pages/Profiles/Profile-Components/privecy";
 import ContactPage from "./Pages/Contact/contact";
 import About from "./Pages/About/About";
 import Returnorder from "./Pages/Orders/ReturnOrder";
+import OwnerOwnDeals from "./Pages/Profiles/Profiles-Data/OwnerOwnDeals";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -54,7 +55,7 @@ function App() {
       <Route path="/UserProfile/orders" element={<Orders />} />
       <Route path="/UserProfile/return_order" element={<Returnorder />} />
       <Route path="/UserProfile/orders/write_review" element={<WriteReview />} />
-
+      <Route path="/UserProfile/deals" element={<OwnerOwnDeals />} />
 
     </Routes>
   );

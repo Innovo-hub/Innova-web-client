@@ -75,9 +75,7 @@ function UserProfile() {
       <p className="text-center mt-10 text-gray-500">No profile data found.</p>
     );
   }
-
   // console.log("User Profile Data:", profile);
-
   return (
     <div>
       <Navbar />
@@ -104,13 +102,13 @@ function UserProfile() {
 
               {profile?.RoleName === "BusinessOwner" ||
               profile?.RoleName === "Investor" ? (
-                <a
-                  href="#"
+                <Link
+                  to={'/UserProfile/deals'}
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
                 >
                   <QueryStatsIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
                   Current Deals
-                </a>
+                </Link>
               ) : null}
               {profile?.RoleName === "BusinessOwner" ? (
                 <a
