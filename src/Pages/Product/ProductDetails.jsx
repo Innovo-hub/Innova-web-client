@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Navbar from '../../Components/Navbar';
+import  { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ProductNavbar from './productDetailsComponents/ProductNavbar';
-import { getOneProduct } from '../../redux/Slices/Product-Slice/ProductCategoryReducer';
-import Loading from '../../Components/Shared/Loading/Loading';
-import ProductDetailsCard from './productDetailsComponents/productDetailsCard';
-import ProductComments from './productDetailsComponents/ProductComments';
-import RelatedProducts from './productDetailsComponents/RelatedProducts';
+import { useParams } from 'react-router-dom';
 import Footer from '../../Components/Footer';
-import CopyRights from '../../Components/Copy-Rights';
+import Navbar from '../../Components/Navbar';
+import Loading from '../../Components/Shared/Loading/Loading';
+import { getOneProduct } from '../../redux/Slices/Product-Slice/ProductCategoryReducer';
+import ProductComments from './productDetailsComponents/ProductComments';
+import ProductDetailsCard from './productDetailsComponents/ProductDetailsCard';
+import ProductNavbar from './productDetailsComponents/ProductNavbar';
+import RelatedProducts from './productDetailsComponents/RelatedProducts';
 
 function ProductDetails() {
     const { id } = useParams();
