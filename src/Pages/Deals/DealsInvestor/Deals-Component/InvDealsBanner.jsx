@@ -1,6 +1,6 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import user from "../../../../assets/Deals/profile.png";
+import user from "../../../../assets/Deals/profile1.png";
 import NotificationPanel from "../../Notification/Notfication";
 import { useState } from "react";
 import { Badge } from "@mui/material";
