@@ -13,7 +13,6 @@ import Payment from "./Pages/payments/Payment/Payment";
 import Cart from "./Pages/payments/cart/Cart";
 import WishList from "./Pages/WishList/WishList";
 import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
-import InvestmentContractForm from "./Pages/Contract/contract";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
 import Orders from "./Pages/Orders/Orders";
@@ -45,10 +44,6 @@ function App() {
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
       <Route path="/UserProfile/privacy" element={<Privacy />} />
-      <Route
-        path="/InvestmentContractForm"
-        element={<InvestmentContractForm />}
-      />
       {/* payment and Cart Routes*/}
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/cart" element={<Cart />} />
