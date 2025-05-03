@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../../Components/Navbar";
 import Footer from "../../../Components/Footer";
 import CopyRights from "../../../Components/Copy-Rights";
-import Checkout from "../../../assets/Checkout/checkout.png";
 import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
 import axios from "axios";
 import APILINK from "../../../../Constants";
