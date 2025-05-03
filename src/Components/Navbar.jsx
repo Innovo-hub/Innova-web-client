@@ -1,18 +1,16 @@
 import { Disclosure, DisclosureButton } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Avatar } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getUserProfile } from "../redux/Slices/User-Slice/UserProfile";
-import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { logoutUser } from "../redux/Slices/Auth-Slice/LoginReducer";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { logoutUser } from "../redux/Slices/Auth-Slice/LoginReducer";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -20,7 +18,6 @@ function classNames(...classes) {
 // eslint-disable-next-line react/prop-types
 export default function Navbar({ currentTab }) {
   const { isAuthenticated } = useSelector((state) => state.login);
-  const { token } = useSelector((state) => state.login);
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,9 +29,10 @@ export default function Navbar({ currentTab }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const role = localStorage.getItem("role");
   const navigation = [
     { name: "Home", href: "/" },
-    { name: "Deals", href: "/owner/Deals" },
+    { name: "Deals", href: `${role === "Investor" ? "investor/deals" : "/owner/Deals" }` },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
   ];

@@ -5,6 +5,7 @@ import Footer from "../../../Components/Footer.jsx";
 import HomeBanner from "../../../Components/Home-Banner.jsx";
 import Navbar from "../../../Components/Navbar.jsx";
 import { fetchAllDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer.jsx";
+import InvDealsBanner from "./Deals-Component/InvDealsBanner.jsx";
 const OwnerDeals = () => {
   const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const OwnerDeals = () => {
     <>
       <Navbar currentTab={"Deals"} />
       <HomeBanner />
-      <invDealsBanner />
+      <InvDealsBanner />
 
       <div className="container">
         <div className="bg-gray-100 p-6 rounded-lg mx-auto max-w-[1600px] min-h-screen flex flex-col items-start mt-6 mb-10 px-10">
