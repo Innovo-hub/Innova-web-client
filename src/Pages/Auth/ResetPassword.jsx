@@ -38,6 +38,11 @@ function ResetPassword() {
             <form className="space-y-6" onSubmit={handleResetPassword}>
               <div className="space-y-4">
                 <Input
+                  LabelText="Verification Code"
+                  type="text"
+                  className="w-full"
+                />
+                <Input
                   LabelText="New Password"
                   type="password"
                   className="w-full"
@@ -51,7 +56,7 @@ function ResetPassword() {
 
               <div className="pt-4">
                 <MainButton
-                  className="w-full bg-[#BA5A16] hover:bg-[#a24913] transition-colors duration-300 text-white rounded-lg py-3.5 px-6 font-medium text-sm"
+                  className="w-full bg-[#126090] hover:bg-[#126090] transition-colors duration-300 text-white rounded-lg py-3.5 px-6 font-medium text-sm"
                   ButtonText={loading ? "Updating..." : "Update Password"}
                 />
               </div>

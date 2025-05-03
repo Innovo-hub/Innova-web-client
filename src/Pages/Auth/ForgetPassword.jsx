@@ -53,11 +53,11 @@ function ForgetPassword() {
                 className={`w-full py-4 rounded-lg font-semibold text-white transition-all duration-200
                   ${
                     loading
-                      ? "bg-orange-400 cursor-not-allowed"
-                      : "bg-[#BA5A16] hover:bg-[#a34d12] transform hover:scale-[1.02]"
+                      ? "bg-blue-400 cursor-not-allowed"
+                      : "bg-[#126090] hover:bg-[#126099] transform hover:scale-[1.02]"
                   }`}
                 ButtonText={
-                  loading ? "Sending Instructions..." : "Reset Password"
+                  loading ? "Sending Verification Code..." : "Reset Password"
                 }
                 disabled={loading}
               />
@@ -66,7 +66,7 @@ function ForgetPassword() {
                   Remember your password?{" "}
                   <Link
                     to="/auth/login"
-                    className="text-[#BA5A16] font-semibold hover:text-[#a34d12] transition-colors duration-200"
+                    className="text-[#126090] font-semibold hover:text-[#126099] transition-colors duration-200"
                   >
                     Log in
                   </Link>
