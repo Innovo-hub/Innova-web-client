@@ -7,7 +7,9 @@ import productSlice from "./Slices/Product-Slice/ProductCategoryReducer";
 import cartSlice from "./Slices/Cart-Slice/cartReducer";
 import dealsSlice from "./Slices/Deals-Slice/DealsReducer";
 import wishlistSlice from "./Slices/Wishlist-Slice/WIshlistReducer";
-import orderSlice from './Slices/Order-Slice/OrderReducer';
+import orderSlice from "./Slices/Order-Slice/OrderReducer";
+import reviewSlice from "./Slices/Review-Slice/ReviewReducer";
+
 const store = configureStore({
   reducer: {
     register: registerSlice,
@@ -18,7 +20,8 @@ const store = configureStore({
     cart: cartSlice,
     deals: dealsSlice,
     wishlist: wishlistSlice,
-    order : orderSlice,
+    order: orderSlice,
+    reviews: reviewSlice,
   },
 });
 export default store;

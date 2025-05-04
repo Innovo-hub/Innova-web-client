@@ -136,7 +136,7 @@ function UserProfile() {
               <ProfileHeader user={profile} />
               <ProfileDetails user={profile} />
             </div>
-
+              
             {/* Dashboard */}
             {profile &&
               (profile.RoleName === "BusinessOwner" ||

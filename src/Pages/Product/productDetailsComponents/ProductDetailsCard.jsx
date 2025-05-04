@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import author from "../../../assets/Products/author.png";
@@ -13,64 +13,57 @@ import {
 } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import { addToCart } from "../../../redux/Slices/Cart-Slice/cartReducer";
+import { getAllProductComments } from "../../../redux/Slices/Review-Slice/ReviewReducer";
 
 function ProductDetailsCard({ product }) {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.cart);
+  const {
+    comments,
+    numOfComments,
+    averageRating,
+    ratingBreakdown,
+    commentsLoading,
+  } = useSelector((state) => state.reviews);
 
   // State
   const [isLoved, setIsLoved] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [homeImage, setHomeImage] = useState(product?.HomePicture || "");
 
+  useEffect(() => {
+    if (product?.ProductId) {
+      dispatch(getAllProductComments(product.ProductId));
+    }
+  }, [dispatch, product?.ProductId]);
+
   if (!product) {
     return <div className="p-4 text-center">Loading product details...</div>;
   }
 
-  // Product rating info
-  const rating = 3.0;
-  const reviewCount = 120;
-  const ratingDistribution = {
-    5: 55,
-    4: 25,
-    3: 19,
-    2: 33,
-    1: 30,
+  // Convert rating breakdown from API to percentage format
+  const calculateRatingPercentage = () => {
+    if (!ratingBreakdown || Object.keys(ratingBreakdown).length === 0) {
+      return {
+        5: 0,
+        4: 0,
+        3: 0,
+        2: 0,
+        1: 0,
+      };
+    }
+
+    const total = numOfComments || 1; // Avoid division by zero
+    return {
+      5: Math.round(((ratingBreakdown["5 star"] || 0) / total) * 100),
+      4: Math.round(((ratingBreakdown["4 star"] || 0) / total) * 100),
+      3: Math.round(((ratingBreakdown["3 star"] || 0) / total) * 100),
+      2: Math.round(((ratingBreakdown["2 star"] || 0) / total) * 100),
+      1: Math.round(((ratingBreakdown["1 star"] || 0) / total) * 100),
+    };
   };
 
-  // Mock reviews data
-  const reviews = [
-    {
-      id: 1,
-      author: "Mohamed Ahmed",
-      rating: 4,
-      comment: "Very Good Product and Fancy Very Good Product and Fancy",
-    },
-    {
-      id: 2,
-      author: "Mohamed Ahmed",
-      rating: 4,
-      comment: "Very Good Product and Fancy Very Good Product and Fancy",
-    },
-    {
-      id: 3,
-      author: "Mohamed Ahmed",
-      rating: 4,
-      comment: "Very Good Product and Fancy Very Good Product and Fancy",
-    },
-    {
-      id: 4,
-      author: "Mohamed Ahmed",
-      rating: 4,
-      comment: "Very Good Product and Fancy Very Good Product and Fancy",
-    },
-    {
-      id: 5,
-      author: "Mohamed Ahmed",
-      rating: 4,
-      comment: "Very Good Product and Fancy Very Good Product and Fancy",
-    },
-  ];
+  const ratingDistribution = calculateRatingPercentage();
 
   // Handlers
   const handleImageClick = (pic) => {
@@ -115,6 +108,16 @@ function ProductDetailsCard({ product }) {
         className={index < rating ? "text-yellow-400" : "text-gray-300"}
       />
     ));
+  };
+
+  // Function to format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   };
 
   return (
@@ -169,10 +172,12 @@ function ProductDetailsCard({ product }) {
 
               {/* Ratings */}
               <div className="flex items-center gap-2 mb-4">
-                <span className="font-bold text-lg">{rating.toFixed(1)}</span>
-                <div className="flex">{renderStars(rating)}</div>
+                <span className="font-bold text-lg">
+                  {averageRating?.toFixed(1) || "0.0"}
+                </span>
+                <div className="flex">{renderStars(averageRating || 0)}</div>
                 <span className="text-gray-700 text-sm">
-                  {reviewCount} Rating
+                  {numOfComments || 0} Rating
                 </span>
               </div>
             </div>
@@ -396,32 +401,42 @@ function ProductDetailsCard({ product }) {
       </div>
 
       {/* Reviews Section */}
-      <div className="lg:px-8 py-10">
-        <h2 className="text-2xl font-bold mb-6">Product Ratings & Reviews</h2>
+      <div className="lg:px-8 py-10 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          Product Ratings & Reviews
+        </h2>
         <div className="grid md:grid-cols-2 gap-8">
           {/* Rating Summary */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4">Customer Reviews</h3>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex">{renderStars(rating)}</div>
-              <span className="text-sm text-gray-600">{rating} Out of 5</span>
+          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 transition-all hover:shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+              Customer Reviews
+            </h3>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex text-yellow-400">
+                {renderStars(averageRating || 0)}
+              </div>
+              <span className="text-sm font-medium text-gray-700">
+                {averageRating || 0} out of 5
+              </span>
             </div>
-            <p className="text-sm text-gray-500 mb-4">
-              {reviewCount} Total Rating
+            <p className="text-sm text-gray-500 mb-6 font-medium">
+              Based on {numOfComments || 0} reviews
             </p>
 
             {/* Rating Bars */}
-            <div className="space-y-2">
+            <div className="space-y-3">
               {[5, 4, 3, 2, 1].map((stars) => (
-                <div key={stars} className="flex items-center gap-2">
-                  <span className="w-8 text-sm text-gray-600">{stars}</span>
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div key={stars} className="flex items-center gap-3">
+                  <span className="w-6 text-sm font-medium text-gray-700">
+                    {stars}
+                  </span>
+                  <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-yellow-400"
+                      className="h-full bg-yellow-400 rounded-full transition-all duration-300"
                       style={{ width: `${ratingDistribution[stars]}%` }}
                     ></div>
                   </div>
-                  <span className="w-12 text-sm text-gray-600">
+                  <span className="w-12 text-sm font-medium text-gray-700">
                     {ratingDistribution[stars]}%
                   </span>
                 </div>
@@ -430,42 +445,97 @@ function ProductDetailsCard({ product }) {
           </div>
 
           {/* Reviews List */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4">
-              There are {reviewCount} Reviews on this product
+          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 transition-all hover:shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+              {numOfComments || 0} Customer Reviews
             </h3>
-            <div className="space-y-6">
-              {reviews.map((review) => (
-                <div key={review.id} className="border-b pb-4 last:border-b-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600">
-                      {review.author.charAt(0)}
-                    </span>
-                    <span className="font-medium">{review.author}</span>
+            {commentsLoading ? (
+              <div className="flex justify-center items-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+              </div>
+            ) : comments?.length > 0 ? (
+              <div className="space-y-6 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
+                {comments.map((comment) => (
+                  <div
+                    key={comment.CommentId}
+                    className="border-b border-gray-100 pb-5 last:border-b-0 hover:bg-gray-50 p-3 rounded-lg transition-all"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-medium">
+                        {comment.UserName.charAt(0)}
+                      </span>
+                      <div>
+                        <span className="font-medium text-gray-800 block">
+                          {comment.UserName}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {formatDate(comment.CreatedAt)}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex mb-3 text-yellow-400">
+                      {renderStars(4)}
+                    </div>
+                    <p className="text-gray-700">{comment.CommentText}</p>
+                    <div className="mt-3 flex gap-2">
+                      <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors flex items-center gap-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+                          />
+                        </svg>
+                        Helpful
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex mb-2">{renderStars(review.rating)}</div>
-                  <p className="text-gray-600">{review.comment}</p>
-                  <button className="mt-2 text-sm text-gray-500 hover:text-gray-700">
-                    Helpful
-                  </button>
-                </div>
-              ))}
-            </div>
-            {/* Pagination */}
-            <div className="flex justify-center gap-2 mt-6">
-              <button className="px-3 py-1 bg-blue-50 text-blue-600 rounded-md">
-                1
-              </button>
-              <button className="px-3 py-1 hover:bg-gray-100 rounded-md">
-                2
-              </button>
-              <button className="px-3 py-1 hover:bg-gray-100 rounded-md">
-                9
-              </button>
-              <button className="px-3 py-1 hover:bg-gray-100 rounded-md">
-                ›
-              </button>
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 bg-gray-50 rounded-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 mx-auto text-gray-400 mb-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+                  />
+                </svg>
+                <p className="text-gray-600">No reviews yet for this product</p>
+              </div>
+            )}
+
+            {/* Pagination - show only if there are comments */}
+            {comments?.length > 0 && (
+              <div className="flex justify-center gap-1 mt-6">
+                <button className="w-9 h-9 flex items-center justify-center bg-blue-600 text-white rounded-lg">
+                  1
+                </button>
+                <button className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors">
+                  2
+                </button>
+                <button className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors">
+                  3
+                </button>
+                <button className="w-9 h-9 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors">
+                  ›
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

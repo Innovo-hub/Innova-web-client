@@ -98,9 +98,9 @@ function ProfileHeader({ user }) {
         </div>
 
         {/* User Info */}
-        <div className="pt-8 md:pt-12 pb-0">
+        <div className="pt-8 md:pt-12  pb-0">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-0">
-            <div className="flex flex-col md:flex-row md:items-center gap-2">
+            <div className="flex flex-col md:flex-row md:items-center gap-2 py-5">
               <h1 className="text-2xl font-bold">
                 {user.FirstName} {user.LastName}
               </h1>
