@@ -1,98 +1,177 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
-import CopyRights from "../../Components/Copy-Rights";
-import { FaArrowLeft, FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Star, StarBorder } from "@mui/icons-material";
+import {
+  addReview,
+  clearReviewState,
+} from "../../redux/Slices/Review-Slice/ReviewReducer";
+import Swal from "sweetalert2";
 
 function WriteReview() {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
-  const [reviewText, setReviewText] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { productId } = useParams();
+
+  // Get product data from location state
+  const productData = location.state?.product || null;
+
+  const { submitLoading, submitError, submitSuccess } = useSelector(
+    (state) => state.reviews
+  );
+
+  const [formData, setFormData] = useState({
+    rating: 0,
+    comment: "",
+  });
+
+  // Clear submission status when page loads
+  useEffect(() => {
+    dispatch(clearReviewState());
+  }, [dispatch]);
+
+  // Navigate to orders page after successful submission
+  useEffect(() => {
+    if (submitSuccess) {
+      Swal.fire({
+        icon: "success",
+        title: "Review Submitted",
+        text: "Thank you for sharing your opinion about this product",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+
+      // Return to orders page after showing success message
+      const timer = setTimeout(() => {
+        navigate("/userProfile/orders");
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitSuccess, navigate]);
+
+  const handleRatingChange = (newRating) => {
+    setFormData({ ...formData, rating: newRating });
+  };
+
+  const handleCommentChange = (e) => {
+    setFormData({ ...formData, comment: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (formData.rating === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please select a rating for the product",
+      });
+      return;
+    }
+
+    if (!formData.comment.trim()) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please write a comment for the product",
+      });
+      return;
+    }
+    dispatch(
+      addReview({
+        ProductId: parseInt(productId),
+        RatingValue: formData.rating,
+        Comment: formData.comment,
+      })
+    );
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
-
-      <div className="container mx-auto px-4 py-6 flex-grow">
-        {/* Review header */}
-        <div className="mb-8">
-          <h2 className="text-xl font-medium">Review</h2>
+      <div className="container mx-auto px-4 py-16 flex-grow">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-[#126090]">
+            Write a Product Review
+          </h2>
+          
         </div>
 
-        {/* Main content with responsive width */}
-        <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Product image and how was the item */}
-          <div className="flex flex-col sm:flex-row items-center mb-6">
-            <div className="w-32 h-32 bg-gray-100 rounded-md overflow-hidden flex items-center justify-center mb-4 sm:mb-0 sm:mr-4">
-              <img
-                src="/assets/Orders/image1.png"
-                alt="Product"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src =
-                    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f0f0f0"/><text x="50%" y="50%" font-size="14" text-anchor="middle" alignment-baseline="middle" font-family="Arial" fill="%23999">Image</text></svg>';
-                }}
-              />
+        <div className="bg-white rounded-lg shadow p-6">
+          {productData && (
+            <div className="flex items-center mb-6 p-4 border border-gray-100 rounded-lg">
+              <div className="w-20 h-20 bg-gray-100 rounded-md overflow-hidden">
+                <img
+                  src={productData.imageUrl}
+                  alt={productData.productName}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="ml-4">
+                <h3 className="font-medium text-[#126090]">
+                  {productData.productName}
+                </h3>
+                <p className="text-gray-500">{productData.price}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Review Form */}
+          <form onSubmit={handleSubmit}>
+            <div className="mb-6">
+              <label className="block text-gray-700 mb-2">Rating</label>
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => handleRatingChange(star)}
+                    className="text-3xl text-yellow-400 focus:outline-none"
+                  >
+                    {star <= formData.rating ? (
+                      <Star fontSize="inherit" />
+                    ) : (
+                      <StarBorder fontSize="inherit" />
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <h3 className="text-xl font-medium text-center sm:text-left">
-              How was the item?
-            </h3>
-          </div>
+            <div className="mb-6">
+              <label htmlFor="comment" className="block text-gray-700 mb-2">
+                Comment
+              </label>
+              <textarea
+                id="comment"
+                rows="4"
+                value={formData.comment}
+                onChange={handleCommentChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#126090]"
+                placeholder="Tell us what you think about this product..."
+              ></textarea>
+            </div>
 
-          {/* Star rating */}
-          <div className="flex justify-center sm:justify-start space-x-2 mb-4">
-            {[...Array(5)].map((_, index) => {
-              const ratingValue = index + 1;
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  className="focus:outline-none"
-                  onClick={() => setRating(ratingValue)}
-                  onMouseEnter={() => setHover(ratingValue)}
-                  onMouseLeave={() => setHover(0)}
-                >
-                  <FaStar
-                    className="w-6 h-6"
-                    color={
-                      (hover || rating) >= ratingValue ? "#FFD700" : "#e4e5e9"
-                    }
-                  />
-                </button>
-              );
-            })}
-          </div>
+            {submitError && (
+              <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+                {submitError}
+              </div>
+            )}
 
-          {/* Review text prompt */}
-          <p className="text-sm text-gray-600 mb-3">Write a review</p>
-
-          {/* Review text input - reduced height */}
-          <textarea
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="What Should other Customers Know !"
-            rows={4}
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
-          ></textarea>
-
-          {/* Submit button */}
-          <div className="mt-4 flex justify-end w-full">
-            <Link
-              // onClick={handleSubmit}
-              disabled={!reviewText || rating === 0}
-              to="/userProfile/orders"
-              className="px-4 py-2 bg-[#126090] text-white rounded-md hover:bg-opacity-90 transition-colors focus:outline-none focus:ring-2 focus:ring-[#126090] focus:ring-offset-2"
+            <button
               type="submit"
+              disabled={submitLoading}
+              className="w-full bg-[#126090] text-white py-2 px-4 rounded-md hover:bg-[#0d4d73] transition-colors disabled:opacity-50"
             >
-              Submit
-            </Link>
-          </div>
+              {submitLoading ? "Submitting..." : "Submit Review"}
+            </button>
+          </form>
         </div>
       </div>
-
       <Footer />
     </div>
   );

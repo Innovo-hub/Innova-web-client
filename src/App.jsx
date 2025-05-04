@@ -58,7 +58,7 @@ function App() {
       <Route path="/UserProfile/orders" element={<Orders />} />
       <Route path="/UserProfile/return_order" element={<Returnorder />} />
       <Route
-        path="/UserProfile/orders/write_review"
+        path="/UserProfile/orders/write_review/:productId"
         element={<WriteReview />}
       />
       <Route path="/UserProfile/deals" element={<OwnerOwnDeals />} />
