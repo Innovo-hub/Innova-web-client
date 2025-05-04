@@ -16,7 +16,7 @@ import PaymentSuccess from "./Pages/payments/PaymentSuccess/PaymentSuccess";
 import InvestorDeals from "./Pages/Deals/DealsInvestor/InvestorDeals";
 import OwnerDeals from "./Pages/Deals/DealsOwner/OwnerDeals";
 import Orders from "./Pages/Orders/Orders";
-import WriteReview from "./Pages/Orders/WriteReview"
+import WriteReview from "./Pages/Orders/WriteReview";
 import Privacy from "./Pages/Profiles/Profile-Components/privecy";
 import ContactPage from "./Pages/Contact/contact";
 import About from "./Pages/About/About";
@@ -39,7 +39,10 @@ function App() {
       <Route path="/auth/reset-password" element={<ResetPassword />} />
       {/*<Route path="/user-profile" element={<UserProfile />} /> */}
       {/* <Route path="/investor/Deals" element={<InvestorDeals />} /> */}
-      <Route path={role === "Investor" ? "/investor/deals" : "/owner/Deals"} element={role === "Investor"?<InvestorDeals/> : <OwnerDeals />} />
+      <Route
+        path={role === "Investor" ? "/investor/deals" : "/owner/Deals"}
+        element={role === "Investor" ? <InvestorDeals /> : <OwnerDeals />}
+      />
       <Route path="/product/:id" element={<ProductDetails />} />
       {/* <Route path="/UserProfile" element={<BusinessProfile />} />
       <Route path="/UserProfile" element={<InvestorProfile />} /> */}
@@ -54,9 +57,11 @@ function App() {
       {/*Your orders*/}
       <Route path="/UserProfile/orders" element={<Orders />} />
       <Route path="/UserProfile/return_order" element={<Returnorder />} />
-      <Route path="/UserProfile/orders/write_review" element={<WriteReview />} />
+      <Route
+        path="/UserProfile/orders/write_review"
+        element={<WriteReview />}
+      />
       <Route path="/UserProfile/deals" element={<OwnerOwnDeals />} />
-
     </Routes>
   );
 }

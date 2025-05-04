@@ -1,12 +1,11 @@
-import React from "react";
-import Navbar from "../../Components/Navbar";
-import Footer from "../../Components/Footer";
-import CopyRights from "../../Components/Copy-Rights";
+import InventoryIcon from "@mui/icons-material/Inventory";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import InventoryIcon from "@mui/icons-material/Inventory";
+import Footer from "../../Components/Footer";
+import Navbar from "../../Components/Navbar";
 
 function OrderUser() {
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
