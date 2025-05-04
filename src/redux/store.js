@@ -7,6 +7,7 @@ import productSlice from "./Slices/Product-Slice/ProductCategoryReducer";
 import cartSlice from "./Slices/Cart-Slice/cartReducer";
 import dealsSlice from "./Slices/Deals-Slice/DealsReducer";
 import wishlistSlice from "./Slices/Wishlist-Slice/WIshlistReducer";
+import orderSlice from './Slices/Order-Slice/OrderReducer';
 const store = configureStore({
   reducer: {
     register: registerSlice,
@@ -16,7 +17,8 @@ const store = configureStore({
     product: productSlice,
     cart: cartSlice,
     deals: dealsSlice,
-    wishlist : wishlistSlice,
+    wishlist: wishlistSlice,
+    order : orderSlice,
   },
 });
 export default store;
