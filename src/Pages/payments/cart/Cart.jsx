@@ -24,12 +24,9 @@ const Cart = () => {
         },
       });
       setCartData(response.data);
-      localStorage.setItem(
-        "cartCount",
-        response.data.NumberOfProducts || 0
-      );
+      localStorage.setItem("cartCount", response.data.NumberOfProducts || 0);
     } catch (error) {
-      Swal.fire(error.message||"Error", "Failed to fetch cart data", "error");
+      Swal.fire(error.message || "Error", "Failed to fetch cart data", "error");
     } finally {
       setLoading(false);
     }

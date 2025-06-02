@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/Slices/Auth-Slice/LoginReducer";
 import WishlistOrders from "./Profile-Components/whislist";
 import Loading from "../../Components/Shared/Loading/Loading";
+import Predict from "./Profile-Components/predict";
 function UserProfile() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -53,7 +54,7 @@ function UserProfile() {
       dispatch(logoutUser());
       navigate("/");
     } catch (error) {
-       console.log(error);
+      console.log(error);
     }
   };
   if (loading) {
@@ -103,7 +104,7 @@ function UserProfile() {
               {profile?.RoleName === "BusinessOwner" ||
               profile?.RoleName === "Investor" ? (
                 <Link
-                  to={'/UserProfile/deals'}
+                  to={"/UserProfile/deals"}
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
                 >
                   <QueryStatsIcon className="text-[#126090] w-3.5 h-3.5 mr-3" />
@@ -136,7 +137,7 @@ function UserProfile() {
               <ProfileHeader user={profile} />
               <ProfileDetails user={profile} />
             </div>
-              
+
             {/* Dashboard */}
             {profile &&
               (profile.RoleName === "BusinessOwner" ||
@@ -157,6 +158,9 @@ function UserProfile() {
                   </div>
                 </div>
               )}
+            {profile.RoleName === "BusinessOwner" && (
+              <Predict />
+            )}
             {profile.RoleName === "Customer" && <WishlistOrders />}
           </main>
         </div>
