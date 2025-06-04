@@ -132,7 +132,7 @@ function UserProfile() {
           </aside>
 
           {/* Main Content */}
-          <main className="flex-1 md:ml-8">
+          <main className="">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <ProfileHeader user={profile} />
               <ProfileDetails user={profile} />

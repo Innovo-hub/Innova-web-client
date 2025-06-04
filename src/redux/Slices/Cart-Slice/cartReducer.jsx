@@ -32,6 +32,7 @@ export const getCartProducts = createAsyncThunk(
                     Authorization: `Bearer ${token}`
                 }
             });
+            localStorage.setItem("cartCount", response.data.NumberOfProducts || 0);
             return response.data;
         } catch (error) {
             rejectWithValue(error.response.data.message || "Error Just happend");
