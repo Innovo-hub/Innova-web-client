@@ -2,12 +2,15 @@ import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../Components/Footer";
 import Navbar from "../../../Components/Navbar";
+import axios from "axios";
+import APILINK from "../../../../Constants";
 
 const Privacy = () => {
   const navigate = useNavigate();
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
-  const [email, setEmail] = useState("");
+  const [currentPassword, setcurrentPassword] = useState("");
+  const [newPassword,setnewPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -54,19 +57,30 @@ const Privacy = () => {
     return re.test(email);
   };
 
-  const handlePasswordReset = (e) => {
+  const handlePasswordReset =async (e) => {
     e.preventDefault();
-    setEmailError("");
-    setSuccessMessage("");
-
-    if (!email) {
-      setEmailError("Email is required");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address");
-      return;
+    try{
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.put(`${APILINK}/api/Profile/change-password`,{
+        currentPassword,
+        newPassword
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.status === 200) {
+        setSuccessMessage("Password changed successfully");
+        setTimeout(() => setSuccessMessage(""), 3000);
+        setcurrentPassword("");
+        setnewPassword("");
+      } else {
+        setEmailError("Failed to change password. Please try again.");
+      }
+    }catch(err){
+        setEmailError("Failed to change password. Please try again.");
+        console.error("Error changing password:", err);
     }
 
     // Add your password reset API call here
@@ -261,17 +275,26 @@ const Privacy = () => {
               <form onSubmit={handlePasswordReset} className="space-y-4">
                 <div>
                   <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your Email..."
-                    className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    type="text"
+                    value={currentPassword}
+                    onChange={(e) => setcurrentPassword(e.target.value)}
+                    placeholder="Enter your current password..."
+                    className={`w-full px-4 my-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       emailError ? "border-red-500" : "border-gray-300"
                     }`}
                   />
                   {emailError && (
                     <p className="mt-1 text-sm text-red-600">{emailError}</p>
                   )}
+                   <input
+                    type="text"
+                    value={newPassword}
+                    onChange={(e) => setnewPassword(e.target.value)}
+                    placeholder="Enter your new password..."
+                    className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      emailError ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
                 </div>
                 <button
                   type="submit"

@@ -2,11 +2,17 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import user from "../../../../assets/Deals/profile1.png";
 import NotificationPanel from "../../Notification/Notfication";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@mui/material";
+import { useDispatch } from "react-redux";
 const InvDealsBanner = () => {
   const [openNotify, setOpenNotify] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
+  const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    
+  })
   return (
     <div className="container">
       <div className="relative w-full my-6 px-4 lg:px-12">
