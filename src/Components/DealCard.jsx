@@ -52,6 +52,7 @@ const DealShowCard = ({ deal }) => {
       });
     }
   };
+
   const handleSubmitDiscussion = async (dealId, message) => {
        try {
       // console.log("Accepting deal with ID:", dealId);
@@ -86,7 +87,7 @@ const DealShowCard = ({ deal }) => {
         text: "There was an error Discussing the deal. Please try again later.",
       });
     }
-  };
+
 
   const role = localStorage.getItem("role");
 
