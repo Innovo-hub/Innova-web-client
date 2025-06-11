@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import DiscussDealPopup from "../Pages/Deals/DealsInvestor/Deals-Component/Discuss-Deal";
+import axios from "axios";
+import APILINK from "../../Constants";
+import Swal from "sweetalert2";
 
 const DealShowCard = ({ deal }) => {
-  const [discussPopupOpen, setDiscussPopupOpen] = useState(false);
+  // console.log("Deal data:", deal); // Debugging line to check deal data
 
+  const [discussPopupOpen, setDiscussPopupOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleOpenDiscussPopup = () => {
     setDiscussPopupOpen(true);
   };
@@ -12,10 +17,44 @@ const DealShowCard = ({ deal }) => {
   const handleCloseDiscussPopup = () => {
     setDiscussPopupOpen(false);
   };
-  console.log(deal);
+  //// console.log(deal);
+  const handleAcceptDeal = async (dealId) => {
+    try {
+      // console.log("Accepting deal with ID:", dealId);
+      setLoading(true);
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        `${APILINK}/api/Deals/accept-offer`,
+        {
+          DealId: dealId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Deal Accepted",
+          text: "You have successfully accepted the deal,wait for the owner to respond.",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Deal Acceptance Failed",
+        text: "There was an error accepting the deal. Please try again later.",
+      });
+    }
+  };
   const handleSubmitDiscussion = (dealId, message) => {
     // Here you would implement the logic to send the discussion message
-    console.log("Discussing deal:", dealId, "with message:", message);
+    // console.log("Discussing deal:", dealId, "with message:", message);
     // Call your API or perform state updates as needed
   };
 
@@ -32,7 +71,7 @@ const DealShowCard = ({ deal }) => {
               <div className="w-16 h-16">
                 <img
                   src={
-                    deal.ownerImage || 
+                    deal.ownerImage ||
                     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   }
                   alt={deal.ownerName}
@@ -99,8 +138,13 @@ const DealShowCard = ({ deal }) => {
             {role === "Investor" ? (
               <div className="flex gap-4">
                 <div className="flex gap-2">
-                  <button className="bg-green-500 text-white px-16 py-2 rounded-md">
-                    Accept Deal
+                  <button
+                    onClick={() => {
+                      handleAcceptDeal(deal.dealId);
+                    }}
+                    className="bg-green-500 text-white px-16 py-2 rounded-md"
+                  >
+                    {loading ? "Accepting..." : "Accept Deal"}
                   </button>
                 </div>
                 <div className="flex gap-2">

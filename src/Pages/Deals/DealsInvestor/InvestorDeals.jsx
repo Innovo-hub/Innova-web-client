@@ -58,6 +58,7 @@ const OwnerDeals = () => {
                       offerMoney: `${deal.OfferMoney} EGP`,
                       offerDeal: `${deal.OfferDeal}%`,
                       productImages: deal.Pictures || [],
+                      dealId: deal.DealId,
                     }}
                   />
                 </div>
