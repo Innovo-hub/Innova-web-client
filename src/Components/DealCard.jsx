@@ -52,10 +52,40 @@ const DealShowCard = ({ deal }) => {
       });
     }
   };
-  const handleSubmitDiscussion = (dealId, message) => {
-    // Here you would implement the logic to send the discussion message
-    // console.log("Discussing deal:", dealId, "with message:", message);
-    // Call your API or perform state updates as needed
+  const handleSubmitDiscussion = async (dealId, message) => {
+       try {
+      // console.log("Accepting deal with ID:", dealId);
+      setLoading(true);
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        `${APILINK}/api/Deals/discuss-offer`,
+        {
+          DealId: dealId,
+          Message: message,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Deal Discussed",
+          text: "You have successfully discussed the deal.",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Deal Discussion Failed",
+        text: "There was an error Discussing the deal. Please try again later.",
+      });
+    }
   };
 
   const role = localStorage.getItem("role");
@@ -205,7 +235,7 @@ const DealShowCard = ({ deal }) => {
       <DiscussDealPopup
         open={discussPopupOpen}
         handleClose={handleCloseDiscussPopup}
-        dealId={deal.Id}
+        dealId={deal.dealId}
         onSubmit={handleSubmitDiscussion}
       />
     </div>

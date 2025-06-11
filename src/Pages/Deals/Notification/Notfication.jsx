@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import NotificationHeader from "./NotificationHeader";
 import NotificationTabs from "./NotificationTabs";
 import NotificationList from "./NotificationList";
 import AcceptanceModal from "./AcceptanceModal";
 import DiscussionModal from "./DiscussionModal";
+import axios from "axios";
+import APILINK from "../../../../Constants";
 
 export default function NotificationPanel({
   open,
@@ -16,57 +18,40 @@ export default function NotificationPanel({
   const [showDiscussModal, setShowDiscussModal] = useState(false);
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [replyMessage, setReplyMessage] = useState("");
-  const [notifications, setNotifications] = useState({
-    received: [
-      {
-        id: 1,
-        user: "Nader_Hani",
-        message: "Have Accepted your Offer deal and waiting for respond",
-        time: "2h ago",
-        isVerified: true,
-        projectName: "Smart City Solutions",
-        investorName: "Nader Hani",
-        offerAmount: "$50,000",
-        equityPercentage: "15%",
-        priority: "high",
-      },
-      {
-        id: 2,
-        user: "MohamedAli",
-        message: "Discuss deals for new offers!",
-        time: "1d ago",
-        priority: "medium",
-        isVerified: true,
-        investorName: "Mohamed Ali",
-        discussionTopic:
-          "What about changing the percentage to 20% for 10000K offer money?",
-      },
-      {
-        id: 3,
-        user: "Ahmed Amr",
-        message: "Discuss deals for new offers!",
-        time: "2d ago",
-        priority: "low",
-      },
-    ],
-    replied: [],
-  });
+  const [notifications, setNotifications] = useState([]);
+  useEffect(()=>{
+    const fetchNotifications = async () => {
+        try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(`${APILINK}/api/Notification/history?isRead=false`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setNotifications(response.data.Data);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+    }
+    fetchNotifications();
+  }, [setNotificationCount]);
 
   if (setNotificationCount) {
-    setNotificationCount(notifications.received.length);
+    setNotificationCount(notifications.length);
   }
 
   const handleNotificationClick = (notification) => {
-    setSelectedNotification(notification);
+  setSelectedNotification(notification);
+  const MessageType = notification.MessageType
+  if (MessageType === "OfferAccepted") {
+    setShowAcceptModal(true);
+    setShowDiscussModal(false);
+  } else if (MessageType === "OfferDiscussion") {
+    setShowDiscussModal(true);
+    setShowAcceptModal(false);
+  }
+};
 
-    if (notification.message.toLowerCase().includes("accepted")) {
-      setShowAcceptModal(true);
-      setShowDiscussModal(false);
-    } else if (notification.message.toLowerCase().includes("discuss")) {
-      setShowDiscussModal(true);
-      setShowAcceptModal(false);
-    }
-  };
 
   const handleCloseModal = () => {
     setShowAcceptModal(false);
@@ -89,11 +74,30 @@ export default function NotificationPanel({
     }
   };
 
-  const handleRemoveNotification = (notificationId) => {
-    setNotifications((prev) => ({
-      ...prev,
-      received: prev.received.filter((notif) => notif.id !== notificationId),
-    }));
+  const handleRemoveNotification = async (notificationId) => {
+    try{
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.put(`${APILINK}/api/Notification/mark-multiple-read`,{
+        NotificationIds: [notificationId],
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      })
+      if (response.status === 200) {
+        setNotifications((prev) =>
+          prev.filter((notification) => notification.Id !== notificationId)
+        );
+        if (setNotificationCount) {
+          setNotificationCount(notifications.length - 1);
+        }
+      }
+    }catch (error) {
+      console.error("Error removing notification:", error);
+      // Optionally, you can show an error message to the user
+    }
+
   };
 
   if (!open) return null;
@@ -106,16 +110,16 @@ export default function NotificationPanel({
         <NotificationTabs
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          count={notifications[activeTab].length}
+          count={notifications.length}
         />
 
         <NotificationList
-          notifications={notifications[activeTab]}
+          notifications={notifications}
           onNotificationClick={handleNotificationClick}
           onRemoveNotification={handleRemoveNotification}
         />
 
-        {notifications[activeTab].length > 0 && (
+        {notifications.length > 0 && (
           <div className="p-3 border-t bg-gray-50">
             <button className="w-full py-2 text-sm text-[#0b66a2] font-medium hover:bg-gray-100 rounded-md transition-all duration-200">
               View All Notifications
