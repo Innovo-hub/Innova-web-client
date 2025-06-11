@@ -48,7 +48,13 @@ function BussinessBanner() {
                   <h1 className="text-xl font-bold text-gray-800">
                     {profile.FirstName} {profile.LastName}
                   </h1>
-                  <p className="text-sm text-blue-600 flex items-center gap-1">
+                  <p
+                    className={
+                      profile.IsVerified
+                        ? "text-sm text-blue-600 flex items-center gap-1"
+                        : "hidden"
+                    }
+                  >
                     <CheckCircleIcon
                       fontSize="small"
                       className="text-blue-500"

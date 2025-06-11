@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from 'react';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import Profile1 from '../../../assets/Profiles/Profile1.png';
-import wallpaper from '../../../assets/Profiles/wallpaper.png';
-import axios from 'axios';
-import APILINK from '../../../../Constants';
-
-
+import { useRef, useState } from "react";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import Profile1 from "../../../assets/Profiles/Profile1.png";
+import wallpaper from "../../../assets/Profiles/wallpaper.png";
+import axios from "axios";
+import APILINK from "../../../../Constants";
 
 function ProfileHeader({ user }) {
-  const [profileImage, setProfileImage] = useState(user.ProfileImageUrl || Profile1);
-  const [coverImage, setCoverImage] = useState(user.ProfileCoverUrl || wallpaper);
+  const [profileImage, setProfileImage] = useState(
+    user.ProfileImageUrl || Profile1
+  );
+  const [coverImage, setCoverImage] = useState(
+    user.ProfileCoverUrl || wallpaper
+  );
 
   const profileInputRef = useRef(null);
   const coverInputRef = useRef(null);
@@ -22,28 +24,28 @@ function ProfileHeader({ user }) {
 
     const previewUrl = URL.createObjectURL(file);
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      if (type === 'profile') {
+      if (type === "profile") {
         setProfileImage(previewUrl);
-        await axios.post(`${APILINK}/api/Profile/profile-picture`, formData,{
-          headers : {
-            'Content-Type': 'multipart/form-data',
-            Authorization : `Bearer ${localStorage.getItem('accessToken')}`
-          }
+        await axios.post(`${APILINK}/api/Profile/profile-picture`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         });
       } else {
         setCoverImage(previewUrl);
-        await axios.post(`${APILINK}/api/Profile/profile-cover`, formData,{
-          headers : {
-            'Content-Type': 'multipart/form-data',
-            Authorization : `Bearer ${localStorage.getItem('accessToken')}`
-          }
+        await axios.post(`${APILINK}/api/Profile/profile-cover`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         });
       }
     } catch (err) {
-      console.error('Upload failed:', err);
+      console.error("Upload failed:", err);
     }
   };
 
@@ -66,8 +68,8 @@ function ProfileHeader({ user }) {
             type="file"
             accept="image/*"
             ref={coverInputRef}
-            style={{ display: 'none' }}
-            onChange={(e) => handleFileChange(e, 'cover')}
+            style={{ display: "none" }}
+            onChange={(e) => handleFileChange(e, "cover")}
           />
         </div>
       </div>
@@ -91,8 +93,8 @@ function ProfileHeader({ user }) {
               type="file"
               accept="image/*"
               ref={profileInputRef}
-              style={{ display: 'none' }}
-              onChange={(e) => handleFileChange(e, 'profile')}
+              style={{ display: "none" }}
+              onChange={(e) => handleFileChange(e, "profile")}
             />
           </div>
         </div>
@@ -107,16 +109,31 @@ function ProfileHeader({ user }) {
               <div className="h-8 border-l-2 border-gray-400 mx-2"></div>
               <div className="flex items-center">
                 <span className="text-[#126090] text-lg">ID:</span>
-                <span className="text-[#4B4A4A] text-lg ml-1">{user.RoleId}</span>
+                <span className="text-[#4B4A4A] text-lg ml-1">
+                  {user.RoleId}
+                </span>
               </div>
             </div>
 
-            {user.RoleName && (
-              <div className="flex items-center gap-2 text-[#126090]">
-                <CheckCircleIcon fontSize="small" className="text-[#0000FF]" />
-                <span>Verified</span>
-              </div>
-            )}
+            {(user.RoleName === "BusinessOwner" ||
+              user.RoleName === "Investor") &&
+              (user.IsVerified ? (
+                <div className="flex items-center gap-2 text-[#126090]">
+                  <CheckCircleIcon
+                    fontSize="small"
+                    className="text-[#0000FF]"
+                  />
+                  <span>Verified</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-[#757575]">
+                  <CheckCircleIcon
+                    fontSize="small"
+                    className="text-[#757575]"
+                  />
+                  <span>Unverified</span>
+                </div>
+              ))}
           </div>
         </div>
       </div>

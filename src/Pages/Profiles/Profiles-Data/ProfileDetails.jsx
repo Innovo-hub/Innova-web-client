@@ -25,7 +25,7 @@ function ProfileDetails( {user} ) {
         <InfoField label="City" value={user.City} />
         <InfoField label="District" value={user.District} />
 
-        <div className="flex justify-end"> {/*Icon updating */}
+        <div className="flex justify-end">
         <DriveFileRenameOutlineIcon className="text-[#126090] w-5 h-5 cursor-pointer hover:text-blue-500" />
         </div>
         

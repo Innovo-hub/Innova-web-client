@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { getUserProfile } from "../../../redux/Slices/User-Slice/UserProfile";
 
 function InvestorBanner() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { profile, loading, error } = useSelector((state) => state.profile);
   useEffect(() => {
     dispatch(getUserProfile());
@@ -17,8 +17,8 @@ function InvestorBanner() {
   if (loading || !profile) {
     return <div className="text-center py-10">Loading profile...</div>;
   }
-  if (error){
-    return <div>Error loading profile</div>
+  if (error) {
+    return <div>Error loading profile</div>;
   }
   return (
     <div className="relative w-full py-8 md:py-12 px-4 md:px-8 lg:px-16">
@@ -31,7 +31,7 @@ function InvestorBanner() {
             <div className="flex space-x-4 items-center">
               <div className="relative">
                 <img
-                  src={profile.ProfileImageUrl ||user}
+                  src={profile.ProfileImageUrl || user}
                   width={60}
                   height={60}
                   alt="User"
@@ -43,8 +43,17 @@ function InvestorBanner() {
                 <h1 className="text-lg md:text-xl font-bold text-gray-800">
                   {profile.FirstName} {profile.LastName}
                 </h1>
-                <p className="text-sm text-blue-600 flex items-center gap-1">
-                  <CheckCircleIcon fontSize="small" className="text-blue-500" />
+                <p
+                  className={
+                    profile.IsVerified
+                      ? "text-sm text-blue-600 flex items-center gap-1"
+                      : "hidden"
+                  }
+                >
+                  <CheckCircleIcon
+                    fontSize="small"
+                    className={profile.IsVerified ? "text-blue-500" : "hidden"}
+                  />
                   <span className="font-medium">Verified Account</span>
                 </p>
               </div>
@@ -83,7 +92,9 @@ function InvestorBanner() {
             <h2 className="text-2xl md:text-3xl font-bold text-indigo-700 mb-2">
               {profile.TotalBalance || 0} EGP
             </h2>
-            <p className="text-gray-500 text-sm md:text-base">≈ ${profile.TotalBalance / 50}</p>
+            <p className="text-gray-500 text-sm md:text-base">
+              ≈ ${profile.TotalBalance / 50}
+            </p>
           </div>
         </div>
 
