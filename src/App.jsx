@@ -44,8 +44,6 @@ function App() {
         element={role === "Investor" ? <InvestorDeals /> : <OwnerDeals />}
       />
       <Route path="/product/:id" element={<ProductDetails />} />
-      {/* <Route path="/UserProfile" element={<BusinessProfile />} />
-      <Route path="/UserProfile" element={<InvestorProfile />} /> */}
       <Route path="/UserProfile" element={<NormalUserProfile />} />
       <Route path="/UserProfile/privacy" element={<Privacy />} />
       {/* payment and Cart Routes*/}
