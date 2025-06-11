@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../Components/Footer";
 import Navbar from "../../../Components/Navbar";
@@ -9,12 +9,14 @@ const Privacy = () => {
   const navigate = useNavigate();
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
+  const [signatureImage, setSignatureImage] = useState(null);
   const [currentPassword, setcurrentPassword] = useState("");
-  const [newPassword,setnewPassword] = useState("");
+  const [newPassword, setnewPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [imageError, setImageError] = useState("");
+  const [selectedStripeOption, setSelectedStripeOption] = useState("");
 
   const handleImageUpload = (e, side) => {
     const file = e.target.files[0];
@@ -41,6 +43,26 @@ const Privacy = () => {
     }
   };
 
+  const handleSignatureUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setImageError("Signature image size should be less than 5MB");
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        setImageError("Please upload a valid image file");
+        return;
+      }
+      setImageError("");
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSignatureImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmitImages = () => {
     if (!frontImage || !backImage) {
       setImageError("Please upload both front and back ID images");
@@ -52,24 +74,39 @@ const Privacy = () => {
     setTimeout(() => setSuccessMessage(""), 3000);
   };
 
+  const handleSubmitSignature = () => {
+    if (!signatureImage) {
+      setImageError("Please upload your signature image");
+      return;
+    }
+    setImageError("");
+    // Add your API call here to submit signature
+    setSuccessMessage("Signature uploaded successfully");
+    setTimeout(() => setSuccessMessage(""), 3000);
+  };
+
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
-  const handlePasswordReset =async (e) => {
+  const handlePasswordReset = async (e) => {
     e.preventDefault();
-    try{
+    try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.put(`${APILINK}/api/Profile/change-password`,{
-        currentPassword,
-        newPassword
-      },{
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
+      const response = await axios.put(
+        `${APILINK}/api/Profile/change-password`,
+        {
+          currentPassword,
+          newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       if (response.status === 200) {
         setSuccessMessage("Password changed successfully");
         setTimeout(() => setSuccessMessage(""), 3000);
@@ -78,9 +115,9 @@ const Privacy = () => {
       } else {
         setEmailError("Failed to change password. Please try again.");
       }
-    }catch(err){
-        setEmailError("Failed to change password. Please try again.");
-        console.error("Error changing password:", err);
+    } catch (err) {
+      setEmailError("Failed to change password. Please try again.");
+      console.error("Error changing password:", err);
     }
 
     // Add your password reset API call here
@@ -97,6 +134,12 @@ const Privacy = () => {
     // Add your account deletion API call here
     setShowDeleteConfirm(false);
     navigate("/");
+  };
+
+  const handleStripeConnect = () => {
+    // Add your Stripe connect API call here
+    setSuccessMessage("Stripe connection attempt sent successfully");
+    setTimeout(() => setSuccessMessage(""), 3000);
   };
 
   return (
@@ -248,6 +291,141 @@ const Privacy = () => {
               </button>
             </section>
 
+            {/* Signature Section */}
+            <section className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <svg
+                  className="w-6 h-6 text-blue-600 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+                <h2 className="text-xl font-semibold">Signature</h2>
+              </div>
+
+              <div className="mb-4 text-gray-600">
+                <p>Please upload a photo of your handwritten signature.</p>
+                <p>The signature must be written by hand (not typed).</p>
+                <p>Make sure it is clearly visible and well-lit.</p>
+                <p>This step is required to investment process.</p>
+              </div>
+
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  id="signatureImage"
+                  onChange={handleSignatureUpload}
+                />
+                <label
+                  htmlFor="signatureImage"
+                  className="cursor-pointer block"
+                >
+                  {signatureImage ? (
+                    <img
+                      src={signatureImage}
+                      alt="Signature"
+                      className="max-h-40 mx-auto"
+                    />
+                  ) : (
+                    <>
+                      <svg
+                        className="w-12 h-12 mx-auto mb-4 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
+                      </svg>
+                      <span className="text-gray-500">Select Image</span>
+                    </>
+                  )}
+                </label>
+              </div>
+
+              <button
+                onClick={handleSubmitSignature}
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Upload
+              </button>
+            </section>
+
+            {/* Stripe Account Section */}
+            <section className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <svg
+                  className="w-6 h-6 text-blue-600 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
+                </svg>
+                <h2 className="text-xl font-semibold">Stripe Account</h2>
+              </div>
+
+              <div className="mb-4">
+                <p className="text-gray-600 mb-4">
+                  Connect your stripe account
+                </p>
+
+                <div className="relative">
+                  <select
+                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={selectedStripeOption}
+                    onChange={(e) => setSelectedStripeOption(e.target.value)}
+                  >
+                    <option value="web">Web</option>
+                    <option value="mobile">Mobile</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={handleStripeConnect}
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Send
+              </button>
+            </section>
+
             {/* Change Password Section */}
             <section className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center mb-4">
@@ -286,7 +464,7 @@ const Privacy = () => {
                   {emailError && (
                     <p className="mt-1 text-sm text-red-600">{emailError}</p>
                   )}
-                   <input
+                  <input
                     type="text"
                     value={newPassword}
                     onChange={(e) => setnewPassword(e.target.value)}
