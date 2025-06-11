@@ -50,7 +50,7 @@ function PaymentSuccess() {
                 }
                 return prev - 1;
             });
-        }, 10000);
+        }, 1000);
 
         return () => clearInterval(timer);
     }, [navigate]);

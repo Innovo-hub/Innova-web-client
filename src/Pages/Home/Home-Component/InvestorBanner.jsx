@@ -4,8 +4,22 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link } from "react-router-dom";
 import user from "../../../assets/Products/user.png";
 import Dashboard from "../../../assets/Products/Dashboard.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUserProfile } from "../../../redux/Slices/User-Slice/UserProfile";
 
 function InvestorBanner() {
+    const dispatch = useDispatch();
+  const { profile, loading, error } = useSelector((state) => state.profile);
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+  if (loading || !profile) {
+    return <div className="text-center py-10">Loading profile...</div>;
+  }
+  if (error){
+    return <div>Error loading profile</div>
+  }
   return (
     <div className="relative w-full py-8 md:py-12 px-4 md:px-8 lg:px-16">
       {/* Header Section */}
@@ -17,7 +31,7 @@ function InvestorBanner() {
             <div className="flex space-x-4 items-center">
               <div className="relative">
                 <img
-                  src={user}
+                  src={profile.ProfileImageUrl ||user}
                   width={60}
                   height={60}
                   alt="User"
@@ -27,7 +41,7 @@ function InvestorBanner() {
               </div>
               <div className="flex flex-col">
                 <h1 className="text-lg md:text-xl font-bold text-gray-800">
-                  Nader_Hani
+                  {profile.FirstName} {profile.LastName}
                 </h1>
                 <p className="text-sm text-blue-600 flex items-center gap-1">
                   <CheckCircleIcon fontSize="small" className="text-blue-500" />
@@ -41,7 +55,7 @@ function InvestorBanner() {
             <div className="bg-gray-50 p-3 rounded-lg">
               <p className="text-sm font-medium text-gray-700">Investor ID</p>
               <p className="text-base md:text-lg font-bold text-blue-600">
-                2233666951
+                {profile.RoleId}
               </p>
             </div>
           </div>
@@ -54,10 +68,6 @@ function InvestorBanner() {
               <PersonOutlineOutlinedIcon />
               <span className="font-medium">Profile</span>
             </Link>
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 text-gray-700">
-              <SettingsOutlinedIcon />
-              <span className="font-medium">Settings</span>
-            </button>
           </div>
         </div>
       </div>
@@ -71,9 +81,9 @@ function InvestorBanner() {
               Estimated Balance
             </p>
             <h2 className="text-2xl md:text-3xl font-bold text-indigo-700 mb-2">
-              152,326.33 EGP
+              {profile.TotalBalance || 0} EGP
             </h2>
-            <p className="text-gray-500 text-sm md:text-base">≈ $3,025.20</p>
+            <p className="text-gray-500 text-sm md:text-base">≈ ${profile.TotalBalance / 50}</p>
           </div>
         </div>
 
