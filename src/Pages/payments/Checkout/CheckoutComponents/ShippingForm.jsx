@@ -61,14 +61,14 @@ const ShippingForm = () => {
             let response;
             if (isExist) {
                 // Update existing shipping address
-                response = await axios.patch(`${APILINK}/api/shipping-address/update`, address, { headers });
+                response = await axios.patch(`${APILINK}/api/shippingaddress/update`, address, { headers });
                 Swal.fire({
                     icon: "success",
                     "text": "Updated Succesfully"
                 })
             } else {
                 // Add new shipping address
-                response = await axios.post(`${APILINK}/api/shipping-address/add`, address, { headers });
+                response = await axios.post(`${APILINK}/api/shippingaddress/add`, address, { headers });
                 setIsExist(true);
                 Swal.fire({
                     icon: "success",
