@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import APILINK from "../../../../Constants";
@@ -6,6 +7,8 @@ import CopyRights from "../../../Components/Copy-Rights";
 import Footer from "../../../Components/Footer";
 import Navbar from "../../../Components/Navbar";
 import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
+import { Link } from "react-router-dom";
+
 
 const CheckoutPage = () => {
   //can count  your order
@@ -14,6 +17,8 @@ const CheckoutPage = () => {
   const [userComment, setUserComment] = useState("");
   const navigate = useNavigate();
   const shippingPrice = selectedMethod?.Cost || 0;
+  const [address, setAddress] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [orderSummary, setOrderSummary] = useState({
     Subtotal: 0,
     ShippingDeliveryMethod: 0,
@@ -77,10 +82,30 @@ const CheckoutPage = () => {
         console.error("Failed to fetch order summary:", error);
       }
     };
+    const getAddress = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get(`${APILINK}/api/shippingaddress`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
+        setAddress(response.data);
+        setLoading(false);
+        console.log("Shipping Address:", response.data.FirstName);
+      } catch (error) {
+        console.error("Failed to fetch shipping address:", error);
+        setLoading(false);
+      }
+    };
     fetchOrderSummary();
+    getAddress();
   }, [quantity, selectedMethod]);
-
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
@@ -90,36 +115,36 @@ const CheckoutPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
           {/*Address Screen */}
-           <div className="w-full lg:w-1/2 flex flex-col">
+          <div className="w-full lg:w-1/2 flex flex-col">
             <div className="bg-white rounded-md p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-[24px] font-semibold">Address</h2>
-                <button className="border border-[#126090] text-black hover:text-[#126090] rounded-md px-4 py-2 transition-colors">
+                <Link to={'/checkOut'} className="border border-[#126090] text-black hover:text-[#126090] rounded-md px-4 py-2 transition-colors">
                   Edit
-                </button>
+                </Link>
               </div>
-             <div className="mb-6">
+              <div className="mb-6">
                 <h3 className="text-md font-medium mb-2">Shipping Address</h3>
-                <div className="text-[#545454] space-y-1">
-                  <p>Nador Hari</p>
-                  <p>El-Shorouk, area 1, Egypt Cairo</p>
-                  <p>44519, Cairo</p>
-                  <p>nadenhar7f88@gmail.com, 01203520019</p>
-                </div>
-              </div> 
-              <div className="flex items-center mb-6">
-                <input
-                  type="checkbox"
-                  id="billingAddress"
-                  className="w-4 h-4 text-[#126090] rounded border border-[#126090]"
-                />
-                <label
-                  htmlFor="billingAddress"
-                  className="ml-2 text-sm text-gray-600"
-                >
-                  Billing address same as shipping address
-                </label>
+                {address ? (
+                  <>
+                    <p>
+                      {address.FirstName} {address.LastName}
+                    </p>
+                    <p>
+                      {address.StreetAddress}, Apartment {address.Apartment}
+                    </p>
+                    <p>
+                      {address.ZipCode}, {address.City}
+                    </p>
+                    <p>
+                      {address.Email}, {address.Phone}
+                    </p>
+                  </>
+                ) : (
+                  <p>No address found.</p>
+                )}
               </div>
+
             </div>
             <DeliveryMethodSelect
               selectedMethod={selectedMethod}

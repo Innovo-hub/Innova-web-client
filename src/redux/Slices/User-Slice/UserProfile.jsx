@@ -14,7 +14,7 @@ export const getUserProfile = createAsyncThunk(
       })
       return response.data;
     } catch (err) {
-      console.error("Error fetching profile:", err); // Debug errors
+      console.error("Error fetching user profile:", err); // Debug
       return rejectWithValue(err.response?.data || { message: "Failed to fetch profile" });
     }
   }

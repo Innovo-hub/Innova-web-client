@@ -4,15 +4,22 @@ import user from "../../../../assets/Deals/profile1.png";
 import NotificationPanel from "../../Notification/Notfication";
 import { useEffect, useState } from "react";
 import { Badge } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../../../../redux/Slices/User-Slice/UserProfile";
 const InvDealsBanner = () => {
   const [openNotify, setOpenNotify] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
   const dispatch = useDispatch();
-  
-  useEffect(()=>{
-    
-  })
+  const { profile, loading, error } = useSelector((state) => state.profile);
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+  if (loading || !profile) {
+    return <div className="text-center py-10">Loading profile...</div>;
+  }
+  if (error) {
+    return <div>Error loading profile</div>;
+  }
   return (
     <div className="container">
       <div className="relative w-full my-6 px-4 lg:px-12">
@@ -24,7 +31,7 @@ const InvDealsBanner = () => {
               {/* Profile Image */}
               <div className="w-12 h-12 rounded-full overflow-hidden">
                 <img
-                  src={user}
+                  src={profile.ProfileImageUrl || user}
                   className="h-full w-full object-cover"
                   alt="Mohamed Ali"
                 />
@@ -34,14 +41,15 @@ const InvDealsBanner = () => {
               <div>
                 <div className="flex items-center">
                   <h1 className="text-lg font-medium text-gray-800">
-                    Mohamed Ali
+                    {profile.FirstName} {profile.LastName}
                   </h1>
                   <div className="ml-2 text-blue-500">
                     <CheckCircleIcon style={{ fontSize: 18 }} />
                   </div>
                 </div>
                 <p className="text-sm text-gray-500">
-                  Investor ID: <span className="font-mono">2233666951</span>
+                  Investor ID:{" "}
+                  <span className="font-mono">{profile.RoleId}</span>
                 </p>
               </div>
             </div>

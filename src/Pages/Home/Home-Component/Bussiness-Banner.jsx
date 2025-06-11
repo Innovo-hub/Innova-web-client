@@ -4,13 +4,26 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link } from "react-router-dom";
 import user from "../../../assets/Products/user.png";
 import Dashboard from "../../../assets/Products/Dashboard.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PublishProduct from "./Publish-Product";
 import { PlusCircle } from "lucide-react";
 import PublishProductCard from "./Publish-Product";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../../../redux/Slices/User-Slice/UserProfile";
 
 function BussinessBanner() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { profile, loading, error } = useSelector((state) => state.profile);
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+  if (loading || !profile) {
+    return <div className="text-center py-10">Loading profile...</div>;
+  }
+  if (error){
+    return <div>Error loading profile</div>
+  }
   return (
     <div className="relative w-full my-12 px-4 lg:px-16">
       {/* Header Section */}
@@ -23,7 +36,7 @@ function BussinessBanner() {
               <div className="flex space-x-4 items-center">
                 <div className="relative">
                   <img
-                    src={user}
+                    src={profile.ProfileImageUrl || user}
                     width={70}
                     height={70}
                     alt="User"
@@ -33,7 +46,7 @@ function BussinessBanner() {
                 </div>
                 <div className="flex flex-col">
                   <h1 className="text-xl font-bold text-gray-800">
-                    Mohamed Ali
+                    {profile.FirstName} {profile.LastName}
                   </h1>
                   <p className="text-sm text-blue-600 flex items-center gap-1">
                     <CheckCircleIcon
@@ -51,20 +64,21 @@ function BussinessBanner() {
                 <p className="text-sm font-medium text-gray-700">
                   Business Owner ID
                 </p>
-                <p className="text-lg font-bold text-blue-600">2233666951</p>
+                <p className="text-lg font-bold text-blue-600">
+                  {profile.RoleId}
+                </p>
               </div>
             </div>
           </div>
           {/* Profile and Settings Section */}
           <div className="flex gap-6 justify-end items-center">
-            <Link to="/userProfile" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
+            <Link
+              to="/userProfile"
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50"
+            >
               <PersonOutlineOutlinedIcon />
               <span className="font-medium">Profile</span>
             </Link>
-            {/* <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-blue-50">
-              <SettingsOutlinedIcon />
-              <span className="font-medium">Settings</span>
-            </button> */}
           </div>
         </div>
       </div>
@@ -75,8 +89,12 @@ function BussinessBanner() {
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
           <div className="flex flex-col w-full">
             <p className="text-gray-600 text-lg mb-3">Estimated Balance</p>
-            <h2 className="text-3xl font-bold text-[#2C1DB3] mb-2">0 EGP</h2>
-            <p className="text-gray-500 text-base">≈ $0</p>
+            <h2 className="text-3xl font-bold text-[#2C1DB3] mb-2">
+              {profile.TotalBalance} EGP
+            </h2>
+            <p className="text-gray-500 text-base">
+              ≈ ${profile.TotalBalance / 50}
+            </p>
           </div>
         </div>
 
@@ -112,17 +130,7 @@ function BussinessBanner() {
             />
           )}
         </div>
-
-        {/* Total Views */}
-        {/* <div className="bg-white shadow-lg p-8 rounded-xl hover:shadow-xl transition-all duration-300">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-gray-800">Total Views</h3>
-            <p className="text-3xl font-bold text-[#0056B3]">23</p>
-          </div>
-        </div> */}
       </div>
-
-      {/* Latest Product Overview(table) */}
       <div className="mt-12">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">
           Latest Product Overview
@@ -157,7 +165,9 @@ function BussinessBanner() {
                   <td className="px-6 py-4 text-sm text-gray-800 font-medium">
                     Pop one Store
                   </td>
-                  <td className="px-6 py-4 text-sm font-mono text-gray-600">552986765</td>
+                  <td className="px-6 py-4 text-sm font-mono text-gray-600">
+                    552986765
+                  </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800">
                     152,236.33 EGP
                   </td>
@@ -178,8 +188,6 @@ function BussinessBanner() {
           </div>
         </div>
       </div>
-
-      {/* Exploring Others Products */}
       <h3 className="text-2xl font-bold text-gray-800 text-center mt-12 mb-8">
         Exploring Others Products
       </h3>

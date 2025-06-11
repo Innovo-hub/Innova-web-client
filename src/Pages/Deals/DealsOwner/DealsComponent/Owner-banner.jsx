@@ -2,13 +2,25 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import profile1 from "../../../../assets/Deals/profile1.png";
 import { Badge } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NotificationPanel from "../../Notification/Notfication";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../../../../redux/Slices/User-Slice/UserProfile";
 
 function OwnerBanner() {
   const [openNotify, setOpenNotify] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
-
+ const dispatch = useDispatch();
+  const { profile, loading, error } = useSelector((state) => state.profile);
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+  if (loading || !profile) {
+    return <div className="text-center py-10">Loading profile...</div>;
+  }
+  if (error){
+    return <div>Error loading profile</div>
+  }
   return (
     <div className="container">
       <div className="relative w-full my-6 px-4 lg:px-12">
@@ -20,7 +32,7 @@ function OwnerBanner() {
               {/* Profile Image */}
               <div className="w-12 h-12 rounded-full overflow-hidden">
                 <img
-                  src={profile1}
+                  src={profile.ProfileImageUrl || profile1}
                   className="h-full w-full object-cover"
                   alt="Mohamed Ali"
                 />
@@ -30,7 +42,7 @@ function OwnerBanner() {
               <div>
                 <div className="flex items-center">
                   <h1 className="text-lg font-medium text-gray-800">
-                    Mohamed Ali
+                    {profile.FirstName} {" "} {profile.LastName}
                   </h1>
                   <div className="ml-2 text-blue-500">
                     <CheckCircleIcon style={{ fontSize: 18 }} />
@@ -38,7 +50,7 @@ function OwnerBanner() {
                 </div>
                 <p className="text-sm text-gray-500">
                   Business Owner ID:{" "}
-                  <span className="font-mono">2233666951</span>
+                  <span className="font-mono">{profile.RoleId}</span>
                 </p>
               </div>
             </div>
