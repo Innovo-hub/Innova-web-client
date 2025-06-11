@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../../Components/Navbar";
-import Footer from "../../../Components/Footer";
-import CopyRights from "../../../Components/Copy-Rights";
-import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
 import axios from "axios";
-import APILINK from "../../../../Constants";
+import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import APILINK from "../../../../Constants";
+import CopyRights from "../../../Components/Copy-Rights";
+import Footer from "../../../Components/Footer";
+import Navbar from "../../../Components/Navbar";
+import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
 
 const CheckoutPage = () => {
   //can count  your order
@@ -62,7 +62,7 @@ const CheckoutPage = () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios.post(
-          `${APILINK}/api/shipping-address/order-summary`,
+          `${APILINK}/api/shippingaddress/order-summary`,
           {
             DeliveryMethodId: selectedMethod.Id,
           },
