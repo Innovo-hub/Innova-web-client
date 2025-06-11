@@ -96,8 +96,8 @@ const CheckoutPage = () => {
                 <span className="text-[#888888]">Total</span>
                 <span className="text-[#126090]">${total.toFixed(2)}</span>
               </div>
-              <div className="mt-4">
-                <Link to={'/payment'} className="w-full bg-[#126090] text-white p-3 rounded-md cursor-pointer">
+              <div className="flex justify-end items-center my-4">
+                <Link to={'/payment'} className="w-full bg-[#126090] text-white p-3 lg:w-1/4 w-1/2 text-center rounded-md cursor-pointer">
                   Go to Payment
                 </Link>
               </div>
