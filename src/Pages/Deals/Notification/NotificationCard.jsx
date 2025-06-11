@@ -23,7 +23,7 @@ function NotificationCard({ notification, onClick, onRemove }) {
 
   const handleRemove = (e) => {
     e.stopPropagation(); // Prevent triggering the card click event
-    onRemove(notification.id);
+    onRemove(notification.Id);
   };
 
   return (
@@ -35,39 +35,25 @@ function NotificationCard({ notification, onClick, onRemove }) {
         <div className="flex justify-between items-start mb-1">
           <div className="flex items-center gap-1">
             <p className="font-semibold text-sm text-gray-800">
-              {notification.user}
+              {notification.SenderName}
             </p>
-            {notification.isVerified && (
-              <VerifiedIcon className="text-blue-500 text-xs" />
-            )}
           </div>
           <div className="flex items-center text-xs text-gray-500">
             <AccessTimeIcon fontSize="small" className="mr-1 text-xs" />
-            {notification.time}
+            {notification.CreatedAt}
           </div>
         </div>
         <p className="text-sm text-gray-700 mb-1 line-clamp-2">
-          {notification.message}
+          {notification.MessageText}
         </p>
 
-        {notification.message.toLowerCase().includes("accepted") && (
-          <div className="mt-1 flex justify-end">
-            <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">
-              Deal Acceptance
-            </span>
-          </div>
-        )}
-
-        {notification.message.toLowerCase().includes("discuss") && (
-          <div className="mt-1 flex justify-end">
-            <span className="text-xs px-2 py-0.5 bg-green-100 text-green-800 rounded-full flex items-center">
-              <ChatIcon fontSize="small" className="mr-1 text-xs" />
-              Discussion Request
-            </span>
-          </div>
-        )}
+        <div className="mt-1 flex justify-end">
+          <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">
+            {notification.MessageType}
+          </span>
+        </div>
       </div>
-      <div className="ml-2 flex items-center h-full text-gray-400 self-center">
+      <div onClick={() => onClick(notification)} className="ml-2 flex items-center h-full text-gray-400 self-center">
         <ArrowForwardIosIcon fontSize="small" />
       </div>
 
@@ -82,17 +68,6 @@ function NotificationCard({ notification, onClick, onRemove }) {
   );
 }
 
-NotificationCard.propTypes = {
-  notification: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    user: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    isVerified: PropTypes.bool,
-    priority: PropTypes.string,
-  }).isRequired,
-  onClick: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-};
+
 
 export default NotificationCard;

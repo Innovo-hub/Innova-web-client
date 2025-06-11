@@ -19,15 +19,10 @@ function DiscussionModal({
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500">From:</span>
-              <span className="font-semibold">{notification.user}</span>
-              {notification.isVerified && (
-                <span className="flex items-center text-xs text-blue-600">
-                  <VerifiedIcon fontSize="small" className="mr-1" /> Verified
-                </span>
-              )}
+              <span className="font-semibold">{notification.SenderName}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">{notification.time}</span>
+              <span className="text-xs text-gray-500">{notification.CreatedAt}</span>
               <button
                 onClick={onClose}
                 className="text-gray-500 hover:text-gray-700 hover:bg-gray-200 p-1 rounded-full transition-all"
@@ -42,14 +37,14 @@ function DiscussionModal({
         {/* Modal Content */}
         <div className="p-5">
           <p className="text-gray-700 mb-5">
-            [{notification.investorName}] has requested a discussion regarding
+            [{notification.SenderName}] has requested a discussion regarding
             the following.
           </p>
 
           <div className="mb-5">
             <p className="text-xs text-gray-500 mb-1">message comment:</p>
             <div className="p-3 bg-gray-100 rounded-md text-sm text-gray-700">
-              {notification.discussionTopic}
+              {notification.MessageText}
             </div>
           </div>
 

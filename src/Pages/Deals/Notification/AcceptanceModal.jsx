@@ -14,15 +14,11 @@ function AcceptanceModal({ notification, onClose, onAccept }) {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500">From:</span>
-              <span className="font-semibold">{notification.user}</span>
-              {notification.isVerified && (
-                <span className="flex items-center text-xs text-blue-600">
-                  <VerifiedIcon fontSize="small" className="mr-1" /> Verified
-                </span>
-              )}
+              <span className="font-semibold">{notification.SenderName}</span>
+
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">{notification.time}</span>
+              <span className="text-xs text-gray-500">{notification.createdAt}</span>
               <button
                 onClick={onClose}
                 className="text-gray-500 hover:text-gray-700 hover:bg-gray-200 p-1 rounded-full transition-all"
@@ -38,10 +34,10 @@ function AcceptanceModal({ notification, onClose, onAccept }) {
           <p className="text-gray-700">Hello There,</p>
 
           <p className="text-gray-700">
-            [{notification.investorName}] has accepted your offer for the
-            project &quot;{notification.projectName}&quot; with an investment
+            [{notification.SenderName}] has {notification.MessageType}
+            {/* project &quot;{notification.projectName}&quot; with an investment
             amount of &quot;{notification.offerAmount}&quot; and a &quot;
-            {notification.equityPercentage}&quot; equity share.
+            {notification.equityPercentage}&quot; equity share. */}
           </p>
 
           <p className="text-gray-700">
@@ -52,7 +48,7 @@ function AcceptanceModal({ notification, onClose, onAccept }) {
           <div className="mt-4 p-3 bg-gray-100 rounded-md border border-gray-200">
             <p className="text-xs text-gray-500 mb-1">Original notification:</p>
             <p className="text-sm text-gray-700 italic">
-              &quot;{notification.message}&quot;
+              &quot;{notification.MessageText}&quot;
             </p>
           </div>
 
@@ -94,19 +90,6 @@ function AcceptanceModal({ notification, onClose, onAccept }) {
   );
 }
 
-AcceptanceModal.propTypes = {
-  notification: PropTypes.shape({
-    user: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    isVerified: PropTypes.bool,
-    investorName: PropTypes.string.isRequired,
-    projectName: PropTypes.string.isRequired,
-    offerAmount: PropTypes.string.isRequired,
-    equityPercentage: PropTypes.string.isRequired,
-  }),
-  onClose: PropTypes.func.isRequired,
-  onAccept: PropTypes.func.isRequired,
-};
+
 
 export default AcceptanceModal;
