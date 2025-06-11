@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import APILINK from "../../../../Constants";
@@ -8,6 +9,7 @@ import Footer from "../../../Components/Footer";
 import Navbar from "../../../Components/Navbar";
 import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
 import { Link } from "react-router-dom";
+
 
 
 const CheckoutPage = () => {
