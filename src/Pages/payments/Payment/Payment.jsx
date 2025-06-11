@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../../Components/Navbar";
-import Footer from "../../../Components/Footer";
-import CopyRights from "../../../Components/Copy-Rights";
-import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
 import axios from "axios";
+
+
+import  { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import APILINK from "../../../../Constants";
-import { Link, useNavigate } from "react-router-dom";
+import CopyRights from "../../../Components/Copy-Rights";
+import Footer from "../../../Components/Footer";
+import Navbar from "../../../Components/Navbar";
+import DeliveryMethodSelect from "./PaymentComponents/DeliveryMethodSelect";
+import { Link } from "react-router-dom";
+
+
 
 const CheckoutPage = () => {
   //can count  your order
