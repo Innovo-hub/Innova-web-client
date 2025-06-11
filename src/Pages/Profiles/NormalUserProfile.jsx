@@ -84,7 +84,7 @@ function UserProfile() {
       <div className="  px-4 sm:px-6 lg:px-8 min-h-screen">
         <div className="flex flex-col md:flex-row mt-8">
           {/* Sidebar */}
-          <aside className="w-full  p-2 mb-4 md:mb-0">
+          <aside className=" w-[20%] p-2 mb-4 md:mb-0">
             <nav className="space-y-4">
               <Link
                 to={"/UserProfile"}
