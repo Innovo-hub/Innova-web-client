@@ -241,6 +241,6 @@ const DealShowCard = ({ deal }) => {
       />
     </div>
   );
-};}
+};
 
 export default DealShowCard;

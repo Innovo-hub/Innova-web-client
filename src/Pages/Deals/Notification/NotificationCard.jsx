@@ -53,10 +53,7 @@ function NotificationCard({ notification, onClick, onRemove }) {
           </span>
         </div>
       </div>
-      <div
-        onClick={() => onClick(notification)}
-        className="ml-2 flex items-center h-full text-gray-400 self-center"
-      >
+      <div onClick={() => onClick(notification)} className="ml-2 flex items-center h-full text-gray-400 self-center">
         <ArrowForwardIosIcon fontSize="small" />
       </div>
 
@@ -70,5 +67,7 @@ function NotificationCard({ notification, onClick, onRemove }) {
     </div>
   );
 }
+
+
 
 export default NotificationCard;
