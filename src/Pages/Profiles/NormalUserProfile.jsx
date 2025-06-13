@@ -151,7 +151,7 @@ function UserProfile() {
                       title="Sales_Analysis"
                       width="1120"
                       height="541.25"
-                      src="https://app.powerbi.com/reportEmbed?reportId=cc90a135-cfb5-4d64-8094-31f63623136c&autoAuth=true&ctid=ae362704-0450-46f2-ab02-2b0a1df6406d"
+                      src="http://localhost:3000/public/dashboard/651d22f1-5718-4d04-9b68-266285d6d5d4"
                       frameBorder="0"
                       allowFullScreen="true"
                     ></iframe>
