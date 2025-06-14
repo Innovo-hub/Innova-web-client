@@ -32,10 +32,14 @@ export default function Navbar({ currentTab }) {
   const role = localStorage.getItem("role");
   const navigation = [
     { name: "Home", href: "/" },
-    {
-      name: "Deals",
-      href: `${role === "Investor" ? "investor/deals" : "/owner/Deals"}`,
-    },
+    ...(role === "Investor" || role === "BusinessOwner"
+      ? [
+          {
+            name: "Deals",
+            href: `${role === "Investor" ? "investor/deals" : "/owner/Deals"}`,
+          },
+        ]
+      : []),
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
   ];
@@ -138,16 +142,16 @@ export default function Navbar({ currentTab }) {
                   </Badge>
                 </Link>
                 <Link to={`/cart`}>
-                 <Badge
-                  badgeContent={cartCount > 0 ? cartCount : null}
-                  color="error"
-                  overlap="circular"
-                 >
-                 <ShoppingCartOutlinedIcon
-                    fontSize="medium"
-                    className="font-light text-gray-700"
-                  />
-                 </Badge>
+                  <Badge
+                    badgeContent={cartCount > 0 ? cartCount : null}
+                    color="error"
+                    overlap="circular"
+                  >
+                    <ShoppingCartOutlinedIcon
+                      fontSize="medium"
+                      className="font-light text-gray-700"
+                    />
+                  </Badge>
                 </Link>
                 <div>
                   <Button
@@ -157,7 +161,13 @@ export default function Navbar({ currentTab }) {
                     aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
-                    <Avatar src={profile?.profileImageUrl}></Avatar>
+                    <Avatar
+                      src={profile?.ProfileImageUrl}
+                      alt={profile?.FirstName || "User"}
+                    >
+                      {!profile?.ProfileImageUrl &&
+                        (profile?.FirstName?.[0] || "U")}
+                    </Avatar>
                   </Button>
                   <Menu
                     id="basic-menu"

@@ -12,6 +12,7 @@ import {
   fetchSignature,
   connectStripeAccount,
 } from "../../../redux/Slices/User-Slice/UserProfile";
+import Swal from "sweetalert2";
 
 const Privacy = () => {
   const navigate = useNavigate();
@@ -188,11 +189,28 @@ const Privacy = () => {
     }
     setImageError("");
     try {
-      await dispatch(connectStripeAccount(selectedStripeOption)).unwrap();
-      setSuccessMessage("Stripe connection request sent successfully");
-      setTimeout(() => setSuccessMessage(""), 3000);
+      const result = await dispatch(
+        connectStripeAccount(selectedStripeOption)
+      ).unwrap();
+      if (result?.OnboardingUrl) {
+        Swal.fire({
+          icon: "success",
+          title: "Stripe Account Created",
+          text: result.Message || "Stripe account created successfully.",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        // Navigate to Stripe onboarding URL after a short delay
+        setTimeout(() => {
+          window.location.href = result.OnboardingUrl;
+        }, 1500);
+      }
     } catch (err) {
-      setImageError(err.message || "Failed to connect Stripe account");
+      Swal.fire({
+        icon: "error",
+        title: "Connection Failed",
+        text: err.message || "Failed to connect Stripe account",
+      });
     }
   };
 

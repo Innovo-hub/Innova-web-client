@@ -111,7 +111,8 @@ function UserProfile() {
                   Current Deals
                 </Link>
               ) : null}
-              {profile?.RoleName === "BusinessOwner" ? (
+              {profile?.RoleName === "BusinessOwner" ||
+              profile?.RoleName === "Customer" ? (
                 <a
                   href="/UserProfile/orders"
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
@@ -158,9 +159,7 @@ function UserProfile() {
                   </div>
                 </div>
               )}
-            {profile.RoleName === "BusinessOwner" && (
-              <Predict />
-            )}
+            {profile.RoleName === "BusinessOwner" && <Predict />}
             {profile.RoleName === "Customer" && <WishlistOrders />}
           </main>
         </div>
