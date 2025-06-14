@@ -1,5 +1,5 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Footer from "../../Components/Footer";
@@ -17,6 +17,7 @@ import ExploreProducts from "./Home-Component/ExploreProducts";
 import InvestorBanner from "./Home-Component/InvestorBanner";
 import ProductCard from "./Home-Component/Product-Card";
 import VideoSlider from "./Home-Component/video-Slider";
+import PopularRecommendations from "../../Components/PopularRecommendations";
 
 function Home() {
   // const {
@@ -89,34 +90,8 @@ function Home() {
           />
         ))}
       </div>
-      {/* Best Selling Products Section (Keep as it is) */}
-      {/* <div className="my-8 lg:px-24 px-8">
-        <h2 className="text-2xl font-semibold my-2">Best Selling products</h2>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-4">
-          {catLoading ? (
-            <>
-              <div className="flex justify-center items-center my-4">
-                <Loading />
-              </div>
-            </>
-          ) : (
-            products.map((product) => (
-              <ProductCard
-                key={product.id}
-                productId={product.id}
-                imageSrc={product.imageSrc}
-                productName={product.productName}
-                PriceAfterDiscount={product.PriceAfterDiscount}
-                Price={product.Price}
-                Author={product.Author}
-                inStock={product.inStock}
-                starsNumbers={product.starsNumbers}
-                NumberofRates={product.NumberofRates}
-              />
-            ))
-          )}
-        </div>
-      </div> */}
+      {/* Popular Recommendations Section */}
+      <PopularRecommendations />
       {/* small enhancement */}
       <Card1Home />
       {/* Handcrafted Carpets Section (categoryId = 12) */}

@@ -203,7 +203,7 @@ const Predict = () => {
               <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                 <p className="text-sm text-gray-600 mb-1">Predicted Revenue</p>
                 <p className="text-2xl font-bold text-green-600">
-                  $
+                  EGP 
                   {prediction.result.PredictedRevenue.toLocaleString(
                     undefined,
                     {
