@@ -109,40 +109,39 @@ ImageUploadBox.propTypes = {
 
 // Component for the user profile section
 const UserProfileHeader = ({ onClose }) => (
-  <Box>
-    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-      <Box
-        component="img"
-        src={profile1}
-        alt="User Avatar"
-        sx={{
-          width: 64,
-          height: 64,
-          borderRadius: 2,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      />
-      <Box>
-        <Typography variant="h6" fontWeight="600">
-          Mohamed Ali
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          ID: 2333669591
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <CheckCircleIcon color="primary" fontSize="small" />
-          <Typography variant="body2" color="primary" fontWeight="medium">
-            Verified
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      mb: 4,
+      position: "relative",
+    }}
+  >
+    <Typography
+      variant="h5"
+      sx={{
+        fontWeight: 500,
+        color: "text.primary",
+        fontSize: "1.5rem",
+        "&::after": {
+          content: '""',
+          position: "absolute",
+          bottom: "-12px",
+          left: 0,
+          width: "60px",
+          height: "3px",
+          backgroundColor: "primary.main",
+          borderRadius: "2px",
+        },
+      }}
+    >
+      Add New Deal
+    </Typography>
     <IconButton
       color="error"
+      size="small"
       sx={{
-        position: "absolute",
-        top: 16,
-        right: 16,
         transition: "all 0.2s ease",
         "&:hover": {
           transform: "rotate(90deg)",

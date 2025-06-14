@@ -5,6 +5,7 @@ import Navbar from "../../../Components/Navbar";
 import axios from "axios";
 import APILINK from "../../../../Constants";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import {
   uploadIdCard,
   getUserProfile,
@@ -188,9 +189,21 @@ const Privacy = () => {
     }
     setImageError("");
     try {
-      await dispatch(connectStripeAccount(selectedStripeOption)).unwrap();
-      setSuccessMessage("Stripe connection request sent successfully");
-      setTimeout(() => setSuccessMessage(""), 3000);
+      const response = await dispatch(
+        connectStripeAccount(selectedStripeOption)
+      ).unwrap();
+      if (response && response.OnboardingUrl) {
+        await Swal.fire({
+          title: "Redirecting to Stripe",
+          text: "You will be redirected to Stripe onboarding page",
+          icon: "info",
+          confirmButtonText: "Continue",
+          confirmButtonColor: "#3085d6",
+        });
+        window.location.href = response.OnboardingUrl;
+      } else {
+        setImageError("Failed to get onboarding URL");
+      }
     } catch (err) {
       setImageError(err.message || "Failed to connect Stripe account");
     }

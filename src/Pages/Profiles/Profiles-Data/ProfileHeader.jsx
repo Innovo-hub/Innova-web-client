@@ -52,18 +52,18 @@ function ProfileHeader({ user }) {
   return (
     <div className="relative w-full">
       {/* Cover Image */}
-      <div className="w-full h-auto md:h-64 bg-cover bg-center relative">
+      <div className="w-full h-[250px] md:h-[300px] bg-cover bg-center relative">
         <img
           src={coverImage}
           alt="Cover"
-          className="w-full h-[350px] md:h-64 bg-cover bg-center"
+          className="w-full h-full object-cover"
         />
         {/* Edit Cover */}
         <div
-          className="absolute bottom-2 right-2 bg-[#F7F7F7E5] p-2 rounded-full cursor-pointer hover:bg-[#e0e0e0]"
+          className="absolute bottom-4 right-4 bg-white/80 p-3 rounded-full cursor-pointer hover:bg-white/90 transition-all duration-200 shadow-md"
           onClick={() => coverInputRef.current.click()}
         >
-          <DriveFileRenameOutlineIcon className="text-[#126090] w-2.5 h-2.5" />
+          <DriveFileRenameOutlineIcon className="text-[#126090] w-5 h-5" />
           <input
             type="file"
             accept="image/*"
