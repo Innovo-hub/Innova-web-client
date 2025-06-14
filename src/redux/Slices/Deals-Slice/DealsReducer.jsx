@@ -49,6 +49,42 @@ export const fetchDealsByOwner = createAsyncThunk(
   }
 );
 
+// ✅ Get Owner Deals
+export const fetchOwnerDeals = createAsyncThunk(
+  "deals/fetchOwnerDeals",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(`${BASE_URL}/owner-deals`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+// ✅ Get Investor Deals
+export const fetchInvestorDeals = createAsyncThunk(
+  "deals/fetchInvestorDeals",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(`${BASE_URL}/investor-deals`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 // ✅ Add a new Deal with Swal alert
 export const addDeal = createAsyncThunk(
   "deals/addDeal",
@@ -61,107 +97,126 @@ export const addDeal = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-
-      Swal.fire({
-        title: "Success!",
-        text: "Deal added successfully",
-        icon: "success",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-
       return response.data;
     } catch (error) {
-      console.error("Error adding deal:", error);
-
-      Swal.fire({
-        title: "Error",
-        text: error.response?.data?.message || "Error adding deal",
-        icon: "error",
-      });
-
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
+const initialState = {
+  allDeals: [],
+  ownerDeals: [],
+  investorDeals: [],
+  selectedDeal: null,
+  loading: {
+    all: false,
+    owner: false,
+    investor: false,
+    selected: false,
+    add: false,
+  },
+  error: {
+    all: null,
+    owner: null,
+    investor: null,
+    selected: null,
+    add: null,
+  },
+};
+
 const dealsSlice = createSlice({
   name: "deals",
-  initialState: {
-    allDeals: [],
-    dealDetails: null,
-    ownerDeals: [],
-    status: "idle",
-    error: null,
-  },
+  initialState,
   reducers: {
-    resetDealStatus: (state) => {
-      state.status = "idle";
-      state.error = null;
+    clearSelectedDeal: (state) => {
+      state.selectedDeal = null;
+    },
+    clearErrors: (state) => {
+      state.error = {
+        all: null,
+        owner: null,
+        investor: null,
+        selected: null,
+        add: null,
+      };
     },
   },
   extraReducers: (builder) => {
     builder
-      // Get All Deals
+      // Handle All Deals
       .addCase(fetchAllDeals.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.loading.all = true;
+        state.error.all = null;
       })
       .addCase(fetchAllDeals.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.loading.all = false;
         state.allDeals = action.payload;
       })
       .addCase(fetchAllDeals.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.loading.all = false;
+        state.error.all = action.payload;
       })
 
-      // Get Deal By ID
-      .addCase(fetchDealById.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+      // Handle Owner Deals
+      .addCase(fetchOwnerDeals.pending, (state) => {
+        state.loading.owner = true;
+        state.error.owner = null;
       })
-      .addCase(fetchDealById.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.dealDetails = action.payload;
-      })
-      .addCase(fetchDealById.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
-      })
-
-      // Get Deals by Owner
-      .addCase(fetchDealsByOwner.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
-      .addCase(fetchDealsByOwner.fulfilled, (state, action) => {
-        state.status = "succeeded";
+      .addCase(fetchOwnerDeals.fulfilled, (state, action) => {
+        state.loading.owner = false;
         state.ownerDeals = action.payload;
       })
-      .addCase(fetchDealsByOwner.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+      .addCase(fetchOwnerDeals.rejected, (state, action) => {
+        state.loading.owner = false;
+        state.error.owner = action.payload;
       })
 
-      // Add Deal
+      // Handle Investor Deals
+      .addCase(fetchInvestorDeals.pending, (state) => {
+        state.loading.investor = true;
+        state.error.investor = null;
+      })
+      .addCase(fetchInvestorDeals.fulfilled, (state, action) => {
+        state.loading.investor = false;
+        state.investorDeals = action.payload;
+      })
+      .addCase(fetchInvestorDeals.rejected, (state, action) => {
+        state.loading.investor = false;
+        state.error.investor = action.payload;
+      })
+
+      // Handle Selected Deal
+      .addCase(fetchDealById.pending, (state) => {
+        state.loading.selected = true;
+        state.error.selected = null;
+      })
+      .addCase(fetchDealById.fulfilled, (state, action) => {
+        state.loading.selected = false;
+        state.selectedDeal = action.payload;
+      })
+      .addCase(fetchDealById.rejected, (state, action) => {
+        state.loading.selected = false;
+        state.error.selected = action.payload;
+      })
+
+      // Handle Add Deal
       .addCase(addDeal.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.loading.add = true;
+        state.error.add = null;
       })
       .addCase(addDeal.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        // Add the new deal to the allDeals array
-        if (action.payload) {
-          state.allDeals.unshift(action.payload); // Add to beginning of array
-        }
+        state.loading.add = false;
+        state.allDeals.push(action.payload);
+        Swal.fire("Success", "Deal added successfully", "success");
       })
       .addCase(addDeal.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.loading.add = false;
+        state.error.add = action.payload;
+        Swal.fire("Error", "Failed to add deal", "error");
       });
   },
 });
 
-export const { resetDealStatus } = dealsSlice.actions;
+export const { clearSelectedDeal, clearErrors } = dealsSlice.actions;
 export default dealsSlice.reducer;

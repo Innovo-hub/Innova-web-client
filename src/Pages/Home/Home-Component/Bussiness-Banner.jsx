@@ -1,29 +1,63 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link } from "react-router-dom";
 import user from "../../../assets/Products/user.png";
 import Dashboard from "../../../assets/Products/Dashboard.png";
 import { useEffect, useState } from "react";
-import PublishProduct from "./Publish-Product";
 import { PlusCircle } from "lucide-react";
 import PublishProductCard from "./Publish-Product";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../../redux/Slices/User-Slice/UserProfile";
+import { fetchOwnerDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer";
+import Loading from "../../../Components/Shared/Loading/Loading";
 
 function BussinessBanner() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const { profile, loading, error } = useSelector((state) => state.profile);
+
+  // Get profile data
+  const {
+    profile,
+    loading: profileLoading,
+    error: profileError,
+  } = useSelector((state) => state.profile);
+
+  // Get deals data with proper null checks
+  const dealsState = useSelector((state) => state.deals);
+  const ownerDeals = dealsState?.ownerDeals || [];
+  const dealsLoading = dealsState?.loading?.owner || false;
+  const dealsError = dealsState?.error?.owner || null;
+
   useEffect(() => {
     dispatch(getUserProfile());
+    dispatch(fetchOwnerDeals());
   }, [dispatch]);
-  if (loading || !profile) {
-    return <div className="text-center py-10">Loading profile...</div>;
+
+  if (profileLoading || dealsLoading) {
+    return (
+      <div className="text-center py-10">
+        <Loading />
+      </div>
+    );
   }
-  if (error){
-    return <div>Error loading profile</div>
+
+  if (profileError || dealsError) {
+    return (
+      <div className="text-center py-10 text-red-500">
+        Error loading data:{" "}
+        {profileError?.message || dealsError?.message || "Unknown error"}
+      </div>
+    );
   }
+
+  if (!profile) {
+    return (
+      <div className="text-center py-10 text-gray-500">
+        No profile data available
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full my-12 px-4 lg:px-16">
       {/* Header Section */}
@@ -147,48 +181,70 @@ function BussinessBanner() {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
-                    Product Name
+                    Project Name
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
+                    Investor Name
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
                     Product ID
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
-                    Total Earnings
+                    Total Profit
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
-                    %
+                    OfferDeal %
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
-                    Total Views
+                    Status
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-[#126090]">
-                    Number of Selling
+                    Duration In
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                <tr className="hover:bg-gray-50 transition-colors duration-200">
-                  <td className="px-6 py-4 text-sm text-gray-800 font-medium">
-                    Pop one Store
-                  </td>
-                  <td className="px-6 py-4 text-sm font-mono text-gray-600">
-                    552986765
-                  </td>
-                  <td className="px-6 py-4 text-sm font-medium text-gray-800">
-                    152,236.33 EGP
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                      +16.65%
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-center text-sm text-gray-600">
-                    23
-                  </td>
-                  <td className="px-6 py-4 text-center text-sm text-gray-600">
-                    8
-                  </td>
-                </tr>
+                {ownerDeals && ownerDeals.length > 0 ? (
+                  ownerDeals.map((deal) => (
+                    <tr
+                      key={deal.DealId}
+                      className="hover:bg-gray-50 transition-colors duration-200"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-800 font-medium">
+                        {deal.ProjectName}
+                      </td>
+                      <td className="px-6 py-4 text-sm font-mono text-gray-600">
+                        {deal.InvestorName || "null"}
+                      </td>
+                      <td className="px-6 py-4 text-sm font-mono text-gray-600">
+                        {deal.DealId}
+                      </td>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-800">
+                        {deal.TotalProfit}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                          +{deal.OfferDeal.toFixed(2)}%
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-center text-sm text-gray-600">
+                        {deal.Status}
+                      </td>
+                      <td className="px-6 py-4 text-center text-sm text-gray-600">
+                        {deal.DurationInMonths}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="7"
+                      className="px-6 py-4 text-center text-gray-500"
+                    >
+                      No deals available
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

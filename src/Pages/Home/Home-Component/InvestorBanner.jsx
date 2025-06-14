@@ -1,25 +1,47 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link } from "react-router-dom";
 import user from "../../../assets/Products/user.png";
 import Dashboard from "../../../assets/Products/Dashboard.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserProfile } from "../../../redux/Slices/User-Slice/UserProfile";
+import { fetchInvestorDeals } from "../../../redux/Slices/Deals-Slice/DealsReducer";
+import Loading from "../../../Components/Shared/Loading/Loading";
 
 function InvestorBanner() {
   const dispatch = useDispatch();
   const { profile, loading, error } = useSelector((state) => state.profile);
+  const {
+    investorDeals,
+    loading: { investor: dealsLoading },
+    error: { investor: dealsError },
+  } = useSelector((state) => state.deals);
+
   useEffect(() => {
     dispatch(getUserProfile());
+    dispatch(fetchInvestorDeals());
   }, [dispatch]);
+
   if (loading || !profile) {
     return <div className="text-center py-10">Loading profile...</div>;
   }
   if (error) {
     return <div>Error loading profile</div>;
   }
+
+  if (dealsLoading) {
+    return (
+      <div className="text-center py-10">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (dealsError) {
+    return <div>Error loading data</div>;
+  }
+
   return (
     <div className="relative w-full py-8 md:py-12 px-4 md:px-8 lg:px-16">
       {/* Header Section */}
@@ -147,28 +169,34 @@ function InvestorBanner() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                <tr className="hover:bg-gray-50 transition-colors duration-200">
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-sm text-gray-800 font-medium">
-                    Pop one Store
-                  </td>
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-sm font-medium text-gray-800">
-                    152,236.33 EGP
-                  </td>
-                  <td className="px-4 md:px-6 py-3 md:py-4">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs md:text-sm font-medium bg-green-100 text-green-800">
-                      +16.65%
-                    </span>
-                  </td>
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-gray-600">
-                    10% of total Earnings
-                  </td>
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-gray-600">
-                    Mohamed Ali
-                  </td>
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-blue-600 cursor-pointer hover:text-blue-800">
-                    ✉
-                  </td>
-                </tr>
+                {investorDeals &&
+                  investorDeals.map((deal) => (
+                    <tr
+                      key={deal.DealId}
+                      className="hover:bg-gray-50 transition-colors duration-200"
+                    >
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-sm text-gray-800 font-medium">
+                        {deal.ProjectName}
+                      </td>
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-sm font-medium text-gray-800">
+                        {deal.TotalProfit.toLocaleString()} EGP
+                      </td>
+                      <td className="px-4 md:px-6 py-3 md:py-4">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs md:text-sm font-medium bg-green-100 text-green-800">
+                          +{deal.OfferDeal.toFixed(2)}%
+                        </span>
+                      </td>
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-gray-600">
+                        {deal.OfferMoney.toLocaleString()} EGP
+                      </td>
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-gray-600">
+                        {deal.OwnerName}
+                      </td>
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-blue-600 cursor-pointer hover:text-blue-800">
+                        ✉
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
