@@ -11,10 +11,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { addToCart, getCartProducts } from "../../../redux/Slices/Cart-Slice/cartReducer";
 import {
-  addToWishlist
-} from "../../../redux/Slices/Wishlist-Slice/WIshlistReducer";
+  addToCart,
+  getCartProducts,
+} from "../../../redux/Slices/Cart-Slice/cartReducer";
+import { addToWishlist } from "../../../redux/Slices/Wishlist-Slice/WIshlistReducer";
 
 function ProductCard({
   productId,

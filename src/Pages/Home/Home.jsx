@@ -70,123 +70,128 @@ function Home() {
   return (
     <>
       <Navbar currentTab={"Home"} />
-      <HomeBanner />
-      {/* Conditionally render the banner based on the role */}
-      {role === "BusinessOwner" ? (
-        <BussinessBanner />
-      ) : role === "Investor" ? (
-        <InvestorBanner />
+      {role === "Investor" ? (
+        <>
+          <HomeBanner />
+          <InvestorBanner />
+        </>
       ) : (
-        <CategoryBanner />
-      )}
-      {/* Category Section */}
-      <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">
-        {popularcategory.map((cat, index) => (
-          <CategoryCard
-            ImageSrc={cat.ImageUrl}
-            categoryId={cat.Id}
-            key={index}
-            CategoryName={cat.Name}
-          />
-        ))}
-      </div>
-      {/* Popular Recommendations Section */}
-      <PopularRecommendations />
-      {/* small enhancement */}
-      <Card1Home />
-      {/* Handcrafted Carpets Section (categoryId = 12) */}
-      <div className="my-8 lg:px-24 px-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold my-2">Handcrafted Carpets</h2>
-          <Link className="text-main-color text-lg" to={`/category/13`}>
-            Show All <NavigateNextIcon />
-          </Link>
-        </div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
-          {productCategoryLoading ? (
-            <div className="flex justify-center items-center my-4">
-              <Loading />
+        <>
+          <HomeBanner />
+          {/* Conditionally render the banner based on the role */}
+          {role === "BusinessOwner" ? <BussinessBanner /> : <CategoryBanner />}
+          {/* Category Section */}
+          <div className="grid lg:grid-cols-5 grid-cols-2 gap-8 lg:px-24 px-8">
+            {popularcategory.map((cat, index) => (
+              <CategoryCard
+                ImageSrc={cat.ImageUrl}
+                categoryId={cat.Id}
+                key={index}
+                CategoryName={cat.Name}
+              />
+            ))}
+          </div>
+          {/* Popular Recommendations Section */}
+          <PopularRecommendations />
+          {/* small enhancement */}
+          <Card1Home />
+          {/* Handcrafted Carpets Section (categoryId = 12) */}
+          <div className="my-8 lg:px-24 px-8">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold my-2">
+                Handcrafted Carpets
+              </h2>
+              <Link className="text-main-color text-lg" to={`/category/13`}>
+                Show All <NavigateNextIcon />
+              </Link>
             </div>
-          ) : (
-            handcraftedCarpets.map((product, index) => (
-              <ProductCard
-                key={index}
-                productId={product.ProductId}
-                imageSrc={product.HomePicture}
-                productName={product.ProductName}
-                Price={product.ProductPrice}
-                Author={product.AuthorName}
-                inStock={product.IsAvailable}
-              />
-            ))
-          )}
-        </div>
-      </div>
-      {/* Shop Necklaces Section (categoryId = 9) */}
-      <div className="my-8 lg:px-24 px-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold my-2">Shop Necklaces</h2>
-          <Link className="text-main-color text-lg" to={`/category/9`}>
-            Show All <NavigateNextIcon />
-          </Link>
-        </div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
-          {productCategoryLoading ? (
-            <div className="flex justify-center items-center my-2"></div>
-          ) : (
-            shopNecklaces.map((product, index) => (
-              <ProductCard
-                productId={product.ProductId}
-                key={index}
-                imageSrc={product.HomePicture}
-                productName={product.ProductName}
-                Price={product.ProductPrice}
-                Author={product.AuthorName}
-                inStock={product.IsAvailable}
-              />
-            ))
-          )}
-        </div>
-      </div>
-      {/* small enhancement */}
-      <Card2Home />
-      {/* Shop Rings Section (categoryId = 13) */}
-      <div className="my-8 lg:px-24 px-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold my-2">Shop Rings</h2>
-          <Link className="text-main-color text-lg" to={`/category/13`}>
-            Show All <NavigateNextIcon />
-          </Link>
-        </div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
-          {productCategoryLoading ? (
-            <div className="flex justify-center items-center my-2"></div>
-          ) : (
-            shopRings.map((product, index) => (
-              <ProductCard
-                productId={product.ProductId}
-                key={index}
-                imageSrc={product.HomePicture}
-                productName={product.ProductName}
-                Price={product.ProductPrice}
-                Author={product.AuthorName}
-                inStock={product.IsAvailable}
-              />
-            ))
-          )}
-        </div>
-      </div>
-      <div>
-        <div className="py-10">
-          <p className="text-center text-3xl text-gray-500">
-            Explore how handmade products are produced
-          </p>
-        </div>
-      </div>
-      {/* Video Slider */}
-      <VideoSlider />
-      {/* Explore Other Products Section */}
-      <ExploreProducts />
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
+              {productCategoryLoading ? (
+                <div className="flex justify-center items-center my-4">
+                  <Loading />
+                </div>
+              ) : (
+                handcraftedCarpets.map((product, index) => (
+                  <ProductCard
+                    key={index}
+                    productId={product.ProductId}
+                    imageSrc={product.HomePicture}
+                    productName={product.ProductName}
+                    Price={product.ProductPrice}
+                    Author={product.AuthorName}
+                    inStock={product.IsAvailable}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          {/* Shop Necklaces Section (categoryId = 9) */}
+          <div className="my-8 lg:px-24 px-8">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold my-2">Shop Necklaces</h2>
+              <Link className="text-main-color text-lg" to={`/category/9`}>
+                Show All <NavigateNextIcon />
+              </Link>
+            </div>
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
+              {productCategoryLoading ? (
+                <div className="flex justify-center items-center my-2"></div>
+              ) : (
+                shopNecklaces.map((product, index) => (
+                  <ProductCard
+                    productId={product.ProductId}
+                    key={index}
+                    imageSrc={product.HomePicture}
+                    productName={product.ProductName}
+                    Price={product.ProductPrice}
+                    Author={product.AuthorName}
+                    inStock={product.IsAvailable}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          {/* small enhancement */}
+          <Card2Home />
+          {/* Shop Rings Section (categoryId = 13) */}
+          <div className="my-8 lg:px-24 px-8">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold my-2">Shop Rings</h2>
+              <Link className="text-main-color text-lg" to={`/category/13`}>
+                Show All <NavigateNextIcon />
+              </Link>
+            </div>
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 my-2">
+              {productCategoryLoading ? (
+                <div className="flex justify-center items-center my-2"></div>
+              ) : (
+                shopRings.map((product, index) => (
+                  <ProductCard
+                    productId={product.ProductId}
+                    key={index}
+                    imageSrc={product.HomePicture}
+                    productName={product.ProductName}
+                    Price={product.ProductPrice}
+                    Author={product.AuthorName}
+                    inStock={product.IsAvailable}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+          <div>
+            <div className="py-10">
+              <p className="text-center text-3xl text-gray-500">
+                Explore how handmade products are produced
+              </p>
+            </div>
+          </div>
+          {/* Video Slider */}
+          <VideoSlider />
+          {/* Explore Other Products Section */}
+          <ExploreProducts />
+        </>
+      )}
       <Footer />
     </>
   );
