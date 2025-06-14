@@ -24,4 +24,5 @@ const store = configureStore({
     reviews: reviewSlice,
   },
 });
+
 export default store;
