@@ -100,9 +100,9 @@ const PopularRecommendations = () => {
   }
 
   return (
-    <Box className="bg-gradient-to-r from-gray-50 to-blue-100 py-12 md:py-24">
+    <Box className="bg-gradient-to-r from-gray-50 to-blue-100 py-12 md:py-24 px-6">
       <Container maxWidth="xl">
-        <Box className="mb-12 md:mb-20 px-4">
+        <Box className="mb-6 md:mb-10 px-4">
           <Typography
             variant={isMobile ? "h4" : "h3"}
             className="font-bold text-gray-900 mb-2 md:mb-4 text-center md:text-left"

@@ -111,7 +111,8 @@ function UserProfile() {
                   Current Deals
                 </Link>
               ) : null}
-              {profile?.RoleName === "BusinessOwner" ? (
+              {profile?.RoleName === "BusinessOwner" ||
+              profile?.RoleName === "Customer" ? (
                 <a
                   href="/UserProfile/orders"
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
@@ -153,14 +154,12 @@ function UserProfile() {
                       height="541.25"
                       src="http://localhost:3000/public/dashboard/651d22f1-5718-4d04-9b68-266285d6d5d4"
                       frameBorder="0"
-                      allowFullScreen="true"
+                      allowFullScreen={true}
                     ></iframe>
                   </div>
                 </div>
               )}
-            {profile.RoleName === "BusinessOwner" && (
-              <Predict />
-            )}
+            {profile.RoleName === "BusinessOwner" && <Predict />}
             {profile.RoleName === "Customer" && <WishlistOrders />}
           </main>
         </div>

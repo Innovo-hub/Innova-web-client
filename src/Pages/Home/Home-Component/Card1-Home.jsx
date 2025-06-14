@@ -1,5 +1,5 @@
 import React from "react";
-import la2 from "../../../assets/HomeAssets/la1.jpg";
+import la2 from "../../../assets/HomeAssets/la2.jpg";
 
 function Card1Home() {
     return (
