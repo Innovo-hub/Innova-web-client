@@ -4,6 +4,7 @@ import loginSlice from "./Slices/Auth-Slice/LoginReducer";
 import profileSlice from "./Slices/User-Slice/UserProfile";
 import categorySlice from "./Slices/Category-Slice/CategoryReducer";
 import productSlice from "./Slices/Product-Slice/ProductCategoryReducer";
+import productCardSlice from "./Slices/Product-Slice/ProductCardReducer";
 import cartSlice from "./Slices/Cart-Slice/cartReducer";
 import dealsSlice from "./Slices/Deals-Slice/DealsReducer";
 import wishlistSlice from "./Slices/Wishlist-Slice/WIshlistReducer";
@@ -17,6 +18,7 @@ const store = configureStore({
     profile: profileSlice,
     category: categorySlice,
     product: productSlice,
+    productCard: productCardSlice,
     cart: cartSlice,
     deals: dealsSlice,
     wishlist: wishlistSlice,
