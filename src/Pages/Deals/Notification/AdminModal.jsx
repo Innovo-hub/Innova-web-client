@@ -10,8 +10,18 @@ function AdminModal({ notification, onClose }) {
   if (!notification) return null;
 
   // Extract contract URL from the message if available
-  const urlMatch = notification.MessageText.match(/https?:\/\/\S+/);
-  const contractUrl = urlMatch ? urlMatch[0] : null;
+  const contractUrlMatch = notification.MessageText.match(
+    /Contract URL: (\/[^\s]+)/
+  );
+  const contractUrl = contractUrlMatch ? contractUrlMatch[1] : null;
+
+  // Remove the Contract URL part from the message text
+  const messageText = contractUrl
+    ? notification.MessageText.replace(
+        `Contract URL: ${contractUrl}`,
+        ""
+      ).trim()
+    : notification.MessageText;
 
   // Check if this is a deal approval message
   const isDealApproval =
@@ -28,19 +38,23 @@ function AdminModal({ notification, onClose }) {
     );
   }
 
+  const handleContractClick = () => {
+    window.open(APILINK + contractUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl w-[600px] max-w-90vw overflow-hidden">
         {/* Modal Header */}
-        <div className="p-5 bg-gray-50 border-b flex justify-between items-center">
-          <div className="font-semibold text-gray-700">
-            From: Innova Admin Support
+        <div className="p-6 bg-gray-50 border-b flex justify-between items-center">
+          <div className="font-semibold text-gray-700 text-lg">
+            From: {notification.SenderName}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-500">1h ago</span>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-gray-500">{notification.CreatedAt}</span>
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700 hover:bg-gray-200 p-1 rounded-full transition-all"
+              className="text-gray-500 hover:text-gray-700 hover:bg-gray-200 p-1.5 rounded-full transition-all"
             >
               <CloseIcon fontSize="small" />
             </button>
@@ -48,48 +62,56 @@ function AdminModal({ notification, onClose }) {
         </div>
 
         {/* Modal Content */}
-        <div className="p-7 space-y-6">
-          <div>
-            <div className="font-semibold text-lg mb-2">Welcome!</div>
-            <div className="text-gray-700 whitespace-pre-line mb-2">
-              {notification.MessageText.split("\n").map((line, idx) => (
-                <div key={idx}>{line}</div>
-              ))}
-            </div>
-            <div className="mb-4">
-              <span className="font-semibold">Contract URL:</span>
-              <div className="text-xs text-blue-700 break-all mt-1">
-                {APILINK+contractUrl}
+        <div className="p-8">
+          <div className="space-y-6">
+            <div>
+              <div className="font-semibold text-xl mb-4">Welcome!</div>
+              <div className="text-gray-700 whitespace-pre-line text-base leading-relaxed">
+                {messageText.split("\n").map((line, idx) => (
+                  <div key={idx} className="mb-2">
+                    {line}
+                  </div>
+                ))}
               </div>
             </div>
-            {isDealApproval && (
-              <div className="flex justify-center my-4">
+
+            <div className="flex flex-col items-center gap-4 mt-8">
+              {contractUrl && (
+                <button
+                  onClick={handleContractClick}
+                  className="bg-[#1769a3] text-white px-8 py-2.5 rounded-md font-medium hover:bg-[#155a8a] transition-colors duration-200 shadow-md w-fit"
+                >
+                  View Contract
+                </button>
+              )}
+              {isDealApproval && (
                 <button
                   onClick={() => setShowPayment(true)}
-                  className="bg-[#1769a3] text-white px-6 py-2 rounded-md font-medium hover:bg-[#155a8a] transition-colors duration-200 shadow-md"
+                  className="bg-[#1769a3] text-white px-8 py-2.5 rounded-md font-medium hover:bg-[#155a8a] transition-colors duration-200 shadow-md w-fit"
                 >
-                  complete process
+                  Complete Process
                 </button>
-              </div>
-            )}
-          </div>
-          <div>
-            <div className="font-semibold mb-1">Contract terms:</div>
-            <div className="text-gray-700 text-sm mb-2">
-              All further details will be included in the contract.
+              )}
             </div>
-            <div className="text-gray-700 text-sm">
-              Thank you for placing your trust in us.
+
+            <div className="mt-8 pt-6 border-t">
+              <div className="font-semibold mb-3 text-gray-800">
+                Contract terms:
+              </div>
+              <div className="text-gray-700 text-sm space-y-2">
+                <p>All further details will be included in the contract.</p>
+                <p>Thank you for placing your trust in us.</p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-gray-50 border-t flex justify-between items-center">
+        <div className="p-6 bg-gray-50 border-t flex justify-between items-center">
           <span className="text-sm font-semibold text-gray-700">
             Innova Hub Team
           </span>
-          <span className="text-xs text-gray-500">2025</span>
+          <span className="text-sm text-gray-500">2025</span>
         </div>
       </div>
     </div>
