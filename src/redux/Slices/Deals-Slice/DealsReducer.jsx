@@ -10,10 +10,41 @@ export const fetchAllDeals = createAsyncThunk(
   "deals/fetchAll",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/GetAllDeals`);
-      return response.data;
+      console.log("Fetching all deals...");
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("No access token found");
+        return rejectWithValue("No access token found");
+      }
+
+      const response = await axios.get(`${BASE_URL}/GetAllDeals`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("Raw API Response:", response);
+      console.log("Deals API Response Data:", response.data);
+
+      // Check if response.data is an array
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+      // If response.data has a nested data property containing the deals
+      else if (response.data && Array.isArray(response.data.data)) {
+        return response.data.data;
+      }
+      // If response.data has a different structure
+      else if (response.data) {
+        console.log("Unexpected data structure:", response.data);
+        return response.data;
+      } else {
+        console.error("Invalid response structure");
+        return rejectWithValue("Invalid response structure");
+      }
     } catch (error) {
       console.error("Error fetching all deals:", error);
+      console.error("Error response:", error.response);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -146,14 +177,17 @@ const dealsSlice = createSlice({
     builder
       // Handle All Deals
       .addCase(fetchAllDeals.pending, (state) => {
+        console.log("Deals loading state: pending");
         state.loading.all = true;
         state.error.all = null;
       })
       .addCase(fetchAllDeals.fulfilled, (state, action) => {
+        console.log("Deals loading state: fulfilled", action.payload);
         state.loading.all = false;
         state.allDeals = action.payload;
       })
       .addCase(fetchAllDeals.rejected, (state, action) => {
+        console.log("Deals loading state: rejected", action.payload);
         state.loading.all = false;
         state.error.all = action.payload;
       })

@@ -1,15 +1,55 @@
 import PropTypes from "prop-types";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
+import APILINK from "../../../../Constants";
+import Swal from "sweetalert2";
 
 function DiscussionModal({
   notification,
   replyMessage,
   onReplyChange,
   onClose,
-  onReply,
 }) {
   if (!notification) return null;
+
+  const handleResponse = async (isAccepted) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        `${APILINK}/api/Deals/respond-to-offer`,
+        {
+          DealId: notification.DealId,
+          InvestorId: notification.SenderId,
+          IsAccepted: isAccepted,
+          Message: replyMessage,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: isAccepted ? "Offer Accepted" : "Offer Rejected",
+          text: isAccepted
+            ? "You have successfully accepted the offer."
+            : "You have rejected the offer.",
+        });
+        onClose();
+      }
+    } catch (error) {
+      console.error("Error responding to offer:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "There was an error processing your response. Please try again later.",
+      });
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -22,7 +62,9 @@ function DiscussionModal({
               <span className="font-semibold">{notification.SenderName}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">{notification.CreatedAt}</span>
+              <span className="text-xs text-gray-500">
+                {notification.CreatedAt}
+              </span>
               <button
                 onClick={onClose}
                 className="text-gray-500 hover:text-gray-700 hover:bg-gray-200 p-1 rounded-full transition-all"
@@ -31,14 +73,13 @@ function DiscussionModal({
               </button>
             </div>
           </div>
-          
         </div>
 
         {/* Modal Content */}
         <div className="p-5">
           <p className="text-gray-700 mb-5">
-            [{notification.SenderName}] has requested a discussion regarding
-            the following.
+            [{notification.SenderName}] has requested a discussion regarding the
+            following.
           </p>
 
           <div className="mb-5">
@@ -59,12 +100,18 @@ function DiscussionModal({
                 onChange={(e) => onReplyChange(e.target.value)}
               />
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-4">
               <button
-                onClick={onReply}
-                className="bg-[#0b66a2] text-white py-2 px-8 rounded font-medium hover:bg-[#0a5b91] transition-colors duration-200"
+                onClick={() => handleResponse(true)}
+                className="bg-green-600 text-white py-2 px-8 rounded font-medium hover:bg-green-700 transition-colors duration-200"
               >
-                Reply
+                Accept
+              </button>
+              <button
+                onClick={() => handleResponse(false)}
+                className="bg-red-600 text-white py-2 px-8 rounded font-medium hover:bg-red-700 transition-colors duration-200"
+              >
+                Reject
               </button>
             </div>
           </div>
@@ -84,17 +131,15 @@ function DiscussionModal({
 
 DiscussionModal.propTypes = {
   notification: PropTypes.shape({
-    user: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    isVerified: PropTypes.bool,
-    investorName: PropTypes.string.isRequired,
-    discussionTopic: PropTypes.string.isRequired,
+    SenderName: PropTypes.string.isRequired,
+    CreatedAt: PropTypes.string.isRequired,
+    MessageText: PropTypes.string.isRequired,
+    DealId: PropTypes.number.isRequired,
+    SenderId: PropTypes.string.isRequired,
   }),
   replyMessage: PropTypes.string.isRequired,
   onReplyChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  onReply: PropTypes.func.isRequired,
 };
 
 export default DiscussionModal;
