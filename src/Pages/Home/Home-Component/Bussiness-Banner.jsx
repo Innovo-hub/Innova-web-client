@@ -105,7 +105,7 @@ function BussinessBanner() {
                   Business Owner ID
                 </p>
                 <p className="text-lg font-bold text-blue-600">
-                  {profile.RoleId}
+                  {profile.Id}
                 </p>
               </div>
             </div>
@@ -143,7 +143,7 @@ function BussinessBanner() {
           <div className="transform group-hover:scale-110 transition-transform duration-300">
             <img src={Dashboard} alt="Dashboard" className="h-20 w-20" />
           </div>
-          <a href="#" className="mt-4 text-lg font-medium">
+          <a href="/UserProfile" className="mt-4 text-lg font-medium">
             <span className="text-[#126090]">Go</span> To Dashboard
             <span className="group-hover:translate-x-2 inline-block transition-transform duration-300">
               →
@@ -184,7 +184,7 @@ function BussinessBanner() {
                     Project Name
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
-                    Investor Name
+                    Owner Name
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-[#126090]">
                     Product ID
@@ -214,7 +214,7 @@ function BussinessBanner() {
                         {deal.ProjectName}
                       </td>
                       <td className="px-6 py-4 text-sm font-mono text-gray-600">
-                        {deal.InvestorName || "null"}
+                        {deal.OwnerName || "null"}
                       </td>
                       <td className="px-6 py-4 text-sm font-mono text-gray-600">
                         {deal.DealId}

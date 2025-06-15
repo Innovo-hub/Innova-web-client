@@ -110,7 +110,7 @@ function ProfileHeader({ user }) {
               <div className="flex items-center">
                 <span className="text-[#126090] text-lg">ID:</span>
                 <span className="text-[#4B4A4A] text-lg ml-1">
-                  {user.RoleId}
+                  {user.Id}
                 </span>
               </div>
             </div>

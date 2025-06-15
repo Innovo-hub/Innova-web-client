@@ -92,7 +92,10 @@ function Home() {
             ))}
           </div>
           {/* Popular Recommendations Section */}
-          <PopularRecommendations />
+          {(role === "BusinessOwner" || role === "Customer") &&
+          localStorage.getItem("accessToken") ? (
+            <PopularRecommendations />
+          ) : null}
           {/* small enhancement */}
           <Card1Home />
           {/* Handcrafted Carpets Section (categoryId = 12) */}

@@ -11,6 +11,7 @@ import {
   getUserProfile,
   uploadSignature,
   fetchSignature,
+  deleteSignature,
   connectStripeAccount,
 } from "../../../redux/Slices/User-Slice/UserProfile";
 
@@ -138,6 +139,29 @@ const Privacy = () => {
       }
     } catch (err) {
       setImageError(err.message || "Failed to upload signature");
+    }
+  };
+
+  const handleDeleteSignature = async () => {
+    try {
+      const result = await Swal.fire({
+        title: "Delete Signature",
+        text: "Are you sure you want to delete your signature?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        await dispatch(deleteSignature()).unwrap();
+        setSuccessMessage("Signature deleted successfully");
+        setTimeout(() => setSuccessMessage(""), 3000);
+        dispatch(fetchSignature()); // Refresh signature data
+      }
+    } catch (err) {
+      setImageError(err.message || "Failed to delete signature");
     }
   };
 
@@ -415,16 +439,24 @@ const Privacy = () => {
                 </div>
 
                 {signature?.HasSignature ? (
-                  <div className="border-2 border-gray-300 rounded-lg p-4 text-center mb-4">
-                    <img
-                      src={`${APILINK}${signature.SignatureUrl}`}
-                      alt="Signature"
-                      className="max-h-40 mx-auto"
-                    />
-                    <p className="text-sm text-gray-500 mt-2">
-                      Uploaded on:{" "}
-                      {new Date(signature.UploadDate).toLocaleDateString()}
-                    </p>
+                  <div className="space-y-4">
+                    <div className="border-2 border-gray-300 rounded-lg p-4 text-center">
+                      <img
+                        src={`${APILINK}${signature.SignatureUrl}`}
+                        alt="Signature"
+                        className="max-h-40 mx-auto"
+                      />
+                      <p className="text-sm text-gray-500 mt-2">
+                        Uploaded on:{" "}
+                        {new Date(signature.UploadDate).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleDeleteSignature}
+                      className="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
+                    >
+                      Delete Signature
+                    </button>
                   </div>
                 ) : (
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
@@ -468,7 +500,7 @@ const Privacy = () => {
                   </div>
                 )}
 
-                {!signature?.HasSignature && (
+                {!signature?.HasSignature && signatureImage && (
                   <button
                     onClick={handleSubmitSignature}
                     className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"

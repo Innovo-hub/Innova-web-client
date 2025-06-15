@@ -17,7 +17,7 @@ function NotificationList({
       ) : (
         notifications.map((notification) => (
           <NotificationCard
-            key={notification.id}
+            key={notification.Id}
             notification={notification}
             onClick={onNotificationClick}
             onRemove={onRemoveNotification}
@@ -31,7 +31,7 @@ function NotificationList({
 NotificationList.propTypes = {
   notifications: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      Id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     })
   ).isRequired,
   onNotificationClick: PropTypes.func.isRequired,

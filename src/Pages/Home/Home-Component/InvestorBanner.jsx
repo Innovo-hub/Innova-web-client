@@ -86,7 +86,7 @@ function InvestorBanner() {
             <div className="bg-gray-50 p-3 rounded-lg">
               <p className="text-sm font-medium text-gray-700">Investor ID</p>
               <p className="text-base md:text-lg font-bold text-blue-600">
-                {profile.RoleId}
+                {profile.Id}
               </p>
             </div>
           </div>
