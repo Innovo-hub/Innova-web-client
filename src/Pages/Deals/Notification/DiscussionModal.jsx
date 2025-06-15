@@ -78,14 +78,15 @@ function DiscussionModal({
         {/* Modal Content */}
         <div className="p-5">
           <p className="text-gray-700 mb-5">
-            [{notification.SenderName}] has requested a discussion regarding the
+            {notification.SenderName} has requested a discussion regarding the
             following.
           </p>
 
           <div className="mb-5">
             <p className="text-xs text-gray-500 mb-1">message comment:</p>
             <div className="p-3 bg-gray-100 rounded-md text-sm text-gray-700">
-              {notification.MessageText}
+              {notification.MessageText.split(":")[1]?.trim() ||
+                notification.MessageText}
             </div>
           </div>
 

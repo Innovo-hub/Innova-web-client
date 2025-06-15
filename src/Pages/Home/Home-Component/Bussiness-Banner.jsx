@@ -173,7 +173,7 @@ function BussinessBanner() {
       </div>
       <div className="mt-12">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">
-          Latest Product Overview
+          Latest Deals Overview
         </h3>
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="overflow-x-auto">
