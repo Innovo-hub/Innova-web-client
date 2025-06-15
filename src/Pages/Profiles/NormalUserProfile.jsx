@@ -26,7 +26,7 @@ function UserProfile() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const location = window.location.pathname;
-
+  const [EmbedUrl, setEmbedUrl] = useState("");
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
@@ -35,7 +35,20 @@ function UserProfile() {
       setLoading(false);
       return;
     }
+    const getOwnerDashboard = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get(`${APILINK}/api/Analytics/owner-dashboard`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setEmbedUrl(response.data.EmbedUrl);
+      } catch (error) {
+        console.log(error);
 
+      }
+    }
     const fetchProfile = async () => {
       try {
         const response = await axios.get(`${APILINK}/api/Profile/profile`, {
@@ -52,6 +65,7 @@ function UserProfile() {
     };
 
     fetchProfile();
+    getOwnerDashboard();
   }, []);
 
   const navigate = useNavigate();
@@ -104,22 +118,23 @@ function UserProfile() {
           {/* Dashboard */}
           {(profile.RoleName === "BusinessOwner" ||
             profile.RoleName === "Investor") && (
-            <div className="mt-6 w-full pl-0 ml-0">
-              <h2 className="text-2xl font-semibold text-left">
-                Your Business Analysis Dashboard
-              </h2>
-              <div className="text-center my-6">
-                <iframe
-                  title="Sales_Analysis"
-                  width="1120"
-                  height="541.25"
-                  src="http://localhost:3000/public/dashboard/651d22f1-5718-4d04-9b68-266285d6d5d4"
-                  frameBorder="0"
-                  allowFullScreen="true"
-                ></iframe>
+              <div className="mt-6 w-full pl-0 ml-0">
+                <h2 className="text-2xl font-semibold text-left">
+                  Your Business Analysis Dashboard
+                </h2>
+                <div className="text-center my-6">
+                  <iframe
+                    title="Sales_Analysis"
+                    width="1120"
+                    height="1200"
+                    src="http://localhost:3000/public/dashboard/eb32723b-4777-4385-9da4-2d5fb4c428fd"
+                    
+                    frameBorder="0"
+                    allowFullScreen="true"
+                  ></iframe>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
           {profile.RoleName === "BusinessOwner" && <Predict />}
           {profile.RoleName === "Customer" && <WishlistOrders />}
@@ -164,7 +179,7 @@ function UserProfile() {
                 </Link>
               )}
 
-              {profile?.RoleName === "BusinessOwner" &&(
+              {profile?.RoleName === "BusinessOwner" && (
                 <Link
                   to={"/UserProfile/deals"}
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
@@ -174,7 +189,7 @@ function UserProfile() {
                 </Link>
               )}
               {profile?.RoleName === "BusinessOwner" ||
-              profile?.RoleName === "Customer" ? (
+                profile?.RoleName === "Customer" ? (
                 <a
                   href="/UserProfile/orders"
                   className="flex items-center text-gray-700 font-semibold hover:text-blue-600"
