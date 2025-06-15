@@ -141,7 +141,7 @@ function InvestorBanner() {
       {/* Latest Product Overview(table) */}
       <div className="mt-8 md:mt-12">
         <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
-          Current Investment Projects
+          Current Investment Deals
         </h3>
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="overflow-x-auto">
@@ -164,7 +164,7 @@ function InvestorBanner() {
                     Owner Name
                   </th>
                   <th className="px-4 md:px-6 py-3 md:py-4 text-center text-sm font-semibold text-gray-600">
-                    Contact
+                    Deal Status
                   </th>
                 </tr>
               </thead>
@@ -181,7 +181,7 @@ function InvestorBanner() {
                       <td className="px-4 md:px-6 py-3 md:py-4 text-sm font-medium text-gray-800">
                         {deal.TotalProfit.toLocaleString()} EGP
                       </td>
-                      <td className="px-4 md:px-6 py-3 md:py-4">
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-center">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs md:text-sm font-medium bg-green-100 text-green-800">
                           +{deal.OfferDeal.toFixed(2)}%
                         </span>
@@ -193,7 +193,7 @@ function InvestorBanner() {
                         {deal.OwnerName}
                       </td>
                       <td className="px-4 md:px-6 py-3 md:py-4 text-center text-sm text-blue-600 cursor-pointer hover:text-blue-800">
-                        ✉
+                        {deal.Status}
                       </td>
                     </tr>
                   ))}

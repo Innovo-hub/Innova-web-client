@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import ForgetPassword from "./Pages/Auth/ForgetPassword";
 import Login from "./Pages/Auth/Login";
@@ -24,7 +24,17 @@ import Returnorder from "./Pages/Orders/ReturnOrder";
 import OwnerOwnDeals from "./Pages/Profiles/Profiles-Data/OwnerOwnDeals";
 
 function App() {
-  const role = localStorage.getItem("role");
+  // Protected route component
+  const ProtectedDealsRoute = () => {
+    const currentRole = localStorage.getItem("role");
+
+    if (!currentRole) {
+      return <Navigate to="/auth/login" />;
+    }
+
+    return currentRole === "Investor" ? <InvestorDeals /> : <OwnerDeals />;
+  };
+
   return (
     <Routes>
       {/* Main Routes */}
@@ -32,27 +42,31 @@ function App() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/about" element={<About />} />
       <Route path="/category/:id" element={<Category />} />
+
       {/* Auth Routes */}
       <Route path="/auth/register" element={<Register />} />
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/forget-password" element={<ForgetPassword />} />
       <Route path="/auth/reset-password" element={<ResetPassword />} />
-      {/*<Route path="/user-profile" element={<UserProfile />} /> */}
-      {/* <Route path="/investor/Deals" element={<InvestorDeals />} /> */}
-      <Route
-        path={role === "Investor" ? "/investor/deals" : "/owner/Deals"}
-        element={role === "Investor" ? <InvestorDeals /> : <OwnerDeals />}
-      />
+
+      {/* Deals Routes */}
+      <Route path="/investor/deals" element={<ProtectedDealsRoute />} />
+      <Route path="/owner/Deals" element={<ProtectedDealsRoute />} />
+
+      {/* Profile Routes */}
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/UserProfile" element={<NormalUserProfile />} />
       <Route path="/UserProfile/privacy" element={<Privacy />} />
-      {/* payment and Cart Routes*/}
+      <Route path="/UserProfile/products" element={<NormalUserProfile />} />
+
+      {/* Payment and Cart Routes */}
       <Route path="/wishlist" element={<WishList />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/order/payment-success" element={<PaymentSuccess />} />
-      {/*Your orders*/}
+
+      {/* Orders Routes */}
       <Route path="/UserProfile/orders" element={<Orders />} />
       <Route path="/UserProfile/return_order" element={<Returnorder />} />
       <Route
