@@ -174,13 +174,6 @@ export default function Navbar({ currentTab }) {
                     <Avatar
                       src={profile?.ProfileImageUrl}
                       alt={profile?.FirstName || "User"}
-                      sx={{
-                        width: 32,
-                        height: 32,
-                        bgcolor: profile?.ProfileImageUrl
-                          ? "transparent"
-                          : "#1976d2",
-                      }}
                     >
                       {!profile?.ProfileImageUrl &&
                         (profile?.FirstName?.[0] || "U")}

@@ -50,7 +50,7 @@ function OwnerBanner() {
                 </div>
                 <p className="text-sm text-gray-500">
                   Business Owner ID:{" "}
-                  <span className="font-mono">{profile.RoleId}</span>
+                  <span className="font-mono">{profile.Id}</span>
                 </p>
               </div>
             </div>

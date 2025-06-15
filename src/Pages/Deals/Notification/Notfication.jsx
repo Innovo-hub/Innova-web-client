@@ -5,6 +5,7 @@ import NotificationTabs from "./NotificationTabs";
 import NotificationList from "./NotificationList";
 import AcceptanceModal from "./AcceptanceModal";
 import DiscussionModal from "./DiscussionModal";
+import AdminModal from "./AdminModal";
 import axios from "axios";
 import APILINK from "../../../../Constants";
 
@@ -16,46 +17,58 @@ export default function NotificationPanel({
   const [activeTab, setActiveTab] = useState("received");
   const [showAcceptModal, setShowAcceptModal] = useState(false);
   const [showDiscussModal, setShowDiscussModal] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [replyMessage, setReplyMessage] = useState("");
   const [notifications, setNotifications] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     const fetchNotifications = async () => {
-        try {
-      const token = localStorage.getItem("accessToken");
-      const response = await axios.get(`${APILINK}/api/Notification/history?isRead=false`,{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      setNotifications(response.data.Data);
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
-    }
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get(
+          `${APILINK}/api/Notification/history?isRead=false`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setNotifications(response.data.Data);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
     fetchNotifications();
   }, [setNotificationCount]);
 
-  if (setNotificationCount) {
-    setNotificationCount(notifications.length);
-  }
+  useEffect(() => {
+    if (setNotificationCount) {
+      setNotificationCount(notifications.length);
+    }
+  }, [notifications.length, setNotificationCount]);
 
   const handleNotificationClick = (notification) => {
-  setSelectedNotification(notification);
-  const MessageType = notification.MessageType
-  if (MessageType === "OfferAccepted") {
-    setShowAcceptModal(true);
-    setShowDiscussModal(false);
-  } else if (MessageType === "OfferDiscussion") {
-    setShowDiscussModal(true);
-    setShowAcceptModal(false);
-  }
-};
-
+    setSelectedNotification(notification);
+    const MessageType = notification.MessageType;
+    if (MessageType === "OfferAccepted") {
+      setShowAcceptModal(true);
+      setShowDiscussModal(false);
+      setShowAdminModal(false);
+    } else if (MessageType === "OfferDiscussion") {
+      setShowDiscussModal(true);
+      setShowAcceptModal(false);
+      setShowAdminModal(false);
+    } else if (MessageType === "General") {
+      setShowAdminModal(true);
+      setShowAcceptModal(false);
+      setShowDiscussModal(false);
+    }
+  };
 
   const handleCloseModal = () => {
     setShowAcceptModal(false);
     setShowDiscussModal(false);
+    setShowAdminModal(false);
   };
 
   const handleAcceptAndSend = () => {
@@ -75,16 +88,20 @@ export default function NotificationPanel({
   };
 
   const handleRemoveNotification = async (notificationId) => {
-    try{
+    try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.put(`${APILINK}/api/Notification/mark-multiple-read`,{
-        NotificationIds: [notificationId],
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      const response = await axios.put(
+        `${APILINK}/api/Notification/mark-multiple-read`,
+        {
+          NotificationIds: [notificationId],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      })
+      );
       if (response.status === 200) {
         setNotifications((prev) =>
           prev.filter((notification) => notification.Id !== notificationId)
@@ -93,11 +110,10 @@ export default function NotificationPanel({
           setNotificationCount(notifications.length - 1);
         }
       }
-    }catch (error) {
+    } catch (error) {
       console.error("Error removing notification:", error);
       // Optionally, you can show an error message to the user
     }
-
   };
 
   if (!open) return null;
@@ -133,6 +149,10 @@ export default function NotificationPanel({
           notification={selectedNotification}
           onClose={handleCloseModal}
           onAccept={handleAcceptAndSend}
+          hideAcceptButton={
+            selectedNotification.MessageText ===
+            "Your deal offer has been accepted by the business owner. Waiting for admin approval."
+          }
         />
       )}
 
@@ -143,6 +163,13 @@ export default function NotificationPanel({
           onReplyChange={setReplyMessage}
           onClose={handleCloseModal}
           onReply={handleReply}
+        />
+      )}
+
+      {showAdminModal && selectedNotification && (
+        <AdminModal
+          notification={selectedNotification}
+          onClose={handleCloseModal}
         />
       )}
     </>

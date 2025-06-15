@@ -96,6 +96,28 @@ export const fetchSignature = createAsyncThunk(
   }
 );
 
+export const deleteSignature = createAsyncThunk(
+  "userprofile/deleteSignature",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.delete(
+        `${APILINK}/api/Signature/delete-signature`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data || { message: "Failed to delete signature" }
+      );
+    }
+  }
+);
+
 export const connectStripeAccount = createAsyncThunk(
   "userprofile/connectStripeAccount",
   async (platform, { rejectWithValue }) => {
@@ -209,6 +231,18 @@ const userProfileSlice = createSlice({
         state.signature = action.payload;
       })
       .addCase(fetchSignature.rejected, (state, action) => {
+        state.signatureStatus = "error";
+        state.error = action.payload;
+      })
+      // Signature Delete cases
+      .addCase(deleteSignature.pending, (state) => {
+        state.signatureStatus = "loading";
+      })
+      .addCase(deleteSignature.fulfilled, (state) => {
+        state.signatureStatus = "success";
+        state.signature = null;
+      })
+      .addCase(deleteSignature.rejected, (state, action) => {
         state.signatureStatus = "error";
         state.error = action.payload;
       })

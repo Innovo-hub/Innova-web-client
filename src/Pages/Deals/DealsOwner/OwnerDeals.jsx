@@ -35,12 +35,10 @@ const OwnerDeals = () => {
           <div className="w-full flex justify-center mb-5">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center justify-between bg-white rounded-lg p-4 w-full"
+              className="flex items-center text-white justify-between bg-[#3E3BCC] rounded-lg p-4 w-full"
             >
-              <span className="text-gray-700 font-medium text-xl">
-                Publish New Product
-              </span>
-              <PlusCircle className="text-[#126090] w-10 h-10" />
+              <span className=" font-medium text-xl">Publish New Deal</span>
+              <PlusCircle className="text-white w-10 h-10" />
             </button>
             {isModalOpen && (
               <DealPublishCard
@@ -69,7 +67,7 @@ const OwnerDeals = () => {
               </div>
             ) : (
               allDeals.map((deal, index) => (
-                <div key={deal.id || index} className="mb-8">
+                <div key={deal.DealId || index} className="mb-8">
                   <DealShowCard
                     deal={{
                       ownerImage: deal.BusinessOwnerPictureUrl || "",

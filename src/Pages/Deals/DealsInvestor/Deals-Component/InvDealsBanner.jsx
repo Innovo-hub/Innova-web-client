@@ -49,7 +49,7 @@ const InvDealsBanner = () => {
                 </div>
                 <p className="text-sm text-gray-500">
                   Investor ID:{" "}
-                  <span className="font-mono">{profile.RoleId}</span>
+                  <span className="font-mono">{profile.Id}</span>
                 </p>
               </div>
             </div>
