@@ -18,6 +18,12 @@ function InvestorBanner() {
     error: { investor: dealsError },
   } = useSelector((state) => state.deals);
 
+  // Add helper function to limit words
+  const limitToThreeWords = (text) => {
+    if (!text) return "";
+    return text.split(" ").slice(0, 3).join(" ");
+  };
+
   useEffect(() => {
     dispatch(getUserProfile());
     dispatch(fetchInvestorDeals());
@@ -176,7 +182,7 @@ function InvestorBanner() {
                       className="hover:bg-gray-50 transition-colors duration-200"
                     >
                       <td className="px-4 md:px-6 py-3 md:py-4 text-sm text-gray-800 font-medium">
-                        {deal.ProjectName}
+                        {limitToThreeWords(deal.ProjectName)}
                       </td>
                       <td className="px-4 md:px-6 py-3 md:py-4 text-sm font-medium text-gray-800">
                         {deal.TotalProfit.toLocaleString()} EGP

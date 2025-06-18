@@ -198,7 +198,7 @@ const PopularRecommendations = () => {
                             variant={isMobile ? "h6" : "h5"}
                             className="font-bold text-blue-600"
                           >
-                            ${item.DiscountedPrice}
+                            EGP {item.DiscountedPrice}
                           </Typography>
                           {item.DiscountedPrice < item.Price && (
                             <Typography
@@ -206,7 +206,7 @@ const PopularRecommendations = () => {
                               variant="body2"
                               className="text-gray-400 line-through text-xs sm:text-base"
                             >
-                              ${item.Price}
+                              EGP {item.Price}
                             </Typography>
                           )}
                         </Box>

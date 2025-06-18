@@ -305,7 +305,7 @@ const OwnerOwnDeals = () => {
                       sx={{ bgcolor: "#e3f2fd", fontSize: "0.7rem", mb: 1 }}
                     />
                     <Chip
-                      label={`Money: $${deal.OfferMoney}`}
+                      label={`Money: EGP ${deal.OfferMoney}`}
                       size="small"
                       sx={{ bgcolor: "#e8f5e9", fontSize: "0.7rem", mb: 1 }}
                     />
@@ -471,7 +471,7 @@ const OwnerOwnDeals = () => {
                 InputProps={{
                   startAdornment: (
                     <Box component="span" sx={{ mr: 1 }}>
-                      $
+                      EGP
                     </Box>
                   ),
                 }}

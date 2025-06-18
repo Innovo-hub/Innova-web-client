@@ -41,7 +41,7 @@ const DeliveryMethodSelect = ({ selectedMethod, setSelectedMethod }) => {
       >
         {deliveryMethods.map((method) => (
           <option key={method.Id} value={method.Id}>
-            {`${method.ShortName} - ${method.Description} ($${method.Cost})`}
+            {`${method.ShortName} - ${method.Description} (EGP ${method.Cost})`}
           </option>
         ))}
       </select>

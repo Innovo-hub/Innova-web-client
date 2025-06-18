@@ -45,7 +45,7 @@ function OrderUser() {
     });
 
     return {
-      total: `$ ${totalPrice.toFixed(2)}`,
+      total: `EGP ${totalPrice.toFixed(2)}`,
       count,
     };
   };
@@ -206,7 +206,9 @@ function OrderUser() {
                                     {item.productName}
                                   </h3>
                                   <p className="text-[#126090] mb-3">
-                                    {item.price}
+                                    {item.price.startsWith("$")
+                                      ? `EGP ${item.price.slice(1)}`
+                                      : item.price}
                                   </p>
 
                                   <div className="flex flex-wrap gap-2 mt-2">
