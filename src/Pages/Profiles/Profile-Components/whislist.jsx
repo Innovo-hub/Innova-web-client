@@ -9,7 +9,9 @@ const WishlistOrders = () => {
   return (
     <>
       <div>
-        <h2 className="text-2xl font-semibold mt-6 mb-4">Whish List products</h2>
+        <h2 className="text-2xl font-semibold mt-6 mb-4">
+          Whish List products
+        </h2>
         <div className="bg-gray-100 p-6 rounded-lg min-h-[100px]">
           {wishlist.length === 0 ? (
             <p className="text-gray-500 text-center">
@@ -19,14 +21,14 @@ const WishlistOrders = () => {
             <ul>
               {wishlist.map((wishlist, index) => (
                 <li key={index} className="border-b py-2">
-                  {wishlist.name} - ${wishlist.price}
+                  {wishlist.name} - EGP {wishlist.price}
                 </li>
               ))}
             </ul>
           )}
         </div>
       </div>
-      <div >
+      <div>
         <h2 className="text-2xl font-semibold mt-6 mb-4">Orders</h2>
         <div className="bg-gray-100 p-6 rounded-lg min-h-[100px]">
           {orders.length === 0 ? (
@@ -35,7 +37,7 @@ const WishlistOrders = () => {
             <ul>
               {orders.map((order, index) => (
                 <li key={index} className="border-b py-2">
-                  {order.name} - ${order.price}
+                  {order.name} - EGP {order.price}
                 </li>
               ))}
             </ul>

@@ -90,7 +90,9 @@ function Returnorder() {
                       <h3 className="text-[#126090] mb-1">
                         Lapis Set, Necklace, ring, earrings lightweight
                       </h3>
-                      <p className="font-medium mb-3 text-[#126090]">$70.00</p>
+                      <p className="font-medium mb-3 text-[#126090]">
+                        EGP 70.00
+                      </p>
 
                       <div className="flex flex-wrap gap-2">
                         <button className="flex items-center border border-gray-300 rounded-full px-3 py-1 text-xs hover:bg-gray-50 transition-colors">

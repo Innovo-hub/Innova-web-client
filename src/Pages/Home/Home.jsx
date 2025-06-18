@@ -43,7 +43,7 @@ function Home() {
 
   // Fetch products for Handcrafted Carpets (categoryId = 1)
   useEffect(() => {
-    dispatch(getProductByCategory({ categoryId: 12 })); // Fetch products for categoryId = 1
+    dispatch(getProductByCategory({ categoryId: 1 })); // Fetch products for categoryId = 1
   }, [dispatch]);
 
   // Fetch products for Shop Necklaces (categoryId = 9)
@@ -60,7 +60,7 @@ function Home() {
 
   // Get products for Handcrafted Carpets (categoryId = 1) and Shop Necklaces (categoryId = 15)
   const handcraftedCarpets =
-    productsByCategory[12]?.AllProductsOnspecificCategories || [];
+    productsByCategory[1]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
     productsByCategory[9]?.AllProductsOnspecificCategories || [];
 
@@ -98,13 +98,13 @@ function Home() {
           ) : null}
           {/* small enhancement */}
           <Card1Home />
-          {/* Handcrafted Carpets Section (categoryId = 12) */}
+          {/* Handcrafted Carpets Section (categoryId = 1) */}
           <div className="my-8 lg:px-24 px-8">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-semibold my-2">
                 Handcrafted Carpets
               </h2>
-              <Link className="text-main-color text-lg" to={`/category/13`}>
+              <Link className="text-main-color text-lg" to={`/category/1`}>
                 Show All <NavigateNextIcon />
               </Link>
             </div>
@@ -114,17 +114,19 @@ function Home() {
                   <Loading />
                 </div>
               ) : (
-                handcraftedCarpets.map((product, index) => (
-                  <ProductCard
-                    key={index}
-                    productId={product.ProductId}
-                    imageSrc={product.HomePicture}
-                    productName={product.ProductName}
-                    Price={product.ProductPrice}
-                    Author={product.AuthorName}
-                    inStock={product.IsAvailable}
-                  />
-                ))
+                handcraftedCarpets
+                  .slice(0, 4)
+                  .map((product, index) => (
+                    <ProductCard
+                      key={index}
+                      productId={product.ProductId}
+                      imageSrc={product.HomePicture}
+                      productName={product.ProductName}
+                      Price={product.ProductPrice}
+                      Author={product.AuthorName}
+                      inStock={product.IsAvailable}
+                    />
+                  ))
               )}
             </div>
           </div>
@@ -140,17 +142,19 @@ function Home() {
               {productCategoryLoading ? (
                 <div className="flex justify-center items-center my-2"></div>
               ) : (
-                shopNecklaces.map((product, index) => (
-                  <ProductCard
-                    productId={product.ProductId}
-                    key={index}
-                    imageSrc={product.HomePicture}
-                    productName={product.ProductName}
-                    Price={product.ProductPrice}
-                    Author={product.AuthorName}
-                    inStock={product.IsAvailable}
-                  />
-                ))
+                shopNecklaces
+                  .slice(0, 4)
+                  .map((product, index) => (
+                    <ProductCard
+                      productId={product.ProductId}
+                      key={index}
+                      imageSrc={product.HomePicture}
+                      productName={product.ProductName}
+                      Price={product.ProductPrice}
+                      Author={product.AuthorName}
+                      inStock={product.IsAvailable}
+                    />
+                  ))
               )}
             </div>
           </div>
@@ -168,17 +172,19 @@ function Home() {
               {productCategoryLoading ? (
                 <div className="flex justify-center items-center my-2"></div>
               ) : (
-                shopRings.map((product, index) => (
-                  <ProductCard
-                    productId={product.ProductId}
-                    key={index}
-                    imageSrc={product.HomePicture}
-                    productName={product.ProductName}
-                    Price={product.ProductPrice}
-                    Author={product.AuthorName}
-                    inStock={product.IsAvailable}
-                  />
-                ))
+                shopRings
+                  .slice(0, 4)
+                  .map((product, index) => (
+                    <ProductCard
+                      productId={product.ProductId}
+                      key={index}
+                      imageSrc={product.HomePicture}
+                      productName={product.ProductName}
+                      Price={product.ProductPrice}
+                      Author={product.AuthorName}
+                      inStock={product.IsAvailable}
+                    />
+                  ))
               )}
             </div>
           </div>

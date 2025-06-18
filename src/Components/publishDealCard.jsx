@@ -437,7 +437,7 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                   size="small"
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">$</InputAdornment>
+                      <InputAdornment position="start">EGP</InputAdornment>
                     ),
                   }}
                   error={!!errors.offerMoney}
@@ -472,7 +472,7 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                   size="small"
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">$</InputAdornment>
+                      <InputAdornment position="start">EGP</InputAdornment>
                     ),
                   }}
                 />
@@ -485,7 +485,7 @@ const DealPublishCard = ({ isOpen, onClose }) => {
                   size="small"
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">$</InputAdornment>
+                      <InputAdornment position="start">EGP</InputAdornment>
                     ),
                   }}
                 />

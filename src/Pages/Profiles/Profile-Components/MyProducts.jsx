@@ -144,15 +144,15 @@ function MyProducts() {
                   product.ProductPriceAfterDiscount ? (
                     <>
                       <span className="text-gray-400 line-through text-sm mr-2">
-                        ${product.ProductPriceBeforeDiscount}
+                        EGP {product.ProductPriceBeforeDiscount}
                       </span>
                       <span className="text-blue-600 font-semibold">
-                        ${product.ProductPriceAfterDiscount}
+                        EGP {product.ProductPriceAfterDiscount}
                       </span>
                     </>
                   ) : (
                     <span className="text-blue-600 font-semibold">
-                      ${product.ProductPriceBeforeDiscount}
+                      EGP {product.ProductPriceBeforeDiscount}
                     </span>
                   )}
                 </div>

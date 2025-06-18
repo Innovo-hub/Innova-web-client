@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import author from "../../../assets/Products/author.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import axios from "axios";
+import APILINK from "../../../../Constants";
 import {
   AttachMoney,
   CreditCard,
@@ -30,12 +33,35 @@ function ProductDetailsCard({ product }) {
   const [isLoved, setIsLoved] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [homeImage, setHomeImage] = useState(product?.HomePicture || "");
+  const [authorProfile, setAuthorProfile] = useState(null);
 
   useEffect(() => {
     if (product?.ProductId) {
       dispatch(getAllProductComments(product.ProductId));
     }
   }, [dispatch, product?.ProductId]);
+
+  useEffect(() => {
+    const fetchAuthorProfile = async () => {
+      if (product?.ProductAuthorId) {
+        try {
+          const token = localStorage.getItem("accessToken");
+          const response = await axios.get(
+            `${APILINK}/api/Profile/GetUserById/${product.ProductAuthorId}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          console.log("Author profile:", response.data); // Debug log
+          setAuthorProfile(response.data);
+        } catch (error) {
+          console.error("Error fetching author profile:", error);
+        }
+      }
+    };
+
+    fetchAuthorProfile();
+  }, [product?.ProductAuthorId]);
 
   if (!product) {
     return <div className="p-4 text-center">Loading product details...</div>;
@@ -321,13 +347,37 @@ function ProductDetailsCard({ product }) {
         <div>
           {/* Author Info */}
           <div className="mt-6">
-            <div className="flex gap-2 p-4 border border-[#126090] rounded-xl">
-              <img src={author} className="h-12" alt="Business Owner" />
+            <div className="flex gap-2 p-4 border border-[#126090] rounded-xl hover:shadow-lg transition-all duration-300">
+              <div className="relative">
+                {authorProfile?.ProfileImageUrl ? (
+                  <img
+                    src={authorProfile.ProfileImageUrl}
+                    className="h-12 w-12 rounded-full object-cover border-2 border-[#126090]"
+                    alt={authorProfile.FirstName || "Business Owner"}
+                  />
+                ) : (
+                  <div className="h-12 w-12 rounded-full border-2 border-[#126090] flex items-center justify-center bg-gray-100">
+                    <PersonOutlineOutlinedIcon className="text-[#126090]" />
+                  </div>
+                )}
+                {authorProfile?.IsVerified && (
+                  <div className="absolute -bottom-1 -right-1 bg-blue-500 text-white rounded-full p-1">
+                    <CheckCircleIcon fontSize="small" />
+                  </div>
+                )}
+              </div>
               <div className="flex flex-col justify-center">
-                <h3 className="font-semibold">
-                  {product.AuthorName || "Business Owner"}
+                <h3 className="font-semibold text-gray-800">
+                  {authorProfile?.FirstName
+                    ? `${authorProfile.FirstName} ${authorProfile.LastName}`
+                    : product.AuthorName || "Business Owner"}
                 </h3>
-                <p className="text-gray-500 text-sm">Business Owner</p>
+                <p className="text-gray-500 text-sm flex items-center gap-1">
+                  <span>Business Owner</span>
+                  {authorProfile?.IsVerified && (
+                    <span className="text-blue-500 text-xs">• Verified</span>
+                  )}
+                </p>
               </div>
             </div>
 
@@ -556,6 +606,7 @@ ProductDetailsCard.propTypes = {
     ]),
     Stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     AuthorName: PropTypes.string,
+    ProductAuthorId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     Description: PropTypes.string,
     ProductColors: PropTypes.string,
     ProductSizes: PropTypes.string,

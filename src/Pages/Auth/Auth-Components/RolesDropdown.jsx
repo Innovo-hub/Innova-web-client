@@ -12,7 +12,11 @@ function RolesDropdown({ roleId = "", onChange }) {
   const getAllRoles = async () => {
     try {
       const response = await axios.get(`${APILINK}/api/Account/roles`);
-      setRoles(response.data);
+      // Filter out the admin role
+      const filteredRoles = response.data.filter(
+        (role) => role.Name.toLowerCase() !== "admin"
+      );
+      setRoles(filteredRoles);
     } catch (err) {
       console.error("Failed to fetch roles:", err);
     }

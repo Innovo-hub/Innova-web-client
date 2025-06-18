@@ -9,7 +9,6 @@ import ShippingForm from "./CheckoutComponents/ShippingForm";
 import { Link } from "react-router-dom";
 
 const CheckoutPage = () => {
-  const [quantities, setQuantities] = useState({});
   const [subtotal, setSubtotal] = useState(0);
   const [shippingPrice, setShippingPrice] = useState(10);
   const [tax, setTax] = useState(0);
@@ -22,14 +21,6 @@ const CheckoutPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const initialQuantities = {};
-    cartProducts.forEach((product) => {
-      initialQuantities[product.id] = 1;
-    });
-    setQuantities(initialQuantities);
-  }, [cartProducts]);
-
-  useEffect(() => {
     const calculatedSubtotal = cartProducts.reduce(
       (acc, product) => acc + product.Price * (product.Quantity || 1),
       0
@@ -38,21 +29,7 @@ const CheckoutPage = () => {
     const calculatedTax = calculatedSubtotal * 0.01;
     setTax(calculatedTax);
     setTotal(calculatedSubtotal + shippingPrice + calculatedTax);
-  }, [quantities, cartProducts, shippingPrice]);
-
-  const incrementQuantity = (id) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: prev[id] + 1,
-    }));
-  };
-
-  const decrementQuantity = (id) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: prev[id] > 1 ? prev[id] - 1 : 1,
-    }));
-  };
+  }, [cartProducts, shippingPrice]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -70,8 +47,6 @@ const CheckoutPage = () => {
               <OrderCard
                 key={product.id}
                 product={product}
-                increment={() => incrementQuantity(product.id)}
-                decrement={() => decrementQuantity(product.id)}
                 quantity={product.Quantity}
               />
             ))}
@@ -81,23 +56,30 @@ const CheckoutPage = () => {
               <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="text-[#126090]">${subtotal.toFixed(2)}</span>
+                  <span className="text-[#126090]">
+                    EGP {subtotal.toFixed(2)}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
-                  <span className="text-[#126090]">${shippingPrice.toFixed(2)}</span>
+                  <span className="text-[#126090]">
+                    EGP {shippingPrice.toFixed(2)}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax</span>
-                  <span className="text-[#126090]">${tax.toFixed(2)}</span>
+                  <span className="text-[#126090]">EGP {tax.toFixed(2)}</span>
                 </div>
               </div>
               <div className="flex justify-between font-semibold pt-4 border-t border-gray-200">
                 <span className="text-[#888888]">Total</span>
-                <span className="text-[#126090]">${total.toFixed(2)}</span>
+                <span className="text-[#126090]">EGP {total.toFixed(2)}</span>
               </div>
               <div className="flex justify-end items-center my-4">
-                <Link to={'/payment'} className="w-full bg-[#126090] text-white p-3 lg:w-1/4 w-1/2 text-center rounded-md cursor-pointer">
+                <Link
+                  to={"/payment"}
+                  className="w-full bg-[#126090] text-white p-3 lg:w-1/4 w-1/2 text-center rounded-md cursor-pointer"
+                >
                   Go to Payment
                 </Link>
               </div>

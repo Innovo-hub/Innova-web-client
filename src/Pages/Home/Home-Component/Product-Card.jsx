@@ -99,7 +99,7 @@ function ProductCard({
         <div className="flex items-center gap-2">
           {PriceAfterDiscount && (
             <h6 className="font-bold text-xl text-green-600">
-              ${PriceAfterDiscount}
+              EGP {PriceAfterDiscount}
             </h6>
           )}
           <h6
@@ -109,7 +109,7 @@ function ProductCard({
                 : "text-gray-600"
             }
           >
-            ${Price}
+            EGP {Price}
           </h6>
         </div>
         <h5 className="text-sm text-gray-600">

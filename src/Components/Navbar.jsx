@@ -139,30 +139,34 @@ export default function Navbar({ currentTab }) {
             {/* if Authinticated this will appear */}
             {isAuthenticated ? (
               <div className="flex items-center justify-center space-x-4">
-                <Link to={`/wishlist`}>
-                  <Badge
-                    badgeContent={wishlistCount > 0 ? wishlistCount : null}
-                    color="error"
-                    overlap="circular"
-                  >
-                    <FavoriteBorderSharpIcon
-                      fontSize="medium"
-                      className="font-light text-gray-700"
-                    />
-                  </Badge>
-                </Link>
-                <Link to={`/cart`}>
-                  <Badge
-                    badgeContent={cartCount > 0 ? cartCount : null}
-                    color="error"
-                    overlap="circular"
-                  >
-                    <ShoppingCartOutlinedIcon
-                      fontSize="medium"
-                      className="font-light text-gray-700"
-                    />
-                  </Badge>
-                </Link>
+                {(role === "Customer" || role === "BusinessOwner") && (
+                  <>
+                    <Link to={`/wishlist`}>
+                      <Badge
+                        badgeContent={wishlistCount > 0 ? wishlistCount : null}
+                        color="error"
+                        overlap="circular"
+                      >
+                        <FavoriteBorderSharpIcon
+                          fontSize="medium"
+                          className="font-light text-gray-700"
+                        />
+                      </Badge>
+                    </Link>
+                    <Link to={`/cart`}>
+                      <Badge
+                        badgeContent={cartCount > 0 ? cartCount : null}
+                        color="error"
+                        overlap="circular"
+                      >
+                        <ShoppingCartOutlinedIcon
+                          fontSize="medium"
+                          className="font-light text-gray-700"
+                        />
+                      </Badge>
+                    </Link>
+                  </>
+                )}
                 <div>
                   <Button
                     id="basic-button"

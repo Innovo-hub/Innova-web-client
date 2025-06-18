@@ -33,6 +33,12 @@ function BussinessBanner() {
     dispatch(fetchOwnerDeals());
   }, [dispatch]);
 
+  // Add helper function to limit words
+  const limitToThreeWords = (text) => {
+    if (!text) return "";
+    return text.split(" ").slice(0, 3).join(" ");
+  };
+
   if (profileLoading || dealsLoading) {
     return (
       <div className="text-center py-10">
@@ -104,9 +110,7 @@ function BussinessBanner() {
                 <p className="text-sm font-medium text-gray-700">
                   Business Owner ID
                 </p>
-                <p className="text-lg font-bold text-blue-600">
-                  {profile.Id}
-                </p>
+                <p className="text-lg font-bold text-blue-600">{profile.Id}</p>
               </div>
             </div>
           </div>
@@ -211,7 +215,7 @@ function BussinessBanner() {
                       className="hover:bg-gray-50 transition-colors duration-200"
                     >
                       <td className="px-6 py-4 text-sm text-gray-800 font-medium">
-                        {deal.ProjectName}
+                        {limitToThreeWords(deal.ProjectName)}
                       </td>
                       <td className="px-6 py-4 text-sm font-mono text-gray-600">
                         {deal.OwnerName || "null"}

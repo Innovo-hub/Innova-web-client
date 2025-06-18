@@ -128,12 +128,13 @@ function CategorySearch() {
                       <div className="mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-main-color font-bold text-xl">
-                            ${product.ProductPriceAfterDiscount.toFixed(2)}
+                            EGP {product.ProductPriceAfterDiscount.toFixed(2)}
                           </span>
                           {product.ProductPriceBeforeDiscount !==
                             product.ProductPriceAfterDiscount && (
                             <span className="text-gray-500 line-through">
-                              ${product.ProductPriceBeforeDiscount.toFixed(2)}
+                              EGP{" "}
+                              {product.ProductPriceBeforeDiscount.toFixed(2)}
                             </span>
                           )}
                         </div>
