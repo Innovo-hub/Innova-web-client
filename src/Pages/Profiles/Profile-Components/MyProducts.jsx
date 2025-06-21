@@ -3,7 +3,9 @@ import axios from "axios";
 import APILINK from "../../../../Constants";
 import Loading from "../../../Components/Shared/Loading/Loading";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditProductModal from "./EditProductModal";
+import Swal from "sweetalert2";
 
 function MyProducts() {
   const [products, setProducts] = useState([]);
@@ -88,6 +90,50 @@ function MyProducts() {
     );
   };
 
+  const handleDeleteProduct = async (productId, productName) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: `Do you want to delete "${productName}"?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel",
+      });
+
+      if (result.isConfirmed) {
+        const token = localStorage.getItem("accessToken");
+        await axios.delete(`${APILINK}/api/Product/${productId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        // Remove the deleted product from the state
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.ProductId !== productId)
+        );
+
+        // Show success message
+        await Swal.fire({
+          title: "Deleted!",
+          text: "Your product has been deleted successfully.",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    } catch (err) {
+      console.error("Error deleting product:", err);
+      await Swal.fire({
+        title: "Error!",
+        text: "Failed to delete product. Please try again.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center my-8">
@@ -103,7 +149,7 @@ function MyProducts() {
   if (!products.length) {
     return (
       <div className="text-center text-gray-500 my-8">
-        You haven't published any products yet.
+        You have not published any products yet.
       </div>
     );
   }
@@ -120,12 +166,22 @@ function MyProducts() {
             key={product.ProductId}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 relative"
           >
-            <button
-              onClick={() => handleEditClick(product)}
-              className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors z-10"
-            >
-              <EditIcon className="text-gray-600" />
-            </button>
+            <div className="absolute top-2 right-2 flex gap-2 z-10">
+              <button
+                onClick={() => handleEditClick(product)}
+                className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+              >
+                <EditIcon className="text-gray-600" />
+              </button>
+              <button
+                onClick={() =>
+                  handleDeleteProduct(product.ProductId, product.ProductName)
+                }
+                className="p-2 bg-white rounded-full shadow-md hover:bg-red-100 transition-colors"
+              >
+                <DeleteIcon className="text-red-600" />
+              </button>
+            </div>
             <img
               src={product.ProductHomePicture || "default-product-image.jpg"}
               alt={product.ProductName}

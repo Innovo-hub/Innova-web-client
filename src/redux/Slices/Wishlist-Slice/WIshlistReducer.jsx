@@ -50,7 +50,6 @@ export const removeFromWishlist = createAsyncThunk(
       const token = localStorage.getItem("accessToken");
       const response = await axios.delete(
         `${APILINK}/api/Wishlist/remove/${ProductId}`,
-        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,7 +58,6 @@ export const removeFromWishlist = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      // Return custom error message if available
       return rejectWithValue(
         error.message || "An error occurred while removing from wishlist."
       );
@@ -99,6 +97,17 @@ const wishlistSlice = createSlice({
         state.loading = false;
       })
       .addCase(addToWishlist.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(removeFromWishlist.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(removeFromWishlist.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(removeFromWishlist.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

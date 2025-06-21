@@ -17,10 +17,18 @@ import {
 import Swal from "sweetalert2";
 import { addToCart } from "../../../redux/Slices/Cart-Slice/cartReducer";
 import { getAllProductComments } from "../../../redux/Slices/Review-Slice/ReviewReducer";
+import {
+  addToWishlist,
+  removeFromWishlist,
+  getUserWishlist,
+} from "../../../redux/Slices/Wishlist-Slice/WIshlistReducer";
 
 function ProductDetailsCard({ product }) {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.cart);
+  const { loading: wishlistLoading, wishlist } = useSelector(
+    (state) => state.wishlist
+  );
   const {
     comments,
     numOfComments,
@@ -40,6 +48,21 @@ function ProductDetailsCard({ product }) {
       dispatch(getAllProductComments(product.ProductId));
     }
   }, [dispatch, product?.ProductId]);
+
+  useEffect(() => {
+    // Fetch user's wishlist when component mounts
+    dispatch(getUserWishlist());
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Check if the current product is in the wishlist
+    if (wishlist && product?.ProductId) {
+      const isInWishlist = wishlist.some(
+        (item) => item.ProductId === product.ProductId
+      );
+      setIsLoved(isInWishlist);
+    }
+  }, [wishlist, product?.ProductId]);
 
   useEffect(() => {
     const fetchAuthorProfile = async () => {
@@ -96,7 +119,37 @@ function ProductDetailsCard({ product }) {
     setHomeImage(pic);
   };
 
-  const toggleLoved = () => setIsLoved((prev) => !prev);
+  const toggleLoved = () => {
+    if (!product?.ProductId) return;
+
+    const action = isLoved ? removeFromWishlist : addToWishlist;
+
+    dispatch(action(product.ProductId))
+      .unwrap()
+      .then(() => {
+        setIsLoved(!isLoved);
+        Swal.fire({
+          icon: "success",
+          title: isLoved ? "Removed from Wishlist" : "Added to Wishlist",
+          text: isLoved
+            ? "Product removed from wishlist successfully."
+            : "Product added to wishlist successfully.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text:
+            error ||
+            (isLoved
+              ? "Failed to remove from wishlist."
+              : "Failed to add to wishlist."),
+        });
+      });
+  };
 
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
 
@@ -158,8 +211,9 @@ function ProductDetailsCard({ product }) {
               className="w-full object-cover"
             />
             <button
-              className="absolute top-2 right-2 bg-white p-2 rounded-md shadow-md hover:bg-gray-100 transition"
+              className="absolute top-2 right-2 bg-white p-2 rounded-md shadow-md hover:bg-gray-100 transition disabled:opacity-50"
               onClick={toggleLoved}
+              disabled={wishlistLoading}
               aria-label={
                 isLoved ? "Remove from favorites" : "Add to favorites"
               }
@@ -385,15 +439,6 @@ function ProductDetailsCard({ product }) {
             <div className="p-6 my-3 border border-[#126090] rounded-xl">
               <h2 className="text-xl text-gray-500">Product Overview</h2>
               <hr className="bg-gray-900 my-2" />
-
-              {/* Highlights */}
-              <div className="mb-4">
-                <p className="text-gray-500 my-2">Highlights</p>
-                <ul className="ps-5 list-disc list-inside text-gray-600">
-                  <li>Premium Quality</li>
-                  <li>Against Color Change</li>
-                </ul>
-              </div>
 
               <hr className="bg-gray-900 my-2" />
 

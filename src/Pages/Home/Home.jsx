@@ -48,11 +48,11 @@ function Home() {
 
   // Fetch products for Shop Necklaces (categoryId = 9)
   useEffect(() => {
-    dispatch(getProductByCategory({ categoryId: 9 })); // Fetch products for categoryId = 9
+    dispatch(getProductByCategory({ categoryId: 15 })); // Fetch products for categoryId = 9
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getProductByCategory({ categoryId: 13 })); // Fetch products for categoryId = 13
+    dispatch(getProductByCategory({ categoryId: 16 })); // Fetch products for categoryId = 13
   }, [dispatch]);
 
   // Determine the user's role
@@ -62,10 +62,10 @@ function Home() {
   const handcraftedCarpets =
     productsByCategory[1]?.AllProductsOnspecificCategories || [];
   const shopNecklaces =
-    productsByCategory[9]?.AllProductsOnspecificCategories || [];
+    productsByCategory[15]?.AllProductsOnspecificCategories || [];
 
   const shopRings =
-    productsByCategory[13]?.AllProductsOnspecificCategories || [];
+    productsByCategory[16]?.AllProductsOnspecificCategories || [];
 
   return (
     <>
@@ -130,11 +130,11 @@ function Home() {
               )}
             </div>
           </div>
-          {/* Shop Necklaces Section (categoryId = 9) */}
+          {/* Shop Necklaces Section (categoryId = 15) */}
           <div className="my-8 lg:px-24 px-8">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-semibold my-2">Shop Necklaces</h2>
-              <Link className="text-main-color text-lg" to={`/category/9`}>
+              <Link className="text-main-color text-lg" to={`/category/15`}>
                 Show All <NavigateNextIcon />
               </Link>
             </div>
@@ -160,11 +160,11 @@ function Home() {
           </div>
           {/* small enhancement */}
           <Card2Home />
-          {/* Shop Rings Section (categoryId = 13) */}
+          {/* Shop Rings Section (categoryId = 16) */}
           <div className="my-8 lg:px-24 px-8">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-semibold my-2">Shop Rings</h2>
-              <Link className="text-main-color text-lg" to={`/category/13`}>
+              <Link className="text-main-color text-lg" to={`/category/16`}>
                 Show All <NavigateNextIcon />
               </Link>
             </div>
