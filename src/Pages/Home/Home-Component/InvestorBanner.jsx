@@ -118,10 +118,23 @@ function InvestorBanner() {
               Estimated Balance
             </p>
             <h2 className="text-2xl md:text-3xl font-bold text-indigo-700 mb-2">
-              {profile.TotalBalance || 0} EGP
+              {investorDeals
+                ? investorDeals
+                    .reduce((total, deal) => total + deal.TotalProfit, 0)
+                    .toLocaleString()
+                : 0}{" "}
+              EGP
             </h2>
             <p className="text-gray-500 text-sm md:text-base">
-              ≈ ${profile.TotalBalance / 50}
+              ≈ $
+              {investorDeals
+                ? (
+                    investorDeals.reduce(
+                      (total, deal) => total + deal.TotalProfit,
+                      0
+                    ) / 50
+                  ).toLocaleString()
+                : 0}
             </p>
           </div>
         </div>

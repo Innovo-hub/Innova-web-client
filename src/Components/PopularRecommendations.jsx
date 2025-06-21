@@ -26,7 +26,6 @@ const PopularRecommendations = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const {
     popularRecommendations = [],
     status,
@@ -149,7 +148,9 @@ const PopularRecommendations = () => {
                     <Stack spacing={1.5} className="h-full">
                       <Chip
                         label={
-                          item.Category || item.CategoryName || "Uncategorized"
+                          item.Category ||
+                          item.CategoryName ||
+                          "Unknown Category"
                         }
                         size="small"
                         sx={{

@@ -70,48 +70,46 @@ function BussinessBanner() {
       <div className="bg-white shadow-lg rounded-xl p-6 w-full transition-all duration-300 hover:shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* User Info Section */}
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-6">
-              {/* User Name and Details */}
-              <div className="flex space-x-4 items-center">
-                <div className="relative">
-                  <img
-                    src={profile.ProfileImageUrl || user}
-                    width={70}
-                    height={70}
-                    alt="User"
-                    className="rounded-full border-2 border-blue-500 p-1 object-cover"
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 w-full">
+            {/* User Name and Details */}
+            <div className="flex space-x-4 items-center">
+              <div className="relative">
+                <img
+                  src={profile.ProfileImageUrl || user}
+                  width={60}
+                  height={60}
+                  alt="User"
+                  className="rounded-full border-2 border-blue-500 p-1"
+                />
+                <span className="absolute bottom-0 right-0 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></span>
+              </div>
+              <div className="flex flex-col">
+                <h1 className="text-lg md:text-xl font-bold text-gray-800">
+                  {profile.FirstName} {profile.LastName}
+                </h1>
+                <p
+                  className={
+                    profile.IsVerified
+                      ? "text-sm text-blue-600 flex items-center gap-1"
+                      : "hidden"
+                  }
+                >
+                  <CheckCircleIcon
+                    fontSize="small"
+                    className={profile.IsVerified ? "text-blue-500" : "hidden"}
                   />
-                  <span className="absolute bottom-0 right-0 bg-green-500 w-4 h-4 rounded-full border-2 border-white"></span>
-                </div>
-                <div className="flex flex-col">
-                  <h1 className="text-xl font-bold text-gray-800">
-                    {profile.FirstName} {profile.LastName}
-                  </h1>
-                  <p
-                    className={
-                      profile.IsVerified
-                        ? "text-sm text-blue-600 flex items-center gap-1"
-                        : "hidden"
-                    }
-                  >
-                    <CheckCircleIcon
-                      fontSize="small"
-                      className="text-blue-500"
-                    />
-                    <span className="font-medium">Verified Account</span>
-                  </p>
-                </div>
-              </div>
-              {/* Divider */}
-              <div className="h-12 w-px bg-gray-300"></div>
-              {/* Business Owner details */}
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <p className="text-sm font-medium text-gray-700">
-                  Business Owner ID
+                  <span className="font-medium">Verified Account</span>
                 </p>
-                <p className="text-lg font-bold text-blue-600">{profile.Id}</p>
               </div>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:block h-12 w-px bg-gray-300"></div>
+            {/* Investor ID details */}
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-sm font-medium text-gray-700">Business Owner ID</p>
+              <p className="text-base md:text-lg font-bold text-blue-600">
+                {profile.Id}
+              </p>
             </div>
           </div>
           {/* Profile and Settings Section */}
